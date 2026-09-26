@@ -564,6 +564,8 @@ const DATA = {"meta":{"name":"Конструктор компетенций бу
    «Созвездие» — Конструктор компетенций будущего инженера
    Один файл: HTML + CSS + JavaScript, без сервера и без сборки.
    ===================================================================== */
+const PREVIEW = !!window.SOZV_PREVIEW;
+function previewOnly(what){ if(!PREVIEW) return false; toast(what+' работает в версии сайта на GitHub Pages. Здесь — предварительный просмотр.'); return true; }
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const TR = Object.fromEntries(DATA.tracks.map(t=>[t.id,t]));
 const TRK = Object.fromEntries(DATA.tracks.map(t=>[t.key,t]));
@@ -1048,7 +1050,7 @@ function scrDash(){
       '<div class="card"><div class="eyebrow">3 · Ссылки или коды</div><p class="small" style="margin:4px 0 8px">Вставьте ссылки на результаты из мессенджера — по одной или списком.</p>'+
         '<textarea id="dPaste" class="name-in" rows="3" placeholder="https://…#r=S4…"></textarea><button class="a-btn sec inline" data-act="paste" style="margin-top:6px">Добавить</button></div>'+
     '</div>'+
-    (DASH.items.length?'<div class="dfilter"><label>Метка класса <select id="fK"><option value="">все</option>'+ks.map(k=>'<option'+(DASH.filterK===k?' selected':'')+'>'+esc(k)+'</option>').join('')+'</select></label>'+
+    (PREVIEW&&!DASH.items.length?'<div class="card" style="margin-top:12px"><p class="small" style="margin:0 0 8px">Нет своих результатов? Загрузите пример — 28 случайных тестовых прохождений.</p><button class="a-btn sec inline" data-act="demo">Показать пример</button></div>':'')+(DASH.items.length?'<div class="dfilter"><label>Метка класса <select id="fK"><option value="">все</option>'+ks.map(k=>'<option'+(DASH.filterK===k?' selected':'')+'>'+esc(k)+'</option>').join('')+'</select></label>'+
       '<label>Класс <select id="fG"><option value="">все</option>'+gs.map(g=>'<option'+(DASH.filterG===String(g)?' selected':'')+'>'+g+'</option>').join('')+'</select></label>'+
       '<button class="a-btn sec inline" data-act="csv">Скачать CSV</button><button class="a-btn sec inline" data-act="dash-json">Скачать все результаты</button><button class="a-btn sec inline" data-act="dash-print">Печать / PDF</button><button class="a-btn ghost inline" data-act="dash-clear">Очистить</button></div>':'')+
     body+'</div>';
@@ -1071,7 +1073,7 @@ async function scanStart(){
     SCAN.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
   }catch(e){ toast('Нет доступа к камере. Разрешите камеру в браузере или добавьте результаты файлами.'); return; }
   if('BarcodeDetector' in window){ try{ SCAN.det=new BarcodeDetector({formats:['qr_code']}); }catch(e){ SCAN.det=null; } }
-  if(!SCAN.det && !window.jsQR){ try{ await loadScript(['lib/jsqr.min.js','https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js']); }catch(e){ toast('Не удалось загрузить модуль сканирования. Добавьте результаты файлами или ссылками.'); scanStop(); return; } }
+  if(!SCAN.det && !window.jsQR){ try{ await loadScript(['lib/jsqr.min.js','jsqr.min.js','https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js']); }catch(e){ toast('Не удалось загрузить модуль сканирования. Добавьте результаты файлами или ссылками.'); scanStop(); return; } }
   SCAN.on=true; render();
 }
 function scanAttach(){
@@ -1147,7 +1149,7 @@ async function doPDF(){
   const html=planDocHTML(); const wrap=document.getElementById('printSheet'); wrap.innerHTML=html;
   toast('Готовим PDF…');
   try{
-    if(!window.html2pdf) await loadScript(['lib/html2pdf.bundle.min.js','https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js']);
+    if(!window.html2pdf) await loadScript(['lib/html2pdf.bundle.min.js','html2pdf.bundle.min.js','https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js']);
     const holder=document.createElement('div'); holder.className='pdf-holder'; holder.innerHTML=html; document.body.appendChild(holder);
     inlineSvg(holder);
     await window.html2pdf().set({margin:[10,10,12,10],filename:'Plan_Sozvezdie_'+S.grade+'kl.pdf',image:{type:'jpeg',quality:0.95},html2canvas:{scale:2,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css'],before:'.pbreak'}}).from(holder.firstChild).save();
@@ -1213,21 +1215,26 @@ view.addEventListener('click', e=>{
     case 'inter-next': S.si=0; go('skills'); break;
     case 'skill-back': if(S.si>0){ S.skills[S.si]=null; S.si--; S.skills[S.si]=null; go('skills'); } else go('inter'); break;
     case 'restart': resetQuiz(); history.replaceState(null,'',location.pathname+location.search); go('start'); break;
-    case 'pdf': doPDF(); break;
-    case 'share': doShare(); break;
-    case 'send': resultFile(); go('send'); break;
-    case 'dl-result': resultFile(); break;
-    case 'copy-link': copyText(resultUrl(S),'Ссылка на результат скопирована — отправь её учителю.'); break;
+    case 'pdf': if(!previewOnly('Скачивание PDF')) doPDF(); break;
+    case 'share': if(!previewOnly('Кнопка «Поделиться»')) doShare(); break;
+    case 'send': if(!PREVIEW) resultFile(); go('send'); break;
+    case 'dl-result': if(!previewOnly('Скачивание файла')) resultFile(); break;
+    case 'copy-link': if(!previewOnly('Ссылка на результат')) copyText(resultUrl(S),'Ссылка на результат скопирована — отправь её учителю.'); break;
     case 'myqr': go('myqr'); break;
     case 'fb-send': S.fbSent=true; { const sc=view.scrollTop; render(); view.scrollTop=sc; } toast('Спасибо! Ответы добавлены в результат.'); break;
-    case 'poster': doPoster(); break;
+    case 'poster': if(!previewOnly('Печать плаката')) doPoster(); break;
     case 'copy-class': copyText(baseUrl()+(S.klass?'?k='+encodeURIComponent(S.klass):''),'Ссылка на квиз скопирована.'); break;
-    case 'scan': if(SCAN.on){ scanStop(); render(); } else scanStart(); break;
+    case 'scan': if(previewOnly('Сканирование камерой')) break; if(SCAN.on){ scanStop(); render(); } else scanStart(); break;
     case 'paste': { const v=document.getElementById('dPaste').value; const r=dashAdd(extractCodes(v)); render(); toast('Добавлено: '+r.added+(r.dup?' · повторов: '+r.dup:'')+(r.bad?' · не распознано: '+r.bad:'')+(!r.added&&!r.dup&&!r.bad?' · ссылок не найдено':'')); } break;
-    case 'csv': dashCSV(); break;
-    case 'dash-json': download('sozvezdie-vse-rezultaty.json',JSON.stringify({app:'sozvezdie',v:4,codes:dashFiltered().map(x=>x.code)},null,1),'application/json'); break;
-    case 'dash-print': dashPrint(); break;
-    case 'dash-clear': if(confirm('Удалить все результаты из дашборда на этом устройстве?')){ DASH.items=[]; dashSave(); render(); } break;
+    case 'demo': { const out=[]; const rnd=n=>Math.floor(Math.random()*n);
+      for(let i=0;i<28;i++){ const aud=i%4?'mid':'teen', T=tree(aud), g=aud==='mid'?5+rnd(5):10+rnd(2);
+        const a=1+rnd(14); let b2=1+rnd(14); if(b2===a) b2=a%14+1;
+        out.push(encodeResult({aud,grade:g,school:rnd(2)?'itsh':'any',city:'Казань',klass:'пример',before:rnd(3),answers:T.q.map(q=>rnd(q.options.length)),picks:[a,b2],skills:T.st.map(()=>T.scale[rnd(T.scale.length)].value),fb:{process:rnd(3),plan:rnd(3),orient:rnd(3)}})); }
+      dashAdd(out); render(); } break;
+    case 'csv': if(!previewOnly('Выгрузка CSV')) dashCSV(); break;
+    case 'dash-json': if(!previewOnly('Скачивание результатов')) download('sozvezdie-vse-rezultaty.json',JSON.stringify({app:'sozvezdie',v:4,codes:dashFiltered().map(x=>x.code)},null,1),'application/json'); break;
+    case 'dash-print': if(!previewOnly('Печать')) dashPrint(); break;
+    case 'dash-clear': if(PREVIEW||confirm('Удалить все результаты из дашборда на этом устройстве?')){ DASH.items=[]; dashSave(); render(); } break;
   }
 });
 function keepInputs(){ const n=document.getElementById('nameIn'); if(n) S.name=n.value.trim().slice(0,20); const c=document.getElementById('cityIn'); if(c) S.city=c.value.trim().slice(0,40); }
