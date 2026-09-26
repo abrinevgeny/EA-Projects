@@ -1,0 +1,1276 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Созвездие — конструктор компетенций будущего инженера</title>
+<meta name="description" content="Квиз профориентации для 5–11 классов: 14 инженерных направлений, Hard и Soft skills, индивидуальный план развития, вузы и колледжи.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+:root{
+  --paper:#F5F6FB; --paper-2:#FFFFFF; --paper-3:#ECEEF7; --ink:#171C33; --ink-2:#4B5473; --ink-3:#7C84A3;
+  --line:#DCE0EE; --line-2:#C9CEE3; --accent:#E0731C; --accent-soft:#FFF1E4; --accent-ink:#8F4508;
+  --blue:#2B3F8C; --blue-soft:#E7EBFA; --code-bg:#EEF0F8; --ok:#2E8B57; --ok-soft:#E4F5EA; --warn:#B7791F; --warn-soft:#FFF6DF;
+  --f-display:'Unbounded',system-ui,sans-serif; --f-body:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif; --f-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --sky-0:#070A1C; --sky-1:#0E1538; --sky-2:#182050; --sky-3:#232C63; --text:#F2F4FF; --muted:#A3ABCB; --solar:#FFB347; --ion:#5CE1FF; --okk:#7BE495;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1324; --paper-2:#171C33; --paper-3:#1D2340; --ink:#ECEFFF; --ink-2:#B3BAD6; --ink-3:#8A93B8;
+    --line:#2A3150; --line-2:#3A4266; --accent:#FFB35C; --accent-soft:#332415; --accent-ink:#FFD39A;
+    --blue:#9DB0FF; --blue-soft:#1C2445; --code-bg:#1A2040; --ok:#7BE495; --ok-soft:#173224; --warn:#F2C14E; --warn-soft:#3A2F12;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1324; --paper-2:#171C33; --paper-3:#1D2340; --ink:#ECEFFF; --ink-2:#B3BAD6; --ink-3:#8A93B8;
+  --line:#2A3150; --line-2:#3A4266; --accent:#FFB35C; --accent-soft:#332415; --accent-ink:#FFD39A;
+  --blue:#9DB0FF; --blue-soft:#1C2445; --code-bg:#1A2040; --ok:#7BE495; --ok-soft:#173224; --warn:#F2C14E; --warn-soft:#3A2F12;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+a{color:var(--blue)}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--ion);outline-offset:2px}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+code,pre,.mono{font-family:var(--f-mono);font-size:.9em}
+
+.top{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-name{font-family:var(--f-display);font-weight:700;font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.pill{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);font-weight:600;white-space:nowrap}
+.modes{display:flex;gap:4px;background:var(--paper-3);padding:4px;border-radius:12px}
+.modes button{border:0;background:transparent;color:var(--ink-2);padding:7px 12px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.modes button.on{background:var(--paper-2);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.top .who{font-size:13px;color:var(--ink-3)}
+
+.layout{display:grid;grid-template-columns:430px minmax(0,1fr);min-height:calc(100vh - 57px)}
+.layout.mode-proto,.layout.mode-web{grid-template-columns:1fr}
+.layout.mode-proto .panel,.layout.mode-web .panel{display:none}
+.layout.mode-doc{grid-template-columns:1fr}
+.layout.mode-doc .stage{display:none}
+.layout.mode-doc .panel{max-width:920px;margin:0 auto;width:100%}
+.stage{position:sticky;top:57px;align-self:start;height:calc(100vh - 57px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;background:var(--paper)}
+.layout.mode-proto .stage,.layout.mode-web .stage{position:static;height:auto;min-height:calc(100vh - 57px)}
+.stage-hint{margin:0;font-size:13px;color:var(--ink-3);text-align:center;max-width:360px}
+.phone{width:392px;height:min(800px,calc(100vh - 130px));min-height:560px;border-radius:44px;background:#0B0E1E;padding:12px;box-shadow:0 30px 60px rgba(0,0,0,.35),inset 0 0 0 2px #2A3150;position:relative}
+.screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;background:var(--sky-0);color:var(--text);font-family:var(--f-body);container-type:inline-size;container-name:app}
+.layout.mode-web .stage{padding:14px 18px 70px}
+.layout.mode-web .phone{width:100%;max-width:1220px;height:calc(100vh - 110px);min-height:640px;border-radius:22px;padding:0;box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 0 0 1px #2A3150}
+.layout.mode-web .screen{border-radius:22px}
+.layout.mode-web .stage-hint{max-width:700px}
+
+.panel{border-left:1px solid var(--line);background:var(--paper-2);min-height:calc(100vh - 57px)}
+.layout.mode-split .panel{height:calc(100vh - 57px);overflow:auto;position:sticky;top:57px}
+.layout.mode-split .tabs{top:0}
+.layout.mode-doc .panel{border-left:0}
+.tabs{position:sticky;top:57px;z-index:20;display:flex;gap:2px;padding:10px 20px 0;background:var(--paper-2);border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{border:0;background:transparent;padding:10px 12px;font-size:14px;font-weight:600;color:var(--ink-3);border-bottom:2px solid transparent;cursor:pointer;margin-bottom:-1px;white-space:nowrap}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--accent)}
+.tabpane{display:none;padding:22px 24px 60px;max-width:880px}
+.tabpane.on{display:block}
+.intro{background:var(--blue-soft);border-radius:14px;padding:16px 18px;margin-bottom:18px;font-size:14px;color:var(--ink-2)}
+.intro strong{color:var(--ink)}
+.intro p{margin:0 0 6px}
+.intro p:last-child{margin:0}
+.changes{background:var(--ok-soft);border-radius:14px;padding:14px 18px;margin-bottom:18px;font-size:14px;color:var(--ink-2)}
+.changes strong{color:var(--ink)}
+.changes ul{margin:6px 0 0;padding-left:18px}
+.changes li{margin:3px 0}
+
+.block{border:1px solid var(--line);border-radius:14px;margin-bottom:10px;background:var(--paper-2);scroll-margin-top:60px;transition:border-color .2s,box-shadow .2s}
+.block.current{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.block>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:12px 16px;user-select:none}
+.block>summary::-webkit-details-marker{display:none}
+.block .num{font-family:var(--f-mono);font-size:12px;color:var(--ink-3);min-width:26px}
+.block .ttl{font-weight:700;font-size:15px;flex:1}
+.block .scr{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--paper-3);color:var(--ink-2);white-space:nowrap}
+.tag.now{background:var(--accent);color:#fff}
+.block .chev{width:18px;height:18px;transition:transform .2s;color:var(--ink-3)}
+.block[open] .chev{transform:rotate(180deg)}
+.block .body{padding:0 16px 16px;border-top:1px solid var(--line)}
+.sub{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin:16px 0 8px}
+.logic p{margin:0 0 8px;font-size:14px;color:var(--ink-2)}
+.logic ul,.logic ol{margin:0 0 8px;padding-left:20px;font-size:14px;color:var(--ink-2)}
+.logic li{margin:3px 0}
+.logic strong{color:var(--ink)}
+.formula{background:var(--code-bg);border-radius:10px;padding:10px 12px;font-family:var(--f-mono);font-size:12.5px;white-space:pre-wrap;color:var(--ink);margin:6px 0 10px;line-height:1.55;overflow-x:auto}
+.prompt{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:6px}
+.prompt .ph{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;background:var(--accent-soft);color:var(--accent-ink);font-size:12.5px;font-weight:700}
+.prompt pre{margin:0;padding:12px;font-size:12.5px;line-height:1.55;white-space:pre-wrap;max-height:380px;overflow:auto;background:var(--paper-2);color:var(--ink)}
+.copy{border:1px solid var(--line-2);background:var(--paper-2);color:var(--ink);border-radius:8px;padding:5px 10px;font-size:12px;font-weight:600;cursor:pointer}
+.copy:hover{background:var(--paper-3)}
+.mini{font-size:12.5px;color:var(--ink-3)}
+
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 14px}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+.tbl th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.tbl td.num,.tbl th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--f-mono);font-size:12px}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-bottom:14px}
+.tblwrap .tbl{margin:0}
+.cov td{text-align:center;font-family:var(--f-mono);font-size:12px;padding:5px 4px}
+.cov td.w2{background:var(--accent);color:#fff;font-weight:700}
+.cov td.w1{background:var(--accent-soft);color:var(--accent-ink);font-weight:700}
+.cov th{text-align:center;padding:5px 4px}
+.cov td.lbl{text-align:left;font-family:var(--f-body);font-size:12.5px;white-space:nowrap}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:8px 0 14px}
+.kpi div{background:var(--paper-3);border-radius:12px;padding:10px 12px}
+.kpi b{display:block;font-family:var(--f-display);font-size:20px;font-weight:700}
+.kpi span{font-size:12px;color:var(--ink-3)}
+.bar{height:8px;background:var(--paper-3);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.okline{color:var(--ok);font-weight:700}
+.failline{color:#C0392B;font-weight:700}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.btn2{border:1px solid var(--line-2);background:var(--paper-2);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.btn2.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 12px}
+.flow span{background:var(--paper-3);border-radius:8px;padding:6px 10px;font-size:12.5px;font-weight:600}
+.flow em{color:var(--ink-3);font-style:normal}
+.qlist li{margin:6px 0}
+.q-e{background:var(--warn-soft);border-left:3px solid var(--warn);padding:8px 12px;border-radius:0 10px 10px 0;margin:6px 0;font-size:14px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px}
+.two-col>div{background:var(--paper-3);border-radius:12px;padding:12px 14px}
+.two-col h4{font-size:13px;margin-bottom:6px}
+.two-col ul{margin:0;padding-left:18px;font-size:13px;color:var(--ink-2)}
+.two-col li{margin:3px 0}
+@media (max-width:700px){.two-col{grid-template-columns:1fr}}
+
+/* ===== APP ===== */
+.app{position:absolute;inset:0;display:flex;flex-direction:column}
+.app canvas.stars{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.app .view{position:relative;z-index:1;flex:1;overflow-y:auto;overflow-x:hidden;padding:54px 20px 24px;-webkit-overflow-scrolling:touch}
+.app .view::-webkit-scrollbar{width:0}
+.app h1{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.15;letter-spacing:-.01em}
+.app h2{font-family:var(--f-display);font-weight:700;font-size:21px;line-height:1.25}
+.app h3{font-family:var(--f-display);font-weight:500;font-size:15px;line-height:1.3;color:var(--solar)}
+.app p{margin:0 0 10px;font-size:16px;line-height:1.5}
+.app .muted{color:var(--muted)}
+.app .small{font-size:13px}
+.app .lead{font-size:17px}
+.a-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;padding:12px 18px;border-radius:16px;border:0;font-family:var(--f-body);font-weight:700;font-size:17px;cursor:pointer;transition:transform .1s,filter .15s}
+.a-btn:active{transform:scale(.98)}
+.a-btn.pri{background:var(--solar);color:#1A1200}
+.a-btn.pri:disabled{filter:grayscale(.6) brightness(.7);cursor:not-allowed}
+.a-btn.sec{background:rgba(255,255,255,.08);color:var(--text);border:1px solid rgba(255,255,255,.16)}
+.a-btn.ghost{background:transparent;color:var(--ion);min-height:44px;font-weight:600;width:auto;padding:8px 6px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:10px}
+.topbar{position:absolute;top:0;left:0;right:0;z-index:3;padding:16px 16px 0;display:flex;flex-direction:column;gap:6px;pointer-events:none}
+.topbar>*{pointer-events:auto}
+.sky{display:grid;gap:3px;height:10px;align-items:center}
+.sky i{display:block;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.14);justify-self:center;transition:transform .3s,background .3s,box-shadow .3s}
+.sky i.on{background:#fff;box-shadow:0 0 8px 2px rgba(255,255,255,.7);transform:scale(1.25)}
+.sky i.on.solar{background:var(--solar);box-shadow:0 0 8px 2px rgba(255,179,71,.8)}
+.prog{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.prog b{color:var(--text);font-weight:600}
+.pbar{height:4px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--ion),var(--solar));border-radius:2px;transition:width .35s}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:var(--text);font-family:var(--f-body);font-size:16px;line-height:1.35;cursor:pointer;transition:background .15s,border-color .15s,transform .1s}
+.opt:hover{background:rgba(255,255,255,.09)}
+.opt:active{transform:scale(.985)}
+.opt.sel{border-color:var(--solar);background:rgba(255,179,71,.14)}
+.opt .ic{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+.opt .tx{flex:1}
+.opt.mini{padding:11px 12px;font-size:15px}
+.opt.mini .ic{width:32px;height:32px;font-size:18px;border-radius:9px}
+.opt.kid{padding:18px 16px;font-size:19px;border-radius:20px;min-height:84px}
+.opt.kid .ic{width:56px;height:56px;font-size:32px;border-radius:16px}
+.chk{width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.3);flex:none}
+.opt.sel .chk{border-color:var(--solar);background:var(--solar);box-shadow:inset 0 0 0 4px var(--sky-0)}
+.qtext{font-family:var(--f-display);font-weight:500;font-size:21px;line-height:1.28;margin:6px 0 18px;letter-spacing:-.005em}
+.qtext.kid{font-size:24px;line-height:1.25;margin:8px 0 20px}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:6px 0 10px}
+.scale.kid3{grid-template-columns:repeat(3,1fr);gap:10px}
+.scale button{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);border-radius:14px;padding:10px 2px 8px;color:var(--text);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:64px;font-family:var(--f-body)}
+.scale.kid3 button{min-height:104px;border-radius:20px;padding:14px 6px;gap:8px}
+.scale button span.e{font-size:24px;line-height:1}
+.scale.kid3 button span.e{font-size:38px}
+.scale button span.n{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.scale.kid3 button span.n{font-family:var(--f-body);font-size:13px;text-align:center;line-height:1.2}
+.scale button.sel{border-color:var(--solar);background:rgba(255,179,71,.16)}
+.scale-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:18px}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:16px}
+.card.solar{background:linear-gradient(135deg,rgba(255,179,71,.18),rgba(92,225,255,.10));border-color:rgba(255,179,71,.35)}
+.chip{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.1);font-size:12px;font-weight:600;color:var(--muted)}
+.chip.ion{background:rgba(92,225,255,.15);color:var(--ion)}
+.chip.solar{background:rgba(255,179,71,.18);color:var(--solar)}
+.eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
+.name-in{width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:var(--text);font-size:17px;font-family:var(--f-body)}
+.name-in::placeholder{color:rgba(255,255,255,.35)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg button{padding:16px 10px;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:var(--text);font-family:var(--f-body);font-size:17px;font-weight:700;cursor:pointer}
+.seg button.sel{border-color:var(--ion);background:rgba(92,225,255,.14)}
+.seg button small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
+.seg.big button{padding:20px 12px;font-size:18px;border-radius:20px;line-height:1.25}
+.seg.big button em{display:block;font-style:normal;font-size:34px;margin-bottom:8px;line-height:1}
+.seg.big button small{margin-top:6px;line-height:1.3}
+.seg.big button small+small{margin-top:4px;opacity:.8}
+.seg.big.three{grid-template-columns:1fr}
+.seg.big.three button{display:grid;grid-template-columns:52px 1fr;gap:0 14px;align-items:center;text-align:left;padding:16px 16px}
+.seg.big.three button em{grid-row:1/4;font-size:36px;margin:0;align-self:center}
+.seg.big.three button small{grid-column:2}
+@container app (min-width:720px){.seg.big.three{grid-template-columns:repeat(3,1fr)}
+  .seg.big.three button{display:block;text-align:center;padding:22px 14px}
+  .seg.big.three button em{display:block;margin-bottom:8px}}
+.tracklist{display:flex;flex-direction:column;gap:8px}
+.trow{display:grid;grid-template-columns:28px 1fr 46px;gap:10px;align-items:center}
+.trow.nopc{grid-template-columns:28px 1fr}
+.trow .tb{height:10px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden}
+.trow .tb i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--ion),var(--solar));width:0;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.trow .pc{font-family:var(--f-mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+.trow .tn{font-size:14px;font-weight:600}
+.trow .tn small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{position:relative;padding:10px 0 10px 40px;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;line-height:1.4}
+.steps li:last-child{border-bottom:0}
+.steps li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:9px;width:28px;height:28px;border-radius:50%;background:var(--solar);color:#1A1200;font-family:var(--f-display);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.steps li em{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-top:2px}
+.steps.kid li{font-size:16px;padding:12px 0 12px 42px}
+.olist{list-style:none;margin:0;padding:0}
+.olist li{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;line-height:1.35}
+.olist li:last-child{border-bottom:0}
+.olist li.dim{opacity:.55}
+.olist .on{font-weight:600}
+.olist .ow{grid-column:1/-1;font-size:12px;color:var(--muted)}
+.olist .og{font-family:var(--f-mono);font-size:11px;color:var(--muted);white-space:nowrap;align-self:start;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.08)}
+.olist li.fit .og{color:var(--solar);background:rgba(255,179,71,.14)}
+.flip{perspective:900px}
+.flip .inner{animation:flipin .9s cubic-bezier(.2,.8,.2,1) both;transform-style:preserve-3d}
+@keyframes flipin{from{transform:rotateY(90deg);opacity:0}to{transform:rotateY(0);opacity:1}}
+.fade{animation:fadeup .35s ease both}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.planet{position:relative;width:170px;height:170px;margin:10px auto 18px;perspective:700px}
+.planet .core{position:absolute;inset:22%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFD59A,var(--solar) 45%,#8A4A12 100%);box-shadow:0 0 40px rgba(255,179,71,.45)}
+.planet .ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(92,225,255,.55);transform-style:preserve-3d;animation:spin 9s linear infinite}
+.planet .ring.r2{inset:7%;border-color:rgba(255,255,255,.35);animation:spin2 14s linear infinite}
+.planet .ring.r3{inset:14%;border-color:rgba(255,179,71,.5);animation:spin3 11s linear infinite}
+.planet .ring:after{content:"";position:absolute;top:-5px;left:50%;width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff}
+@keyframes spin{from{transform:rotateX(70deg) rotateZ(0)}to{transform:rotateX(70deg) rotateZ(360deg)}}
+@keyframes spin2{from{transform:rotateX(60deg) rotateY(30deg) rotateZ(360deg)}to{transform:rotateX(60deg) rotateY(30deg) rotateZ(0)}}
+@keyframes spin3{from{transform:rotateX(80deg) rotateY(-40deg) rotateZ(0)}to{transform:rotateX(80deg) rotateY(-40deg) rotateZ(360deg)}}
+.constel{display:block;margin:0 auto;width:210px;height:190px}
+.constel line{stroke:var(--ion);stroke-width:1.4;stroke-linecap:round;opacity:.9}
+.constel circle{fill:#fff;filter:drop-shadow(0 0 4px rgba(255,255,255,.9))}
+.constel.draw line{stroke-dasharray:140;stroke-dashoffset:140;animation:dash 1.4s ease forwards}
+@keyframes dash{to{stroke-dashoffset:0}}
+.radar{display:block;margin:4px auto;width:300px;max-width:100%;height:230px}
+.radar .grid{fill:none;stroke:rgba(255,255,255,.14);stroke-width:1}
+.radar .axis{stroke:rgba(255,255,255,.18);stroke-width:1}
+.radar .poly{fill:rgba(92,225,255,.28);stroke:var(--ion);stroke-width:2;transform-origin:150px 115px;animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes grow{from{transform:scale(0)}to{transform:scale(1)}}
+.radar text{font-family:var(--f-body);font-size:12px;fill:var(--text);font-weight:600}
+.radar text.v{font-family:var(--f-mono);font-size:11px;fill:var(--muted);font-weight:400}
+.radar text.weak{fill:var(--solar)}
+.flystar{position:absolute;z-index:9;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 12px 4px rgba(255,255,255,.8);pointer-events:none}
+.toast{position:absolute;left:16px;right:16px;bottom:18px;z-index:12;background:#fff;color:#111;border-radius:14px;padding:12px 14px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:fadeup .25s ease both;max-width:640px;margin:0 auto}
+.toast.dark{background:var(--sky-3);color:var(--text)}
+.toast .x{float:right;border:0;background:transparent;font-size:18px;cursor:pointer;color:inherit;line-height:1}
+.fb{display:flex;flex-direction:column;gap:12px}
+.fb .q{font-size:15px;font-weight:600;margin-bottom:6px}
+.fb .o{display:flex;gap:6px}
+.fb .o button{flex:1;min-height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:var(--text);font-family:var(--f-body);font-size:14px;cursor:pointer}
+.fb .o button.sel{border-color:var(--ion);background:rgba(92,225,255,.16)}
+.footlinks{display:flex;gap:14px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.app .demo{border:1px dashed rgba(255,255,255,.25);border-radius:12px;padding:10px 12px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.build-lines p{opacity:0;animation:fadeup .4s ease forwards}
+.build-lines p:nth-child(1){animation-delay:.2s}
+.build-lines p:nth-child(2){animation-delay:1.2s}
+.build-lines p:nth-child(3){animation-delay:2.2s}
+.kv{background:rgba(255,255,255,.05);border-radius:14px;padding:12px;margin-bottom:10px}
+.kv .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
+.kv .v{font-size:14px;font-weight:600;line-height:1.35}
+.kv .v small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:3px}
+.app .f{font-family:var(--f-mono);font-size:12px;background:rgba(255,255,255,.06);padding:8px 10px;border-radius:10px;white-space:pre-wrap;line-height:1.5;overflow-x:auto}
+.app ul{padding-left:18px;margin:0 0 10px;font-size:15px}
+.app ul li{margin:3px 0}
+.app ol{padding-left:20px;margin:0 0 10px;font-size:15px}
+.app .back{position:absolute;top:14px;left:12px;z-index:4}
+.hero-art{text-align:center}
+.hero-txt{text-align:center}
+.r-sec{margin-top:18px}
+.grown{background:rgba(92,225,255,.08);border:1px solid rgba(92,225,255,.25);border-radius:16px;padding:14px}
+.grown .eyebrow{color:var(--ion)}
+
+@container app (min-width: 720px){
+  .app .view{padding:78px 6% 48px}
+  .topbar{padding:22px 6% 0}
+  .topbar>*{max-width:1000px;width:100%;margin:0 auto}
+  .app h1{font-size:46px}
+  .app h2{font-size:27px}
+  .app h3{font-size:17px}
+  .app p{font-size:17px}
+  .qtext{font-size:30px;margin:10px 0 24px}
+  .qtext.kid{font-size:34px}
+  .scr-start{display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:center;max-width:1000px;margin:24px auto 0}
+  .scr-start .hero-txt{text-align:left}
+  .scr-start .planet{width:280px;height:280px;margin:0 auto}
+  .scr-start .stack{flex-direction:row;flex-wrap:wrap}
+  .scr-start .a-btn.pri{width:auto;min-width:240px}
+  .scr-start .footlinks{justify-content:flex-start}
+  .scr-who,.scr-aud{max-width:660px;margin:0 auto}
+  .scr-q,.scr-pick{max-width:920px;margin:0 auto}
+  .scr-q .stack,.scr-pick .stack{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .scr-q.kid .stack{grid-template-columns:repeat(3,1fr)}
+  .scr-q .opt{padding:22px 20px;font-size:18px;border-radius:20px;min-height:96px}
+  .scr-q.kid .opt{flex-direction:column;text-align:center;gap:14px;min-height:200px;justify-content:center}
+  .scr-q .opt .ic{width:56px;height:56px;font-size:30px;border-radius:16px}
+  .scr-q.kid .opt .ic{width:76px;height:76px;font-size:44px}
+  .scr-pick .opt.mini{padding:14px 16px;font-size:16px}
+  .scr-skill,.scr-inter{max-width:760px;margin:0 auto}
+  .scr-skill .scale{gap:10px}
+  .scr-skill .scale button{min-height:92px;border-radius:18px}
+  .scr-skill .scale.kid3 button{min-height:140px}
+  .scr-skill .scale button span.e{font-size:34px}
+  .scr-skill .scale.kid3 button span.e{font-size:52px}
+  .scr-build{max-width:640px;margin:0 auto}
+  .scr-build .constel{width:320px;height:290px}
+  .scr-result{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8px 36px;align-items:start}
+  .scr-result>.r-sec{margin-top:14px}
+  .scr-result .r-head,.scr-result .r-type,.scr-result .r-plan,.scr-result .r-olymp,.scr-result .r-actions,.scr-result .r-fb,.scr-result .r-links,.scr-result .r-home{grid-column:1/-1}
+  .scr-result .r-type .inner{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:center}
+  .scr-result .r-type .inner h2{font-size:32px}
+  .scr-result .r-type .inner p{grid-column:2}
+  .scr-result .r-plan .steps{columns:2;column-gap:36px}
+  .scr-result .r-plan .steps li,.scr-result .r-olymp .olist li{break-inside:avoid}
+  .scr-result .r-olymp .olist{columns:2;column-gap:36px}
+  .scr-result .constel{width:260px;height:236px}
+  .scr-result .r-actions .stack{flex-direction:row;flex-wrap:wrap}
+  .scr-result .r-actions .a-btn{width:auto;min-width:220px}
+  .scr-result .r-actions .row{display:contents}
+  .scr-about,.scr-class,.scr-parent{max-width:780px;margin:0 auto}
+  .app .back{left:5%}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .planet .ring,.flip .inner,.fade,.constel.draw line,.radar .poly,.build-lines p,.toast{animation:none!important;opacity:1;transform:none;stroke-dashoffset:0}
+  .sky i,.pbar i,.trow .tb i,.opt{transition:none}
+}
+
+.mob-bar{display:none}
+.layout.mode-web .mob-bar{display:flex;position:fixed;right:24px;bottom:20px;z-index:45}
+.layout.mode-web .mob-bar button{border:0;border-radius:999px;padding:12px 20px;font-weight:700;font-size:14px;background:var(--accent);color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.3);cursor:pointer}
+.layout.mode-web.sheet .panel{display:block;position:fixed;top:57px;right:0;bottom:0;width:min(760px,100%);z-index:40;overflow:auto;background:var(--paper-2);box-shadow:-20px 0 50px rgba(0,0,0,.25);border-left:1px solid var(--line)}
+.layout.mode-web.sheet .tabs{top:0}
+
+@media (max-width: 960px){
+  .layout,.layout.mode-doc,.layout.mode-proto,.layout.mode-web{grid-template-columns:1fr}
+  .top{padding:8px 10px;gap:8px}
+  .top .who{display:none}
+  .brand-name{font-size:14px}
+  .pill{display:none}
+  .modes{padding:3px;overflow-x:auto}
+  .modes button{padding:6px 8px;font-size:12px}
+  .stage,.layout.mode-web .stage{position:static;height:auto;padding:0;min-height:0}
+  .stage-hint{display:none}
+  .phone,.layout.mode-web .phone{width:100%;max-width:440px;height:calc(100vh - 110px);min-height:520px;border-radius:0;padding:0;box-shadow:none;background:transparent}
+  .screen,.layout.mode-web .screen{border-radius:0}
+  .panel{border-left:0;border-top:1px solid var(--line)}
+  .layout.mode-split .panel{display:none;height:auto;position:static}
+  .layout.mode-split.sheet .panel,.layout.mode-web.sheet .panel{display:block;position:fixed;inset:57px 0 0 0;width:auto;z-index:40;overflow:auto;background:var(--paper-2);box-shadow:none}
+  .layout.mode-split.sheet .tabs{top:0}
+  .mob-bar,.layout.mode-web .mob-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:45;justify-content:center;padding:8px;background:linear-gradient(transparent,rgba(0,0,0,.25))}
+  .layout.mode-proto .mob-bar,.layout.mode-doc .mob-bar{display:none}
+  .mob-bar button,.layout.mode-web .mob-bar button{border:0;border-radius:999px;padding:10px 18px;font-weight:700;font-size:14px;background:var(--accent);color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.3);cursor:pointer}
+  .tabpane{padding:16px 14px 90px}
+}
+
+#printSheet{display:none}
+@media print{
+  body{background:#fff;color:#111}
+  .top,.layout,.mob-bar{display:none!important}
+  #printSheet{display:block;font-family:var(--f-body);color:#111}
+  .ps{page-break-after:always;padding:8mm 4mm;max-width:180mm;margin:0 auto}
+  .ps:last-child{page-break-after:auto}
+  .ps h1{font-family:var(--f-display);font-size:26px;margin:0 0 4px}
+  .ps h2{font-family:var(--f-display);font-size:16px;margin:16px 0 6px}
+  .ps .lead{font-size:14px;color:#444;margin:0 0 10px}
+  .ps .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  .ps .constel line{stroke:#1E3A8A;stroke-width:1.6}
+  .ps .constel circle{fill:#1E3A8A;filter:none}
+  .ps .constel{width:180px;height:160px;margin:0}
+  .ps .radar{width:270px;height:207px;margin:0}
+  .ps .radar .grid,.ps .radar .axis{stroke:#bbb}
+  .ps .radar .poly{fill:rgba(224,115,28,.25);stroke:#E0731C;animation:none}
+  .ps .radar text{fill:#111}
+  .ps .radar text.v{fill:#666}
+  .ps .radar text.weak{fill:#E0731C}
+  .ps ol,.ps ul{padding-left:20px;font-size:13.5px}
+  .ps li{margin:5px 0}
+  .ps .tb{height:8px;background:#eee;border-radius:4px;overflow:hidden}
+  .ps .tb i{display:block;height:100%;background:#E0731C}
+  .ps .trow{display:grid;grid-template-columns:1fr 120px 40px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
+  .ps .foot{margin-top:14px;font-size:11px;color:#666;border-top:1px solid #ddd;padding-top:6px}
+  .ps .note{background:#F5F5F5;border-radius:6px;padding:8px 10px;font-size:12px;color:#333;margin-top:10px}
+}
+
+/* ===== «Созвездие» v4: дополнения ===== */
+.seg.big.two{grid-template-columns:1fr}
+.seg.big.two button{display:grid;grid-template-columns:52px 1fr;gap:0 14px;align-items:center;text-align:left;padding:16px}
+.seg.big.two button em{grid-row:1/4;font-size:36px;margin:0;align-self:center}
+.seg.big.two button small{grid-column:2}
+@container app (min-width:720px){.seg.big.two{grid-template-columns:1fr 1fr}.seg.big.two button{display:block;text-align:center;padding:24px 14px}.seg.big.two button em{display:block;margin-bottom:8px}}
+.seg.grades{grid-template-columns:repeat(auto-fit,minmax(56px,1fr))}
+.seg.grades button{font-family:var(--f-display);font-size:20px;padding:14px 6px}
+.a-btn.inline{width:auto;min-height:40px;padding:8px 14px;font-size:15px;display:inline-flex;margin:4px 6px 0 0;text-decoration:none}
+label.a-btn{cursor:pointer}
+a.a-btn{text-decoration:none}
+.secn{font-family:var(--f-display);font-size:13px;letter-spacing:.04em;color:var(--solar);margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid rgba(255,179,71,.25)}
+.r-sec{margin-top:22px}
+.trk-grid{display:grid;grid-template-columns:1fr;gap:6px;align-items:start}
+.trk-grid .constel{width:200px;height:180px;margin:0 auto;display:block}
+.pc-big{font-family:var(--f-mono);font-size:.7em;color:var(--solar);white-space:nowrap}
+.profs{display:flex;flex-wrap:wrap;gap:8px}
+.prof{padding:8px 12px;border-radius:12px;background:rgba(92,225,255,.12);border:1px solid rgba(92,225,255,.3);font-size:14px;font-weight:600}
+.type{margin-bottom:12px}
+.type h3{font-size:20px}
+.sk-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.skcol{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px}
+.skcol.hard{border-color:rgba(92,225,255,.3)}
+.skcol.soft{border-color:rgba(123,228,149,.3)}
+.skhead{font-weight:700;font-size:15px;margin-bottom:10px}
+.skcol.hard .skhead{color:var(--ion)}
+.skcol.soft .skhead{color:var(--okk)}
+.skrow{margin-bottom:10px}
+.skn{font-size:14px;font-weight:600}
+.tag-grow{display:inline-block;font-size:11px;font-weight:700;color:#1A1200;background:var(--solar);border-radius:999px;padding:1px 8px;margin-left:4px;vertical-align:1px}
+.skbar{height:8px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden;margin:5px 0 3px}
+.skbar i{display:block;height:100%;background:linear-gradient(90deg,var(--ion),var(--okk))}
+.skrow.def .skbar i{background:linear-gradient(90deg,var(--solar),#FF7A45)}
+.skv{font-size:12px;color:var(--muted);font-family:var(--f-mono)}
+.sklist-t{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin:10px 0 4px}
+.app ul.sklist{margin:0;font-size:14px}
+.skradar .radar{max-width:320px;margin:0 auto;display:block}
+.plan-grid{display:grid;grid-template-columns:1fr;gap:16px}
+.plan-grid h3{font-size:16px;margin:0 0 8px}
+.app ol.plan{list-style:none;padding:0;margin:0;counter-reset:s}
+ol.plan li{position:relative;padding:10px 0 10px 40px;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;line-height:1.4}
+ol.plan li:last-child{border-bottom:0}
+ol.plan li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:11px;width:28px;height:28px;border-radius:50%;background:var(--solar);color:#1A1200;font-family:var(--f-display);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+ol.plan li em{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-top:2px}
+.pcat{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;border-radius:999px;padding:1px 8px;margin:0 6px 3px 0;background:rgba(255,255,255,.1);color:var(--muted)}
+.c-hard .pcat{background:rgba(92,225,255,.16);color:var(--ion)}
+.c-soft .pcat{background:rgba(123,228,149,.16);color:var(--okk)}
+.c-olymp .pcat{background:rgba(255,179,71,.18);color:var(--solar)}
+.r-home{margin-top:12px}
+.kv .v a{color:var(--ion)}
+.olist .ow a{color:var(--ion)}
+.qrbox{background:#fff;border-radius:14px;padding:10px;width:200px;height:200px;margin:10px auto}
+.qrbox.big{width:min(300px,80vw);height:min(300px,80vw)}
+.qrbox svg{width:100%;height:100%;display:block}
+.dadd{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+.scanbox{display:none;margin-top:8px}
+.scanbox.on{display:block}
+.scanbox video{width:100%;max-width:360px;border-radius:12px;background:#000;display:block}
+.dfilter{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:14px 0 4px;font-size:14px}
+.dfilter select{background:rgba(255,255,255,.08);color:var(--text);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 8px;font-family:inherit;margin-left:4px}
+.dfilter option{color:#111}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.kpis div{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:12px}
+.kpis b{display:block;font-family:var(--f-display);font-size:26px;color:var(--solar)}
+.kpis span{font-size:12px;color:var(--muted)}
+.dgrid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+.dgrid h3{font-size:16px;margin:0 0 8px}
+.dbar{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(60px,1fr) 78px;gap:8px;align-items:center;font-size:13px;margin:5px 0}
+.dl{overflow:hidden;text-overflow:ellipsis}
+.dt{height:10px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden}
+.dt i{display:block;height:100%;background:linear-gradient(90deg,var(--ion),var(--solar))}
+.dv{font-family:var(--f-mono);font-size:12px;text-align:right}
+.dv small{color:var(--muted)}
+.dtable{overflow-x:auto}
+.dtable table{border-collapse:collapse;width:100%;font-size:13px}
+.dtable th,.dtable td{border-bottom:1px solid rgba(255,255,255,.1);padding:6px 8px;text-align:left;white-space:nowrap}
+.dtable th{color:var(--muted);font-weight:600}
+@container app (min-width:720px){
+  .scr-result{display:block;max-width:1040px}
+  .trk-grid{grid-template-columns:260px 1fr;gap:24px}
+  .trk-grid .constel{width:250px;height:226px}
+  .sk-grid{grid-template-columns:1fr 1fr}
+  .skradar{grid-column:1/-1}
+  .plan-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .r-edu{columns:2;column-gap:24px}
+  .r-edu .kv{break-inside:avoid}
+  .r-edu .secn,.r-edu>p{column-span:all}
+  .scr-dash{max-width:1100px;margin:0 auto}
+  .dadd{grid-template-columns:repeat(3,1fr)}
+  .kpis{grid-template-columns:repeat(4,1fr)}
+  .dgrid{grid-template-columns:1fr 1fr}
+}
+/* ---- Документ плана: PDF и печать ---- */
+.pdf-holder{position:fixed;left:-12000px;top:0;width:718px;background:#fff;z-index:-1}
+.pdf-holder .pdoc{width:auto}
+.pdoc{font-family:'Golos Text',Arial,sans-serif;color:#15192b;background:#fff;padding:6px 10px;font-size:13px;line-height:1.45;width:auto;max-width:718px}
+.pdoc h1{font-family:'Unbounded',Arial,sans-serif;font-size:22px;margin:4px 0 4px;color:#15192b}
+.pdoc h2{font-family:'Unbounded',Arial,sans-serif;font-size:14.5px;margin:14px 0 6px;color:#1E3A8A}
+.pdoc h3{font-size:13.5px;margin:10px 0 4px;color:#15192b}
+.pdoc p{margin:4px 0}
+.pdoc ul,.pdoc ol{margin:4px 0;padding-left:20px}
+.pdoc li{margin:3px 0}
+.pdoc .ph{border-bottom:3px solid #E0731C;padding-bottom:8px;margin-bottom:6px}
+.pdoc .pbrand{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#E0731C;font-weight:700}
+.pdoc .pmeta{color:#555}
+.pdoc .pgroup{font-size:12px;color:#666}
+.pdoc .ptwo{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:16px;align-items:start}
+.pdoc .pvis{text-align:center}
+.pdoc .constel{width:200px;height:180px}
+.pdoc .constel line{stroke:#1E3A8A;stroke-width:1.6;stroke-dasharray:none;stroke-dashoffset:0;animation:none}
+.pdoc .constel circle{fill:#1E3A8A;filter:none}
+.pdoc .radar{width:230px;height:130px}
+.pdoc .radar .grid,.pdoc .radar .axis{stroke:#bbb;fill:none}
+.pdoc .radar .poly{fill:rgba(224,115,28,.25);stroke:#E0731C;animation:none}
+.pdoc .radar text{fill:#111;font-size:10px}
+.pdoc .radar text.v{fill:#666}
+.pdoc .radar text.weak{fill:#E0731C;font-weight:700}
+.pdoc .pnote{background:#F4F5F9;border-radius:6px;padding:8px 10px;font-size:11.5px;color:#333;margin-top:10px}
+.pdoc .pfoot{margin-top:12px;font-size:10.5px;color:#666;border-top:1px solid #ddd;padding-top:6px}
+.pdoc .pbreak{height:0}
+.pdoc .ptbl{border-collapse:collapse;width:100%}
+.pdoc .ptbl td{border-bottom:1px solid #ddd;padding:4px 6px}
+.pdoc.poster{text-align:center;padding-top:30px}
+.pdoc.poster h1{font-size:30px}
+.pdoc.poster .big{font-size:18px;max-width:560px;margin:14px auto}
+.pdoc.poster .pqr{width:330px;height:330px;margin:20px auto}
+.pdoc.poster .pqr svg{width:100%;height:100%}
+@media print{
+  #printSheet .pdoc{width:auto;max-width:180mm;margin:0 auto}
+  #printSheet .pbreak{page-break-before:always;break-before:page}
+}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="brand-name">Созвездие</span><span class="pill">5–11 класс</span></div>
+  <span class="who">Конструктор компетенций будущего инженера · ГБОУ «ИТШ № 777», Санкт-Петербург</span>
+</header>
+<main class="layout mode-web" id="layout">
+  <section class="stage" aria-label="Сервис «Созвездие»">
+    <div class="phone"><div class="screen"><div class="app" id="app"><canvas class="stars" id="stars"></canvas><div class="topbar" id="topbar"></div><div class="view" id="view"></div></div></div></div>
+    <p class="stage-hint">Выбери класс и ответь на вопросы — получишь «Индивидуальный план развития инженерных компетенций».</p>
+  </section>
+</main>
+<div id="printSheet"></div>
+<script>
+/* qrcode-generator 1.4.4 — (c) Kazuhiko Arase, MIT License */
+var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],f={},c=function(t,r){o=function(t){for(var r=new Array(t),e=0;e<t;e+=1){r[e]=new Array(t);for(var n=0;n<t;n+=1)r[e][n]=null}return r}(i=4*e+17),l(0,0),l(i-7,0),l(0,i-7),s(),h(),d(t,r),e>=7&&v(t),null==a&&(a=p(e,n,u)),w(a,r)},l=function(t,r){for(var e=-1;e<=7;e+=1)if(!(t+e<=-1||i<=t+e))for(var n=-1;n<=7;n+=1)r+n<=-1||i<=r+n||(o[t+e][r+n]=0<=e&&e<=6&&(0==n||6==n)||0<=n&&n<=6&&(0==e||6==e)||2<=e&&e<=4&&2<=n&&n<=4)},h=function(){for(var t=8;t<i-8;t+=1)null==o[t][6]&&(o[t][6]=t%2==0);for(var r=8;r<i-8;r+=1)null==o[6][r]&&(o[6][r]=r%2==0)},s=function(){for(var t=B.getPatternPosition(e),r=0;r<t.length;r+=1)for(var n=0;n<t.length;n+=1){var i=t[r],a=t[n];if(null==o[i][a])for(var u=-2;u<=2;u+=1)for(var f=-2;f<=2;f+=1)o[i+u][a+f]=-2==u||2==u||-2==f||2==f||0==u&&0==f}},v=function(t){for(var r=B.getBCHTypeNumber(e),n=0;n<18;n+=1){var a=!t&&1==(r>>n&1);o[Math.floor(n/3)][n%3+i-8-3]=a}for(n=0;n<18;n+=1){a=!t&&1==(r>>n&1);o[n%3+i-8-3][Math.floor(n/3)]=a}},d=function(t,r){for(var e=n<<3|r,a=B.getBCHTypeInfo(e),u=0;u<15;u+=1){var f=!t&&1==(a>>u&1);u<6?o[u][8]=f:u<8?o[u+1][8]=f:o[i-15+u][8]=f}for(u=0;u<15;u+=1){f=!t&&1==(a>>u&1);u<8?o[8][i-u-1]=f:u<9?o[8][15-u-1+1]=f:o[8][15-u-1]=f}o[i-8][8]=!t},w=function(t,r){for(var e=-1,n=i-1,a=7,u=0,f=B.getMaskFunction(r),c=i-1;c>0;c-=2)for(6==c&&(c-=1);;){for(var g=0;g<2;g+=1)if(null==o[n][c-g]){var l=!1;u<t.length&&(l=1==(t[u]>>>a&1)),f(n,c-g)&&(l=!l),o[n][c-g]=l,-1==(a-=1)&&(u+=1,a=7)}if((n+=e)<0||i<=n){n-=e,e=-e;break}}},p=function(t,r,e){for(var n=A.getRSBlocks(t,r),o=b(),i=0;i<e.length;i+=1){var a=e[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var u=0;for(i=0;i<n.length;i+=1)u+=n[i].dataCount;if(o.getLengthInBits()>8*u)throw"code length overflow. ("+o.getLengthInBits()+">"+8*u+")";for(o.getLengthInBits()+4<=8*u&&o.put(0,4);o.getLengthInBits()%8!=0;)o.putBit(!1);for(;!(o.getLengthInBits()>=8*u||(o.put(236,8),o.getLengthInBits()>=8*u));)o.put(17,8);return function(t,r){for(var e=0,n=0,o=0,i=new Array(r.length),a=new Array(r.length),u=0;u<r.length;u+=1){var f=r[u].dataCount,c=r[u].totalCount-f;n=Math.max(n,f),o=Math.max(o,c),i[u]=new Array(f);for(var g=0;g<i[u].length;g+=1)i[u][g]=255&t.getBuffer()[g+e];e+=f;var l=B.getErrorCorrectPolynomial(c),h=k(i[u],l.getLength()-1).mod(l);for(a[u]=new Array(l.getLength()-1),g=0;g<a[u].length;g+=1){var s=g+h.getLength()-a[u].length;a[u][g]=s>=0?h.getAt(s):0}}var v=0;for(g=0;g<r.length;g+=1)v+=r[g].totalCount;var d=new Array(v),w=0;for(g=0;g<n;g+=1)for(u=0;u<r.length;u+=1)g<i[u].length&&(d[w]=i[u][g],w+=1);for(g=0;g<o;g+=1)for(u=0;u<r.length;u+=1)g<a[u].length&&(d[w]=a[u][g],w+=1);return d}(o,n)};f.addData=function(t,r){var e=null;switch(r=r||"Byte"){case"Numeric":e=M(t);break;case"Alphanumeric":e=x(t);break;case"Byte":e=m(t);break;case"Kanji":e=L(t);break;default:throw"mode:"+r}u.push(e),a=null},f.isDark=function(t,r){if(t<0||i<=t||r<0||i<=r)throw t+","+r;return o[t][r]},f.getModuleCount=function(){return i},f.make=function(){if(e<1){for(var t=1;t<40;t++){for(var r=A.getRSBlocks(t,n),o=b(),i=0;i<u.length;i++){var a=u[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var g=0;for(i=0;i<r.length;i++)g+=r[i].dataCount;if(o.getLengthInBits()<=8*g)break}e=t}c(!1,function(){for(var t=0,r=0,e=0;e<8;e+=1){c(!0,e);var n=B.getLostPoint(f);(0==e||t>n)&&(t=n,r=e)}return r}())},f.createTableTag=function(t,r){t=t||2;var e="";e+='<table style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: "+(r=void 0===r?4*t:r)+"px;",e+='">',e+="<tbody>";for(var n=0;n<f.getModuleCount();n+=1){e+="<tr>";for(var o=0;o<f.getModuleCount();o+=1)e+='<td style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: 0px;",e+=" width: "+t+"px;",e+=" height: "+t+"px;",e+=" background-color: ",e+=f.isDark(n,o)?"#000000":"#ffffff",e+=";",e+='"/>';e+="</tr>"}return e+="</tbody>",e+="</table>"},f.createSvgTag=function(t,r,e,n){var o={};"object"==typeof arguments[0]&&(t=(o=arguments[0]).cellSize,r=o.margin,e=o.alt,n=o.title),t=t||2,r=void 0===r?4*t:r,(e="string"==typeof e?{text:e}:e||{}).text=e.text||null,e.id=e.text?e.id||"qrcode-description":null,(n="string"==typeof n?{text:n}:n||{}).text=n.text||null,n.id=n.text?n.id||"qrcode-title":null;var i,a,u,c,g=f.getModuleCount()*t+2*r,l="";for(c="l"+t+",0 0,"+t+" -"+t+",0 0,-"+t+"z ",l+='<svg version="1.1" xmlns="http://www.w3.org/2000/svg"',l+=o.scalable?"":' width="'+g+'px" height="'+g+'px"',l+=' viewBox="0 0 '+g+" "+g+'" ',l+=' preserveAspectRatio="xMinYMin meet"',l+=n.text||e.text?' role="img" aria-labelledby="'+y([n.id,e.id].join(" ").trim())+'"':"",l+=">",l+=n.text?'<title id="'+y(n.id)+'">'+y(n.text)+"</title>":"",l+=e.text?'<description id="'+y(e.id)+'">'+y(e.text)+"</description>":"",l+='<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>',l+='<path d="',a=0;a<f.getModuleCount();a+=1)for(u=a*t+r,i=0;i<f.getModuleCount();i+=1)f.isDark(a,i)&&(l+="M"+(i*t+r)+","+u+c);return l+='" stroke="transparent" fill="black"/>',l+="</svg>"},f.createDataURL=function(t,r){t=t||2,r=void 0===r?4*t:r;var e=f.getModuleCount()*t+2*r,n=r,o=e-r;return I(e,e,function(r,e){if(n<=r&&r<o&&n<=e&&e<o){var i=Math.floor((r-n)/t),a=Math.floor((e-n)/t);return f.isDark(a,i)?0:1}return 1})},f.createImgTag=function(t,r,e){t=t||2,r=void 0===r?4*t:r;var n=f.getModuleCount()*t+2*r,o="";return o+="<img",o+=' src="',o+=f.createDataURL(t,r),o+='"',o+=' width="',o+=n,o+='"',o+=' height="',o+=n,o+='"',e&&(o+=' alt="',o+=y(e),o+='"'),o+="/>"};var y=function(t){for(var r="",e=0;e<t.length;e+=1){var n=t.charAt(e);switch(n){case"<":r+="&lt;";break;case">":r+="&gt;";break;case"&":r+="&amp;";break;case'"':r+="&quot;";break;default:r+=n}}return r};return f.createASCII=function(t,r){if((t=t||1)<2)return function(t){t=void 0===t?2:t;var r,e,n,o,i,a=1*f.getModuleCount()+2*t,u=t,c=a-t,g={"██":"█","█ ":"▀"," █":"▄","  ":" "},l={"██":"▀","█ ":"▀"," █":" ","  ":" "},h="";for(r=0;r<a;r+=2){for(n=Math.floor((r-u)/1),o=Math.floor((r+1-u)/1),e=0;e<a;e+=1)i="█",u<=e&&e<c&&u<=r&&r<c&&f.isDark(n,Math.floor((e-u)/1))&&(i=" "),u<=e&&e<c&&u<=r+1&&r+1<c&&f.isDark(o,Math.floor((e-u)/1))?i+=" ":i+="█",h+=t<1&&r+1>=c?l[i]:g[i];h+="\n"}return a%2&&t>0?h.substring(0,h.length-a-1)+Array(a+1).join("▀"):h.substring(0,h.length-1)}(r);t-=1,r=void 0===r?2*t:r;var e,n,o,i,a=f.getModuleCount()*t+2*r,u=r,c=a-r,g=Array(t+1).join("██"),l=Array(t+1).join("  "),h="",s="";for(e=0;e<a;e+=1){for(o=Math.floor((e-u)/t),s="",n=0;n<a;n+=1)i=1,u<=n&&n<c&&u<=e&&e<c&&f.isDark(o,Math.floor((n-u)/t))&&(i=0),s+=i?g:l;for(o=0;o<t;o+=1)h+=s+"\n"}return h.substring(0,h.length-1)},f.renderTo2dContext=function(t,r){r=r||2;for(var e=f.getModuleCount(),n=0;n<e;n++)for(var o=0;o<e;o++)t.fillStyle=f.isDark(n,o)?"black":"white",t.fillRect(n*r,o*r,r,r)},f};t.stringToBytes=(t.stringToBytesFuncs={default:function(t){for(var r=[],e=0;e<t.length;e+=1){var n=t.charCodeAt(e);r.push(255&n)}return r}}).default,t.createStringToBytes=function(t,r){var e=function(){for(var e=S(t),n=function(){var t=e.read();if(-1==t)throw"eof";return t},o=0,i={};;){var a=e.read();if(-1==a)break;var u=n(),f=n()<<8|n();i[String.fromCharCode(a<<8|u)]=f,o+=1}if(o!=r)throw o+" != "+r;return i}(),n="?".charCodeAt(0);return function(t){for(var r=[],o=0;o<t.length;o+=1){var i=t.charCodeAt(o);if(i<128)r.push(i);else{var a=e[t.charAt(o)];"number"==typeof a?(255&a)==a?r.push(a):(r.push(a>>>8),r.push(255&a)):r.push(n)}}return r}};var r,e,n,o,i,a=1,u=2,f=4,c=8,g={L:1,M:0,Q:3,H:2},l=0,h=1,s=2,v=3,d=4,w=5,p=6,y=7,B=(r=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],e=1335,n=7973,i=function(t){for(var r=0;0!=t;)r+=1,t>>>=1;return r},(o={}).getBCHTypeInfo=function(t){for(var r=t<<10;i(r)-i(e)>=0;)r^=e<<i(r)-i(e);return 21522^(t<<10|r)},o.getBCHTypeNumber=function(t){for(var r=t<<12;i(r)-i(n)>=0;)r^=n<<i(r)-i(n);return t<<12|r},o.getPatternPosition=function(t){return r[t-1]},o.getMaskFunction=function(t){switch(t){case l:return function(t,r){return(t+r)%2==0};case h:return function(t,r){return t%2==0};case s:return function(t,r){return r%3==0};case v:return function(t,r){return(t+r)%3==0};case d:return function(t,r){return(Math.floor(t/2)+Math.floor(r/3))%2==0};case w:return function(t,r){return t*r%2+t*r%3==0};case p:return function(t,r){return(t*r%2+t*r%3)%2==0};case y:return function(t,r){return(t*r%3+(t+r)%2)%2==0};default:throw"bad maskPattern:"+t}},o.getErrorCorrectPolynomial=function(t){for(var r=k([1],0),e=0;e<t;e+=1)r=r.multiply(k([1,C.gexp(e)],0));return r},o.getLengthInBits=function(t,r){if(1<=r&&r<10)switch(t){case a:return 10;case u:return 9;case f:case c:return 8;default:throw"mode:"+t}else if(r<27)switch(t){case a:return 12;case u:return 11;case f:return 16;case c:return 10;default:throw"mode:"+t}else{if(!(r<41))throw"type:"+r;switch(t){case a:return 14;case u:return 13;case f:return 16;case c:return 12;default:throw"mode:"+t}}},o.getLostPoint=function(t){for(var r=t.getModuleCount(),e=0,n=0;n<r;n+=1)for(var o=0;o<r;o+=1){for(var i=0,a=t.isDark(n,o),u=-1;u<=1;u+=1)if(!(n+u<0||r<=n+u))for(var f=-1;f<=1;f+=1)o+f<0||r<=o+f||0==u&&0==f||a==t.isDark(n+u,o+f)&&(i+=1);i>5&&(e+=3+i-5)}for(n=0;n<r-1;n+=1)for(o=0;o<r-1;o+=1){var c=0;t.isDark(n,o)&&(c+=1),t.isDark(n+1,o)&&(c+=1),t.isDark(n,o+1)&&(c+=1),t.isDark(n+1,o+1)&&(c+=1),0!=c&&4!=c||(e+=3)}for(n=0;n<r;n+=1)for(o=0;o<r-6;o+=1)t.isDark(n,o)&&!t.isDark(n,o+1)&&t.isDark(n,o+2)&&t.isDark(n,o+3)&&t.isDark(n,o+4)&&!t.isDark(n,o+5)&&t.isDark(n,o+6)&&(e+=40);for(o=0;o<r;o+=1)for(n=0;n<r-6;n+=1)t.isDark(n,o)&&!t.isDark(n+1,o)&&t.isDark(n+2,o)&&t.isDark(n+3,o)&&t.isDark(n+4,o)&&!t.isDark(n+5,o)&&t.isDark(n+6,o)&&(e+=40);var g=0;for(o=0;o<r;o+=1)for(n=0;n<r;n+=1)t.isDark(n,o)&&(g+=1);return e+=Math.abs(100*g/r/r-50)/5*10},o),C=function(){for(var t=new Array(256),r=new Array(256),e=0;e<8;e+=1)t[e]=1<<e;for(e=8;e<256;e+=1)t[e]=t[e-4]^t[e-5]^t[e-6]^t[e-8];for(e=0;e<255;e+=1)r[t[e]]=e;var n={glog:function(t){if(t<1)throw"glog("+t+")";return r[t]},gexp:function(r){for(;r<0;)r+=255;for(;r>=256;)r-=255;return t[r]}};return n}();function k(t,r){if(void 0===t.length)throw t.length+"/"+r;var e=function(){for(var e=0;e<t.length&&0==t[e];)e+=1;for(var n=new Array(t.length-e+r),o=0;o<t.length-e;o+=1)n[o]=t[o+e];return n}(),n={getAt:function(t){return e[t]},getLength:function(){return e.length},multiply:function(t){for(var r=new Array(n.getLength()+t.getLength()-1),e=0;e<n.getLength();e+=1)for(var o=0;o<t.getLength();o+=1)r[e+o]^=C.gexp(C.glog(n.getAt(e))+C.glog(t.getAt(o)));return k(r,0)},mod:function(t){if(n.getLength()-t.getLength()<0)return n;for(var r=C.glog(n.getAt(0))-C.glog(t.getAt(0)),e=new Array(n.getLength()),o=0;o<n.getLength();o+=1)e[o]=n.getAt(o);for(o=0;o<t.getLength();o+=1)e[o]^=C.gexp(C.glog(t.getAt(o))+r);return k(e,0).mod(t)}};return n}var A=function(){var t=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],r=function(t,r){var e={};return e.totalCount=t,e.dataCount=r,e},e={};return e.getRSBlocks=function(e,n){var o=function(r,e){switch(e){case g.L:return t[4*(r-1)+0];case g.M:return t[4*(r-1)+1];case g.Q:return t[4*(r-1)+2];case g.H:return t[4*(r-1)+3];default:return}}(e,n);if(void 0===o)throw"bad rs block @ typeNumber:"+e+"/errorCorrectionLevel:"+n;for(var i=o.length/3,a=[],u=0;u<i;u+=1)for(var f=o[3*u+0],c=o[3*u+1],l=o[3*u+2],h=0;h<f;h+=1)a.push(r(c,l));return a},e}(),b=function(){var t=[],r=0,e={getBuffer:function(){return t},getAt:function(r){var e=Math.floor(r/8);return 1==(t[e]>>>7-r%8&1)},put:function(t,r){for(var n=0;n<r;n+=1)e.putBit(1==(t>>>r-n-1&1))},getLengthInBits:function(){return r},putBit:function(e){var n=Math.floor(r/8);t.length<=n&&t.push(0),e&&(t[n]|=128>>>r%8),r+=1}};return e},M=function(t){var r=a,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+2<r.length;)t.put(o(r.substring(n,n+3)),10),n+=3;n<r.length&&(r.length-n==1?t.put(o(r.substring(n,n+1)),4):r.length-n==2&&t.put(o(r.substring(n,n+2)),7))}},o=function(t){for(var r=0,e=0;e<t.length;e+=1)r=10*r+i(t.charAt(e));return r},i=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);throw"illegal char :"+t};return n},x=function(t){var r=u,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+1<r.length;)t.put(45*o(r.charAt(n))+o(r.charAt(n+1)),11),n+=2;n<r.length&&t.put(o(r.charAt(n)),6)}},o=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);if("A"<=t&&t<="Z")return t.charCodeAt(0)-"A".charCodeAt(0)+10;switch(t){case" ":return 36;case"$":return 37;case"%":return 38;case"*":return 39;case"+":return 40;case"-":return 41;case".":return 42;case"/":return 43;case":":return 44;default:throw"illegal char :"+t}};return n},m=function(r){var e=f,n=t.stringToBytes(r),o={getMode:function(){return e},getLength:function(t){return n.length},write:function(t){for(var r=0;r<n.length;r+=1)t.put(n[r],8)}};return o},L=function(r){var e=c,n=t.stringToBytesFuncs.SJIS;if(!n)throw"sjis not supported.";!function(){var t=n("友");if(2!=t.length||38726!=(t[0]<<8|t[1]))throw"sjis not supported."}();var o=n(r),i={getMode:function(){return e},getLength:function(t){return~~(o.length/2)},write:function(t){for(var r=o,e=0;e+1<r.length;){var n=(255&r[e])<<8|255&r[e+1];if(33088<=n&&n<=40956)n-=33088;else{if(!(57408<=n&&n<=60351))throw"illegal char at "+(e+1)+"/"+n;n-=49472}n=192*(n>>>8&255)+(255&n),t.put(n,13),e+=2}if(e<r.length)throw"illegal char at "+(e+1)}};return i},D=function(){var t=[],r={writeByte:function(r){t.push(255&r)},writeShort:function(t){r.writeByte(t),r.writeByte(t>>>8)},writeBytes:function(t,e,n){e=e||0,n=n||t.length;for(var o=0;o<n;o+=1)r.writeByte(t[o+e])},writeString:function(t){for(var e=0;e<t.length;e+=1)r.writeByte(t.charCodeAt(e))},toByteArray:function(){return t},toString:function(){var r="";r+="[";for(var e=0;e<t.length;e+=1)e>0&&(r+=","),r+=t[e];return r+="]"}};return r},S=function(t){var r=t,e=0,n=0,o=0,i={read:function(){for(;o<8;){if(e>=r.length){if(0==o)return-1;throw"unexpected end of file./"+o}var t=r.charAt(e);if(e+=1,"="==t)return o=0,-1;t.match(/^\s$/)||(n=n<<6|a(t.charCodeAt(0)),o+=6)}var i=n>>>o-8&255;return o-=8,i}},a=function(t){if(65<=t&&t<=90)return t-65;if(97<=t&&t<=122)return t-97+26;if(48<=t&&t<=57)return t-48+52;if(43==t)return 62;if(47==t)return 63;throw"c:"+t};return i},I=function(t,r,e){for(var n=function(t,r){var e=t,n=r,o=new Array(t*r),i={setPixel:function(t,r,n){o[r*e+t]=n},write:function(t){t.writeString("GIF87a"),t.writeShort(e),t.writeShort(n),t.writeByte(128),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(255),t.writeByte(255),t.writeByte(255),t.writeString(","),t.writeShort(0),t.writeShort(0),t.writeShort(e),t.writeShort(n),t.writeByte(0);var r=a(2);t.writeByte(2);for(var o=0;r.length-o>255;)t.writeByte(255),t.writeBytes(r,o,255),o+=255;t.writeByte(r.length-o),t.writeBytes(r,o,r.length-o),t.writeByte(0),t.writeString(";")}},a=function(t){for(var r=1<<t,e=1+(1<<t),n=t+1,i=u(),a=0;a<r;a+=1)i.add(String.fromCharCode(a));i.add(String.fromCharCode(r)),i.add(String.fromCharCode(e));var f,c,g,l=D(),h=(f=l,c=0,g=0,{write:function(t,r){if(t>>>r!=0)throw"length over";for(;c+r>=8;)f.writeByte(255&(t<<c|g)),r-=8-c,t>>>=8-c,g=0,c=0;g|=t<<c,c+=r},flush:function(){c>0&&f.writeByte(g)}});h.write(r,n);var s=0,v=String.fromCharCode(o[s]);for(s+=1;s<o.length;){var d=String.fromCharCode(o[s]);s+=1,i.contains(v+d)?v+=d:(h.write(i.indexOf(v),n),i.size()<4095&&(i.size()==1<<n&&(n+=1),i.add(v+d)),v=d)}return h.write(i.indexOf(v),n),h.write(e,n),h.flush(),l.toByteArray()},u=function(){var t={},r=0,e={add:function(n){if(e.contains(n))throw"dup key:"+n;t[n]=r,r+=1},size:function(){return r},indexOf:function(r){return t[r]},contains:function(r){return void 0!==t[r]}};return e};return i}(t,r),o=0;o<r;o+=1)for(var i=0;i<t;i+=1)n.setPixel(i,o,e(i,o));var a=D();n.write(a);for(var u=function(){var t=0,r=0,e=0,n="",o={},i=function(t){n+=String.fromCharCode(a(63&t))},a=function(t){if(t<0);else{if(t<26)return 65+t;if(t<52)return t-26+97;if(t<62)return t-52+48;if(62==t)return 43;if(63==t)return 47}throw"n:"+t};return o.writeByte=function(n){for(t=t<<8|255&n,r+=8,e+=1;r>=6;)i(t>>>r-6),r-=6},o.flush=function(){if(r>0&&(i(t<<6-r),t=0,r=0),e%3!=0)for(var o=3-e%3,a=0;a<o;a+=1)n+="="},o.toString=function(){return n},o}(),f=a.toByteArray(),c=0;c<f.length;c+=1)u.writeByte(f[c]);return u.flush(),"data:image/gif;base64,"+u};return t}();qrcode.stringToBytesFuncs["UTF-8"]=function(t){return function(t){for(var r=[],e=0;e<t.length;e++){var n=t.charCodeAt(e);n<128?r.push(n):n<2048?r.push(192|n>>6,128|63&n):n<55296||n>=57344?r.push(224|n>>12,128|n>>6&63,128|63&n):(e++,n=65536+((1023&n)<<10|1023&t.charCodeAt(e)),r.push(240|n>>18,128|n>>12&63,128|n>>6&63,128|63&n))}return r}(t)},function(t){"function"==typeof define&&define.amd?define([],t):"object"==typeof exports&&(module.exports=t())}(function(){return qrcode});
+</script>
+<script>
+const DATA = {"meta":{"name":"Конструктор компетенций будущего инженера «Созвездие»","short":"Созвездие","tagline":"Собери своё созвездие инженерных компетенций","product":"Индивидуальный план развития инженерных компетенций","version":"4.0","school":"ГБОУ «Инженерно-технологическая школа № 777», Санкт-Петербург","author":{"name":"Абрин Александр","grade":"7.5","supervisor":"Грекова Анна Владимировна","mentor":"Абрин Евгений Олегович"},"collect":{"yandexDiskUrl":"https://disk.yandex.ru/d/0nyul6tN5n2X7A","dashboardFolder":"Результаты\\Dashboard"},"groups":[{"key":"A","name":"Классические и инфраструктурные направления"},{"key":"B","name":"Цифровые и высокотехнологичные направления"},{"key":"C","name":"Направления, связанные с безопасностью и устойчивостью"}],"audiences":[{"key":"mid","emoji":"🧑","label":"5–9 класс","sub":"средняя школа","grades":[5,6,7,8,9],"minutes":"5–7"},{"key":"teen","emoji":"🧑‍🎓","label":"10–11 класс","sub":"старшая школа","grades":[10,11],"minutes":"7–10"}],"schools":[{"key":"itsh","label":"ИТШ № 777","sub":"Санкт-Петербург"},{"key":"any","label":"Другая школа","sub":"любой город России — укажи город"}]},"olympiads":{"vs_math":{"name":"ВсОШ по математике","g":[5,11],"when":"школьный этап — осенью в своей школе","url":"https://vserosolimp.edsoo.ru","lvl":"fed","id":"vs_math"},"vs_phys":{"name":"ВсОШ по физике","g":[7,11],"when":"школьный этап — осенью в своей школе","url":"https://vserosolimp.edsoo.ru","lvl":"fed","id":"vs_phys"},"vs_chem":{"name":"ВсОШ по химии","g":[8,11],"when":"школьный этап — осенью в своей школе","url":"https://vserosolimp.edsoo.ru","lvl":"fed","id":"vs_chem"},"vs_bio":{"name":"ВсОШ по биологии","g":[5,11],"when":"школьный этап — осенью в своей школе","url":"https://vserosolimp.edsoo.ru","lvl":"fed","id":"vs_bio"},"vs_eco":{"name":"ВсОШ по экологии","g":[5,11],"when":"школьный этап — осенью в своей школе","url":"https://vserosolimp.edsoo.ru","lvl":"fed","id":"vs_eco"},"vs_obzr":{"name":"ВсОШ по основам безопасности и защиты Родины (ОБЗР)","g":[5,11],"when":"школьный этап — осенью в своей школе","url":"https://vserosolimp.edsoo.ru","lvl":"fed","id":"vs_obzr"},"vs_trud":{"name":"ВсОШ по труду (технологии)","g":[5,11],"when":"школьный этап — осенью в своей школе","url":"https://vserosolimp.edsoo.ru","lvl":"fed","id":"vs_trud"},"vs_info":{"name":"ВсОШ по информатике (профили: программирование, ИИ, информационная безопасность, робототехника)","g":[5,11],"when":"школьный этап — осенью в своей школе","url":"https://vserosolimp.edsoo.ru","lvl":"fed","id":"vs_info"},"ntoj_robo":{"name":"НТО Юниоры, направление «Роботех»","g":[5,7],"when":"регистрация — с августа по ноябрь","url":"https://ntcontest.ru","lvl":"fed","id":"ntoj_robo"},"ntoj_kosmo":{"name":"НТО Юниоры, направление «Космотех»","g":[5,7],"when":"регистрация — с августа по ноябрь","url":"https://ntcontest.ru","lvl":"fed","id":"ntoj_kosmo"},"ntoj_med":{"name":"НТО Юниоры, направление «Медтех»","g":[5,7],"when":"регистрация — с августа по ноябрь","url":"https://ntcontest.ru","lvl":"fed","id":"ntoj_med"},"ntoj_ii":{"name":"НТО Юниоры, направление «ИИтех»","g":[5,7],"when":"регистрация — с августа по ноябрь","url":"https://ntcontest.ru","lvl":"fed","id":"ntoj_ii"},"ntoj_kiber":{"name":"НТО Юниоры, направление «Кибертех»","g":[5,7],"when":"регистрация — с августа по ноябрь","url":"https://ntcontest.ru","lvl":"fed","id":"ntoj_kiber"},"ntoj_igro":{"name":"НТО Юниоры, направление «Игротех»","g":[5,7],"when":"регистрация — с августа по ноябрь","url":"https://ntcontest.ru","lvl":"fed","id":"ntoj_igro"},"ntoj_agro":{"name":"НТО Юниоры, направление «Агротех»","g":[5,7],"when":"регистрация — с августа по ноябрь","url":"https://ntcontest.ru","lvl":"fed","id":"ntoj_agro"},"nto_irs":{"name":"НТО, профиль «Интеллектуальные робототехнические системы»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_irs"},"nto_vrs":{"name":"НТО, профиль «Водные робототехнические системы»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_vrs"},"nto_ies":{"name":"НТО, профиль «Интеллектуальные энергетические системы»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_ies"},"nto_yad":{"name":"НТО, профиль «Ядерные технологии»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_yad"},"nto_hit":{"name":"НТО, профиль «Химические источники тока»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_hit"},"nto_nano":{"name":"НТО, профиль «Наносистемы и химический инжиниринг»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_nano"},"nto_flex":{"name":"НТО, профиль «Гибкая и молекулярная электроника»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_flex"},"nto_agro":{"name":"НТО, профиль «Агроэкологический контроль»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_agro"},"nto_ats":{"name":"НТО, профиль «Автономные транспортные системы»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_ats"},"nto_bas":{"name":"НТО, профиль «Беспилотные авиационные системы»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_bas"},"nto_fly":{"name":"НТО, профиль «Летающая робототехника»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_fly"},"nto_ai":{"name":"НТО, профиль «Искусственный интеллект»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_ai"},"nto_bd":{"name":"НТО, профиль «Большие данные и машинное обучение»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_bd"},"nto_sat":{"name":"НТО, профиль «Спутниковые системы»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_sat"},"nto_aero":{"name":"НТО, профиль «Аэрокосмические системы»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_aero"},"nto_ibs":{"name":"НТО, профиль «Инженерные биологические системы»","g":[8,11],"when":"регистрация — с августа по октябрь","url":"https://ntcontest.ru","lvl":"fed","id":"nto_ibs"},"bv_mat":{"name":"«Большие вызовы» (Сириус), направление «Новые материалы, нанотехнологии и микроэлектроника»","g":[7,11],"when":"заявки — зимой","url":"https://sochisirius.ru/obuchenie/konkurs","lvl":"fed","id":"bv_mat"},"bv_energy":{"name":"«Большие вызовы» (Сириус), направление «Современная энергетика»","g":[7,11],"when":"заявки — зимой","url":"https://sochisirius.ru/obuchenie/konkurs","lvl":"fed","id":"bv_energy"},"bv_space":{"name":"«Большие вызовы» (Сириус), направление «Космические технологии»","g":[7,11],"when":"заявки — зимой","url":"https://sochisirius.ru/obuchenie/konkurs","lvl":"fed","id":"bv_space"},"bv_trans":{"name":"«Большие вызовы» (Сириус), направление «Транспортно-логистические системы, морские, авиационные и беспилотные технологии»","g":[7,11],"when":"заявки — зимой","url":"https://sochisirius.ru/obuchenie/konkurs","lvl":"fed","id":"bv_trans"},"bv_eco":{"name":"«Большие вызовы» (Сириус), направление «Экология и изучение изменений климата»","g":[7,11],"when":"заявки — зимой","url":"https://sochisirius.ru/obuchenie/konkurs","lvl":"fed","id":"bv_eco"},"bv_bio":{"name":"«Большие вызовы» (Сириус), направление «Генетика и биомедицина»","g":[7,11],"when":"заявки — зимой","url":"https://sochisirius.ru/obuchenie/konkurs","lvl":"fed","id":"bv_bio"},"bv_ai":{"name":"«Большие вызовы» (Сириус), направление «Большие данные, искусственный интеллект, автоматизированные системы и информационная безопасность»","g":[7,11],"when":"заявки — зимой","url":"https://sochisirius.ru/obuchenie/konkurs","lvl":"fed","id":"bv_ai"},"bv_prod":{"name":"«Большие вызовы» (Сириус), направление «Передовые производственные технологии»","g":[7,11],"when":"заявки — зимой","url":"https://sochisirius.ru/obuchenie/konkurs","lvl":"fed","id":"bv_prod"},"gazprom":{"name":"Отраслевая олимпиада школьников «Газпром» (математика, физика, химия, информатика)","g":[9,11],"when":"подготовительный этап — осенью","url":"https://olympiad.gazprom.ru/","lvl":"fed","id":"gazprom"},"lomo_ht":{"name":"Олимпиада «Ломоносов» (МГУ), профиль «Высокие технологии» — бывшая «Нанотехнологии — прорыв в будущее!»","g":[5,11],"when":"регистрация — осенью, отбор — весной","url":"https://olymp.msu.ru/rus/event/10002/","lvl":"fed","id":"lomo_ht"},"ai_olymp":{"name":"Всероссийская олимпиада по искусственному интеллекту","g":[8,11],"when":"регистрация — летом, отбор — осенью","url":"https://ai.edu.gov.ru/","lvl":"fed","id":"ai_olymp"},"vernadsky":{"name":"Конкурс исследовательских работ им. В. И. Вернадского","g":[8,11],"when":"приём работ — зимой","url":"https://vernadsky.info/","lvl":"fed","id":"vernadsky"},"uios":{"name":"Всероссийский конкурс юных исследователей окружающей среды им. Б. В. Всесвятского","g":[5,11],"when":"сроки — на сайте ФЦДО","url":"https://uios.fedcdo.ru/","lvl":"fed","id":"uios"},"water":{"name":"Российский национальный юниорский водный конкурс","g":[8,11],"when":"сроки — на сайте организатора","url":"https://www.eco-project.org/water-prize/perechen","lvl":"fed","id":"water"},"safety_sch":{"name":"Соревнования «Школа безопасности» (МЧС России): школьные и региональные этапы, всероссийский — для 13–16 лет","g":[5,10],"when":"сроки — у организаторов в регионе","url":"https://mchs.gov.ru/ministerstvo/meropriyatiya-mchs-rossii/shkola-bezopasnosti","lvl":"fed","id":"safety_sch"},"ikar":{"name":"ИКаР — «Инженерные кадры России», категория «ИКаР-КЛАССИК» (11–18 лет)","g":[5,11],"when":"сроки — на сайте организатора","url":"https://www.xn--80a2aec.xn--p1ai/inzhenernye-kadry-rossii/","lvl":"fed","id":"ikar"},"ikar_bas":{"name":"ИКаР-БАС — беспилотные авиационные системы","g":[5,11],"when":"сроки — на сайте организатора","url":"https://www.xn--80a2aec.xn--p1ai/inzhenernye-kadry-rossii/","lvl":"fed","id":"ikar_bas"},"kubok_rtk":{"name":"Кубок РТК, лига «Искатель»","g":[5,8],"when":"этапы в течение года","lvl":"fed","id":"kubok_rtk"},"pilots":{"name":"Чемпионат «Пилоты будущего» (гонки дронов)","g":[5,11],"when":"сроки — на сайте организатора","lvl":"fed","id":"pilots"},"shustrik":{"name":"Ш.У.СТР.И.К. — конкурс детских изобретений","g":[5,11],"when":"сроки — на сайте организатора","lvl":"fed","id":"shustrik"},"vis_cansat":{"name":"Воздушно-инженерная школа МГУ, юниорская лига (CanSat)","g":[6,8],"when":"регистрация — осенью","lvl":"fed","id":"vis_cansat"},"vis_bpla":{"name":"Воздушно-инженерная школа МГУ: лига БПЛА","g":[8,11],"when":"регистрация — осенью","lvl":"fed","id":"vis_bpla"},"duty":{"name":"«Дежурный по планете» (спутники Space Pi, космоснимки)","g":[8,11],"when":"регистрация — осенью","lvl":"fed","id":"duty"},"ship_ol":{"name":"Всероссийская олимпиада по судостроению (САФУ, ОСК)","g":[5,11],"when":"отбор — онлайн","lvl":"fed","id":"ship_ol"},"underwater":{"name":"Всероссийские соревнования по подводной робототехнике","g":[5,11],"when":"отборочные — весной","lvl":"fed","id":"underwater"},"rosatom":{"name":"Олимпиада «Росатом» по физике (МИФИ)","g":[7,11],"when":"отборочные туры — осенью и зимой","lvl":"fed","id":"rosatom"},"nadezhda":{"name":"«Надежда энергетики» (МЭИ)","g":[7,11],"when":"сроки — на сайте организатора","lvl":"fed","id":"nadezhda"},"rosseti":{"name":"Олимпиада «Россети»","g":[8,10],"when":"сроки — на сайте организатора","lvl":"fed","id":"rosseti"},"vmeste":{"name":"Конкурс «#ВместеЯрче» про энергетику","g":[5,11],"when":"региональный этап — осенью","lvl":"fed","id":"vmeste"},"technocup":{"name":"«Технокубок» (МФТИ, МГТУ им. Баумана), программирование","g":[8,11],"when":"отборочные — осенью","lvl":"fed","id":"technocup"},"hse_eng":{"name":"«Высшая проба» (НИУ ВШЭ): инженерные науки","g":[9,11],"when":"регистрация — осенью","lvl":"fed","id":"hse_eng"},"maxwell":{"name":"Олимпиада Максвелла по физике","g":[7,8],"when":"региональный этап — зимой","lvl":"fed","id":"maxwell"},"step":{"name":"«Шаг в будущее» (МГТУ им. Баумана)","g":[8,11],"when":"отбор — осенью и зимой","lvl":"fed","id":"step"},"profi_cad":{"name":"Чемпионат «Профессионалы», компетенция «Инженерный дизайн CAD» (с 14 лет)","g":[8,11],"when":"региональный этап — зимой","lvl":"fed","id":"profi_cad"},"olymp3d":{"name":"Всероссийская олимпиада по 3D-технологиям","g":[5,11],"when":"региональные этапы — зимой","lvl":"fed","id":"olymp3d"},"zvezda":{"name":"Олимпиада «Звезда»: техника и технологии","g":[7,11],"when":"отбор — осенью и зимой","lvl":"fed","id":"zvezda"},"ideas":{"name":"Конкурс «Идеи, преображающие города» (Союз архитекторов России)","g":[5,11],"when":"заочный этап — весной","lvl":"fed","id":"ideas"},"mgsu":{"name":"Олимпиада «Учись строить будущее» (НИУ МГСУ)","g":[8,11],"when":"отбор — с осени","lvl":"fed","id":"mgsu"},"intellekt":{"name":"Региональный конкурс «Интеллект будущего» (ИТШ № 777): 5–7 кл. — «Мои первые шаги в науке», 8–11 кл. — «Я исследователь»","g":[5,11],"when":"приём работ — зимой, сроки в Положении конкурса","url":"https://school777.spb.ru","lvl":"spb","id":"intellekt"},"svyazist":{"name":"«Юный связист: вызов принят!»","g":[5,11],"when":"сроки — у организатора","lvl":"spb","id":"svyazist"}},"tracks":[{"id":1,"key":"mash","group":"A","name":"Машиностроение","short":"Машиностроение","emoji":"⚙️","what":"Создание сложных агрегатов: от станков и автомобильных компонентов до аэрокосмических систем. Инженер-конструктор проектирует детали и узлы, технолог налаживает производство, механик обслуживает и модернизирует оборудование.","profs":["Инженер-конструктор","Инженер-технолог","Инженер-механик","Инженер аддитивных технологий"],"hard":["Черчение и 3D-моделирование деталей","Физика: механика и прочность","Работа с инструментом и станками"],"soft":"Аккуратность и внимание к деталям","exam":"физика","unis":{"spb":["СПбПУ (Политех)","БГТУ «Военмех»","ИТМО"],"fed":["МГТУ им. Н. Э. Баумана","УрФУ","ТПУ"]},"spo":[{"name":"Академия машиностроения им. Ж. Я. Котина","spec":"15.02.16 Технология машиностроения"},{"name":"Факультет СПО ГУАП","spec":"15.02.16 Технология машиностроения"}],"where":{"itsh":{"m":"Мастерские ИТШ, 3D-печать и проект «Инженерная книга»","s":"Лаборатория лазерных технологий, инженерное черчение, мастерские"},"any":{"m56":"3D-моделирование в «Точке роста», Кванториуме или ЦМИТ; Tinkercad","m78":"Промдизайнквантум или 3D-моделирование в ЦМИТ; Компас-3D Учебная версия","s":"Хайтек-квантум в Кванториуме, 3D-моделирование в «Точке роста», ЦМИТ"}},"steps":{"m78":{"itsh":"Мастерские и лаборатория лазерных технологий ИТШ: спроектируй и напечатай первую деталь","any":"Курс 3D-моделирования (Tinkercad или КОМПАС-3D Учебная версия): напечатай первую деталь в Кванториуме или «Точке роста»"},"s911":{"itsh":"КОМПАС-3D: спроектируй сборку из 10 деталей и изготовь её в мастерских ИТШ","any":"КОМПАС-3D: спроектируй сборку из 10 деталей и напечатай её"}},"home":"Нарисуй свою вещь в Tinkercad и подготовь файл к 3D-печати","project":"Спроектируй механизм (подъёмник, захват или редуктор) в 3D, изготовь и испытай его","constellation":{"points":[[50,10],[85,30],[85,70],[50,90],[15,70],[15,30],[50,50]],"lines":[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[6,0],[6,2],[6,4]]},"olympiads":["vs_trud","olymp3d","ikar","zvezda","step","profi_cad","bv_prod","vs_phys"]},{"id":2,"key":"stroy","group":"A","name":"Строительство","short":"Строительство","emoji":"🏗️","what":"Проектирование энергоэффективных и сейсмоустойчивых зданий и сооружений, работа с цифровыми моделями (BIM), большими данными и цифровыми двойниками объектов. Рядом — инженеры ПТО и сметчики.","profs":["Инженер-проектировщик","BIM-проектировщик","Инженер ПТО","Инженер-сметчик"],"hard":["Черчение и чтение планов","Физика: силы и нагрузки","BIM и 3D-проектирование зданий"],"soft":"Умение договариваться с заказчиком и строителями","exam":"физика","unis":{"spb":["СПбГАСУ","СПбПУ (Политех)","ПГУПС"],"fed":["НИУ МГСУ","УрФУ","ДВФУ"]},"spo":[{"name":"Санкт-Петербургский архитектурно-строительный колледж","spec":"08.02.01 Строительство и эксплуатация зданий и сооружений"},{"name":"Колледж автоматизации производственных процессов и прикладных информационных систем","spec":"08.02.15 Информационное моделирование в строительстве"},{"name":"Колледж водных ресурсов","spec":"08.02.04 Водоснабжение и водоотведение"}],"where":{"itsh":{"m":"Архитектурные интенсивы ИТШ и проект «Инженерная книга»","s":"Лаборатория геопространственных данных, архитектурные интенсивы"},"any":{"m56":"Геоквантум или промдизайн в Кванториуме, кружок архитектуры","m78":"Геоквантум или промдизайнквантум в Кванториуме, кружок юного архитектора","s":"Геоквантум в Кванториуме, архитектурная студия, кружок юного архитектора"}},"steps":{"m78":{"itsh":"Архитектурный интенсив ИТШ: спроектируй макет своего района","any":"Спроектируй макет своего района и собери мост из палочек, который выдержит 5 кг"},"s911":{"itsh":"Лаборатория геопространственных данных ИТШ: карта своего района в ГИС","any":"Освой основы BIM/CAD и сделай цифровую модель небольшого дома"}},"home":"Сделай макет двора своей мечты из картона и подпиши, что где находится","project":"Спроектируй и испытай модель моста: посчитай, какую нагрузку он выдержит","constellation":{"points":[[10,90],[10,50],[30,50],[30,30],[50,30],[50,60],[70,60],[70,20],[90,20],[90,90]],"lines":[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9]]},"olympiads":["ideas","zvezda","mgsu","vs_trud","vs_phys","vs_math"]},{"id":3,"key":"energy","group":"A","name":"Энергетика","short":"Энергетика","emoji":"⚡","what":"«Зелёная» энергетика (солнечная, ветровая, геотермальная), «умные» сети (Smart Grid), системы накопления энергии и модернизация традиционных электросетей.","profs":["Инженер по возобновляемым источникам энергии","Специалист по интеллектуальным энергосистемам","Инженер релейной защиты (релейщик)","Инженер-энергетик"],"hard":["Физика: электричество","Сборка и расчёт электрических цепей","Расчёт мощности и энергии"],"soft":"Ответственность: от энергетика зависит свет в домах","exam":"физика","unis":{"spb":["СПбПУ (Политех)","ЛЭТИ","Горный университет"],"fed":["НИУ «МЭИ»","УрФУ","ТПУ"]},"spo":[{"name":"Политехнический колледж городского хозяйства","spec":"13.02.01 Тепловые электрические станции"},{"name":"Институт среднего профессионального образования СПбПУ","spec":"13.02.12 Электрические станции, сети, их релейная защита и автоматизация"},{"name":"Колледж метрополитена","spec":"13.02.07 Электроснабжение"}],"where":{"itsh":{"m":"Курс «Лаборатория Архимеда» и физический практикум ИТШ","s":"Энергетический класс, лаборатория интеллектуальных энергосистем, партнёр — Россети Ленэнерго"},"any":{"m56":"Физический кружок или «Юный электрик»; в Энерджиквантум берут с 12 лет","m78":"Энерджиквантум в Кванториуме (с 12 лет) или физический кружок при школе","s":"Энерджиквантум в Кванториуме, «Точка роста» в школе, физический кружок"}},"steps":{"m78":{"itsh":"Энергетический класс ИТШ: собери солнечную панель с аккумулятором и измерь, что она питает","any":"Энерджиквантум или физический кружок: собери солнечную панель с аккумулятором и измерь, что она питает"},"s911":{"itsh":"Лаборатория интеллектуальных энергосистем ИТШ: проект «умной» сети для дома","any":"Сделай проект «умного» энергосбережения для своей квартиры и посчитай экономию"}},"home":"Собери цепь из батарейки, лампочки и выключателя и найди, что нагревается сильнее","project":"Посчитай, сколько энергии тратит твоя квартира, и предложи три способа сэкономить","constellation":{"points":[[60,5],[30,50],[55,50],[40,95],[75,45],[50,45]],"lines":[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0]]},"olympiads":["vmeste","nto_ies","nto_yad","nadezhda","rosseti","rosatom","bv_energy","vs_phys"]},{"id":4,"key":"oil","group":"A","name":"Нефтегазовая отрасль","short":"Нефтегаз","emoji":"🛢️","what":"Инженеры проектируют скважины, трубопроводы и перерабатывающие комплексы.","profs":["Инженер по бурению скважин","Инженер-проектировщик трубопроводов","Инженер по добыче нефти и газа","Инженер-технолог нефтегазопереработки"],"hard":["Физика: давление, жидкости и газы","Химия: свойства нефти и газа","Черчение и схемы трубопроводов"],"soft":"Работа в команде в сложных условиях","exam":"физика или химия","unis":{"spb":["Горный университет","СПбГТИ(ТУ) (Технологический институт)"],"fed":["РГУ нефти и газа им. И. М. Губкина","УГНТУ (Уфа)","Тюменский индустриальный университет","ТПУ"]},"spo":[{"name":"Центр СПО Санкт-Петербургского государственного технологического института (СПбГТИ(ТУ))","spec":"Переработка нефти и газа"}],"where":{"itsh":{"m":"Физический практикум ИТШ и курс «Лаборатория Архимеда»: давление, жидкости и газы — основа нефтегазового дела","s":"Физический практикум и проектная работа по физике и химии в ИТШ"},"any":{"m56":"Кружок физики или химии в школе, «Точке роста» или Кванториуме","m78":"Кружок физики или химии; Энерджиквантум в Кванториуме (с 12 лет)","s":"Кружки физики и химии; профильные «Роснефть-классы» или «Газпром-классы», если они есть в твоём регионе"}},"steps":{"m78":{"itsh":"Сделай в ИТШ опыт: как давление в трубе зависит от её диаметра","any":"Сделай опыт: как давление в трубе зависит от её диаметра (шприцы и трубки)"},"s911":{"itsh":"Проект по физике или химии в ИТШ: модель трубопровода или очистки нефти","any":"Проект по физике или химии: модель трубопровода или очистки нефти"}},"home":"Собери из трубочек и воронки модель трубопровода и найди, где сильнее всего падает напор","project":"Сделай модель трубопровода с датчиком давления и найди, где теряется напор","constellation":{"points":[[50,10],[50,32],[30,50],[70,50],[50,68],[50,90]],"lines":[[0,1],[1,2],[1,3],[2,4],[3,4],[4,5]]},"olympiads":["vs_phys","vs_chem","gazprom","nto_nano","bv_energy","vs_math"]},{"id":5,"key":"transport","group":"A","name":"Транспорт","short":"Транспорт","emoji":"🚆","what":"Эксплуатация, ремонт и модернизация железнодорожной, автомобильной, авиационной и морской техники; беспилотные дроны, катера и автомобили.","profs":["Инженер путей сообщения","Инженер по эксплуатации авиационной техники","Инженер-кораблестроитель","Инженер беспилотных авиационных систем"],"hard":["Устройство двигателей и механизмов","Физика: движение и силы","Диагностика и обслуживание техники"],"soft":"Внимательность и работа по чётким правилам","exam":"физика","unis":{"spb":["ПГУПС","ГУАП","СПбГМТУ (Корабелка)","ГУМРФ им. адмирала С. О. Макарова","СПбГУ ГА"],"fed":["РУТ (МИИТ)","МАИ","МАДИ"]},"spo":[{"name":"Санкт-Петербургский техникум железнодорожного транспорта (ПГУПС)","spec":"23.02.06 Техническая эксплуатация подвижного состава железных дорог"},{"name":"Колледж ГУМРФ им. адмирала С. О. Макарова","spec":"26.02.03 Судовождение"},{"name":"Авиационно-транспортный колледж СПбГУ ГА","spec":"25.02.05 Управление движением воздушного транспорта"},{"name":"Колледж судостроения, информационных и прикладных технологий","spec":"26.02.02 Судостроение"}],"where":{"itsh":{"m":"Лаборатория БПЛА ИТШ, кружок судомоделизма и лаборатория подводной робототехники","s":"Судостроительный класс, лаборатория БПЛА (партнёр — «Геоскан») и лаборатория подводной робототехники (партнёр — ОСК)"},"any":{"m56":"Авиамодельный или судомодельный кружок, Аэроквантум (берут с 10 лет)","m78":"Аэроквантум, судомоделизм или подводная робототехника в Кванториуме","s":"Аэроквантум в Кванториуме, кружок авиамоделизма или БПЛА, судомоделизм"}},"steps":{"m78":{"itsh":"Запишись в лабораторию БПЛА ИТШ и собери первый квадрокоптер","any":"Аэроквантум или кружок авиа-/судомоделизма: собери и испытай первую модель"},"s911":{"itsh":"Лаборатория БПЛА ИТШ: научи дрон летать по маршруту","any":"Собери дрон или радиоуправляемую модель и научи её двигаться по маршруту"}},"home":"Сделай три планера с разными крыльями и составь таблицу дальности полёта","project":"Собери модель беспилотного транспорта и проведи испытания на точность маршрута","constellation":{"points":[[20,30],[80,30],[20,70],[80,70],[50,50],[50,35]],"lines":[[4,0],[4,1],[4,2],[4,3],[4,5]]},"olympiads":["pilots","ikar_bas","ship_ol","underwater","vis_bpla","nto_bas","nto_fly","nto_ats","nto_vrs","bv_trans"]},{"id":6,"key":"it","group":"B","name":"IT и цифровая инженерия","short":"IT-инженерия","emoji":"💻","what":"Уже не только программирование: архитектура облачных решений, DevOps, разработка встроенного ПО (Embedded Systems), кибербезопасность.","profs":["Разработчик программного обеспечения","Архитектор облачных решений","DevOps-инженер","Разработчик встроенного ПО","Специалист по кибербезопасности"],"hard":["Программирование (Python и другие языки)","Алгоритмы и структуры данных","Компьютерные сети и основы кибербезопасности"],"soft":"Умение учиться самому и разбираться в новом","exam":"информатика","unis":{"spb":["ИТМО","СПбПУ (Политех)","СПбГУ","ЛЭТИ","СПбГУТ им. Бонч-Бруевича"],"fed":["МФТИ","НИУ ВШЭ","МГТУ им. Н. Э. Баумана"]},"spo":[{"name":"Колледж информационных технологий","spec":"09.02.07 Информационные системы и программирование"},{"name":"Колледж телекоммуникаций им. Э. Т. Кренкеля (СПбГУТ)","spec":"11.02.15 Инфокоммуникационные сети и системы связи"}],"where":{"itsh":{"m":"Курсы программирования в «Лахта-полисе», кабинет VR/AR и IT-классы ИТШ","s":"Информационный класс, кабинет VR/AR, курс «Олимпиадное программирование»"},"any":{"m56":"Scratch и первый Python: IT-куб, Сириус.Курсы «Введение в Python» — бесплатно","m78":"IT-куб, «Яндекс Лицей» или кружок Python; НТО Junior и ВсОШ по информатике","s":"IT-куб, IT-квантум, школьный кружок программирования, «Яндекс Лицей»"}},"steps":{"m78":{"itsh":"Курс Python или Scratch в «Лахта-полисе»: первые 10 своих программ","any":"IT-куб или «Яндекс Лицей»: первые 10 своих программ на Python"},"s911":{"itsh":"Информационный класс ИТШ: сделай приложение или сайт для школы","any":"Сделай своё приложение или сайт и выложи код на GitHub"}},"home":"Сделай игру в Scratch с двумя уровнями и дай поиграть другу","project":"Сделай приложение или сайт, которое решает задачу твоего класса","constellation":{"points":[[35,20],[10,50],[35,80],[65,20],[90,50],[65,80]],"lines":[[0,1],[1,2],[3,4],[4,5]]},"olympiads":["vs_info","ntoj_igro","ntoj_kiber","technocup","bv_ai","vs_math"]},{"id":7,"key":"robo","group":"B","name":"Робототехника и автоматизация","short":"Робототехника","emoji":"🤖","what":"Проектирование промышленных роботов, автоматических линий и систем управления производством, а также компьютерное зрение и навигация.","profs":["Инженер-робототехник","Инженер по автоматизации производства","Проектировщик промышленной робототехники","Инженер по компьютерному зрению"],"hard":["Программирование микроконтроллеров","Датчики и приводы","Сборка и наладка механизмов"],"soft":"Терпение: робот редко работает с первого раза","exam":"физика или информатика","unis":{"spb":["ИТМО","СПбПУ (Политех)","ЛЭТИ","БГТУ «Военмех»"],"fed":["МГТУ им. Н. Э. Баумана","ТПУ","УрФУ"]},"spo":[{"name":"Факультет СПО ГУАП","spec":"15.02.10 Мехатроника и робототехника"},{"name":"Колледж автоматизации производственных процессов и прикладных информационных систем","spec":"27.02.04 Автоматические системы управления"}],"where":{"itsh":{"m":"Кружки робототехники в «Лахта-полисе» и лаборатория промышленной робототехники ИТШ","s":"Лаборатория промышленной робототехники (KUKA), кабинеты робототехники"},"any":{"m56":"Промробоквантум в Кванториуме или кружок с Arduino и Mindstorms (берут с 10–11 лет)","m78":"Промробоквантум, IT-куб или кружок Arduino; команда на ИКаР — с 5 класса","s":"Кружок робототехники в школе, Промробоквантум в Кванториуме или IT-куб"}},"steps":{"m78":{"itsh":"Запишись на робототехнику в «Лахта-полисе» или в Академии цифровых технологий","any":"Запишись на робототехнику в школе, Кванториуме или IT-кубе"},"s911":{"itsh":"Лаборатория промышленной робототехники ИТШ: запрограммируй манипулятор на задачу «возьми и переложи»","any":"Собери робота на Arduino или ESP32 с датчиками и опубликуй проект"}},"home":"Собери машинку на резиномоторе и добейся, чтобы она проехала три метра по прямой","project":"Собери робота, который сам едет по линии и объезжает препятствия","constellation":{"points":[[30,20],[70,20],[70,55],[30,55],[20,85],[80,85]],"lines":[[0,1],[1,2],[2,3],[3,0],[3,4],[2,5]]},"olympiads":["ntoj_robo","kubok_rtk","ikar","nto_irs","vs_info","bv_prod"]},{"id":8,"key":"mecha","group":"B","name":"Мехатроника","short":"Мехатроника","emoji":"🦾","what":"Сближение механики, электроники и программирования: модули и системы, где механические части управляются электронными схемами и кодом.","profs":["Инженер-мехатроник","Инженер-электроник","Разработчик электронных устройств","Инженер-наладчик мехатронных систем"],"hard":["Электроника и схемотехника","Механика и приводы","Программирование Arduino и микроконтроллеров"],"soft":"Системное мышление: видеть, как связаны механика, электроника и код","exam":"физика или информатика","unis":{"spb":["ИТМО","ЛЭТИ","СПбПУ (Политех)","ГУАП"],"fed":["МГТУ им. Н. Э. Баумана","МИЭТ","НИЯУ МИФИ"]},"spo":[{"name":"Колледж электроники и информационных технологий им. В. К. Широкова","spec":"15.02.10 Мехатроника и робототехника"},{"name":"Институт среднего профессионального образования СПбПУ","spec":"15.02.10 Мехатроника и робототехника (по отраслям)"}],"where":{"itsh":{"m":"Лаборатория интернета вещей ИТШ и кружок схемотехники","s":"Лаборатория интернета вещей, курсы схемотехники, лаборатория промышленной робототехники"},"any":{"m56":"Радиокружок или электроника в Кванториуме; конструктор «Знаток» дома","m78":"Радиокружок, значок «Юный радиолюбитель» или интернет вещей в Кванториуме","s":"Кружок радиоэлектроники, Arduino-кружок в «Точке роста» или IT-кубе"}},"steps":{"m78":{"itsh":"Лаборатория интернета вещей ИТШ: собери первый проект на Arduino с мотором","any":"Собери 3 схемы на макетной плате и первый проект на Arduino с мотором"},"s911":{"itsh":"Спаяй своё устройство в лаборатории ИТШ: мотор, датчик и управление с телефона","any":"Собери устройство, где мотор управляется датчиком и кодом, и опиши, как оно работает"}},"home":"Собери детектор темноты на фоторезисторе по видеоинструкции","project":"Собери устройство с мотором, датчиком и управлением с телефона","constellation":{"points":[[30,30],[70,30],[70,70],[30,70],[50,10],[50,90],[10,50],[90,50]],"lines":[[0,1],[1,2],[2,3],[3,0],[4,0],[4,1],[5,2],[5,3],[6,0],[6,3],[7,1],[7,2]]},"olympiads":["ntoj_kiber","shustrik","maxwell","vs_info","hse_eng","nto_flex"]},{"id":9,"key":"ai","group":"B","name":"Искусственный интеллект и машинное обучение в инженерии","short":"ИИ в инженерии","emoji":"🧠","what":"Создание алгоритмов искусственного интеллекта и их внедрение в промышленные системы и продукты.","profs":["Инженер машинного обучения (ML-инженер)","Специалист по данным (Data Scientist)","MLOps-инженер","Промт-инженер"],"hard":["Python и работа с данными","Математика: статистика и вероятность","Обучение и проверка моделей"],"soft":"Критическое мышление: проверять, где ИИ ошибается","exam":"информатика","unis":{"spb":["ИТМО","СПбГУ","СПбПУ (Политех)"],"fed":["МФТИ","НИУ ВШЭ","МГУ им. М. В. Ломоносова"]},"spo":[{"name":"Колледж телекоммуникаций им. Э. Т. Кренкеля (СПбГУТ)","spec":"09.02.13 Интеграция решений с применением технологий искусственного интеллекта"},{"name":"Петровский колледж","spec":"Интеграция решений с применением технологий искусственного интеллекта"}],"where":{"itsh":{"m":"IT-классы ИТШ и курсы программирования в «Лахта-полисе»","s":"Информационный класс, курс «AI Junior»"},"any":{"m56":"Scratch и первый Python: IT-куб, Сириус.Курсы «Введение в Python»","m78":"IT-куб, «Яндекс Лицей» или кружок Python","s":"IT-куб, «Яндекс Лицей», кружок по анализу данных"}},"steps":{"m78":{"itsh":"IT-классы ИТШ: научи простую нейросеть отличать два вида предметов","any":"Научи простую нейросеть отличать два вида предметов (есть бесплатные онлайн-конструкторы)"},"s911":{"itsh":"Курс «AI Junior» в ИТШ: сделай проект с нейросетью","any":"Сделай проект с нейросетью: распознавание объектов или предсказание по данным"}},"home":"Собери таблицу из 30 своих наблюдений (погода, оценки, шаги) и найди в ней закономерность","project":"Обучи нейросеть распознавать предметы и проверь, где она ошибается","constellation":{"points":[[20,50],[40,25],[40,75],[60,25],[60,75],[80,50]],"lines":[[0,1],[0,2],[1,3],[2,4],[1,4],[2,3],[3,5],[4,5]]},"olympiads":["ntoj_ii","vs_info","ai_olymp","nto_ai","nto_bd","bv_ai"]},{"id":10,"key":"bio","group":"B","name":"Биоинженерия и медицинская (биомедицинская) инженерия","short":"Биоинженерия","emoji":"🧬","what":"Синтез биологии, химии и инженерии: продукты и технологии на основе живых систем (биотопливо, ферменты, биоразлагаемые материалы, генная инженерия), а также медицинские устройства для диагностики, лечения и мониторинга здоровья.","profs":["Инженер-биотехнолог","Биомедицинский инженер","Инженер реабилитационных систем","Генный инженер"],"hard":["Биология и химия","Датчики и медицинские измерения","Работа в лаборатории"],"soft":"Этика и ответственность: работа связана со здоровьем людей","exam":"биология или химия (для медицинской техники — физика)","unis":{"spb":["ИТМО","ЛЭТИ","СПбПУ (Политех)","СПбГТИ(ТУ) (Технологический институт)"],"fed":["МГУ им. М. В. Ломоносова","МФТИ","Сеченовский университет"]},"spo":[{"name":"Политехнический колледж городского хозяйства","spec":"12.02.10 Монтаж, техническое обслуживание и ремонт биотехнических и медицинских аппаратов и систем"},{"name":"Центр СПО Санкт-Петербургского государственного технологического института (СПбГТИ(ТУ))","spec":"Биохимическое производство"}],"where":{"itsh":{"m":"Лаборатория нейротехнологий ИТШ и курс «Инженером стану я»","s":"Лаборатория нейротехнологий, партнёр — Центр Алмазова"},"any":{"m56":"Биоквантум в Кванториуме (с 9 лет) или школьная лаборатория биологии","m78":"Биоквантум или нейроквантум; школьное научное общество и проект по биологии","s":"Биоквантум или Нейроквантум в Кванториуме, школьная лаборатория «Точки роста»"}},"steps":{"m78":{"itsh":"Лаборатория нейротехнологий ИТШ: собери датчик пульса или мышечного сигнала","any":"Биоквантум или «Точка роста»: собери датчик пульса на Arduino и запиши свой сигнал"},"s911":{"itsh":"Проект с лабораторией нейротехнологий ИТШ: прибор для мониторинга здоровья","any":"Сделай исследовательский проект по биологии или медицинскому прибору"}},"home":"Поставь опыт с прорастанием в трёх условиях и веди дневник наблюдений неделю","project":"Собери прибор, который измеряет пульс, и сравни показания до и после нагрузки","constellation":{"points":[[30,10],[70,25],[30,45],[70,60],[30,80],[70,95]],"lines":[[0,1],[1,2],[2,3],[3,4],[4,5]]},"olympiads":["ntoj_med","vs_bio","nto_ibs","vernadsky","bv_bio"]},{"id":11,"key":"space","group":"B","name":"Космическая инженерия","short":"Космос","emoji":"🛰️","what":"Ракеты-носители и спутники, малые космические аппараты, системы дистанционного зондирования Земли и элементы орбитальных станций.","profs":["Инженер-конструктор ракетно-космической техники","Инженер малых космических аппаратов","Специалист по дистанционному зондированию Земли","Инженер систем жизнеобеспечения"],"hard":["Физика: движение и орбиты","Электроника и радиосвязь","Обработка снимков и данных"],"soft":"Работа в большой команде: спутник делают десятки специалистов","exam":"физика","unis":{"spb":["БГТУ «Военмех»","ГУАП","СПбПУ (Политех)"],"fed":["МАИ","МГТУ им. Н. Э. Баумана","Самарский университет им. С. П. Королёва"]},"spo":[{"name":"Факультет СПО ГУАП","spec":"12.02.01 Авиационные приборы и комплексы"},{"name":"Колледж электроники и информационных технологий им. В. К. Широкова","spec":"25.02.08 Эксплуатация беспилотных авиационных систем"}],"spo_note":"Колледжей именно по ракетно-космической технике в Петербурге мы не нашли — здесь самые близкие программы.","where":{"itsh":{"m":"Центр «Космические технологии» ИТШ и курс «Лаборатория Архимеда»","s":"Космический класс, центр «Космические технологии», лаборатории спутникостроения и приёма космоснимков"},"any":{"m56":"Кружок ракетомоделизма или астрономии; Аэроквантум — обычно с 10–11 лет","m78":"Аэро- или Космоквантум; юниорская лига CanSat — с 6 класса","s":"Аэро- или Космоквантум в Кванториуме, кружки Кружкового движения, Воздушно-инженерная школа МГУ (онлайн)"}},"steps":{"m78":{"itsh":"Приходи в центр «Космические технологии» ИТШ: конструктор наноспутника и ракеты","any":"Найди Аэроквантум или кружок ракетомоделизма; юниорская лига Воздушно-инженерной школы МГУ — с 6 класса"},"s911":{"itsh":"Космический класс ИТШ: курс «Аэрокосмическая инженерия» и приём космоснимков","any":"Собери команду на конкурс «Дежурный по планете» (спутники Space Pi)"}},"home":"Сделай водяную ракету из бутылки и измерь высоту полёта по длине тени","project":"Собери модель спутника (CanSat) с датчиками и передай данные на землю","constellation":{"points":[[50,5],[65,35],[60,75],[40,75],[35,35],[50,95]],"lines":[[0,1],[1,2],[2,3],[3,4],[4,0],[2,5],[3,5]]},"olympiads":["ntoj_kosmo","vis_cansat","shustrik","nto_sat","nto_aero","duty","bv_space"]},{"id":12,"key":"mat","group":"B","name":"Материаловедение и нанотехнологии","short":"Новые материалы","emoji":"🔬","what":"Разработка новых материалов с заданными свойствами для разных сфер — от строительства и электроники до медицины и энергетики.","profs":["Инженер-материаловед","Инженер-нанотехнолог","Инженер по композитным материалам","Инженер аддитивных технологий"],"hard":["Химия и физика веществ","Лабораторные измерения и испытания","Микроскопия и анализ образцов"],"soft":"Любопытство и аккуратность в эксперименте","exam":"химия или физика","unis":{"spb":["СПбПУ (Политех)","ИТМО","СПбГТИ(ТУ) (Технологический институт)","Горный университет","ЛЭТИ"],"fed":["НИТУ МИСИС","МФТИ","МГУ им. М. В. Ломоносова"]},"spo":[{"name":"Академия машиностроения им. Ж. Я. Котина","spec":"18.02.13 Технология производства изделий из полимерных композитов"},{"name":"Центр СПО Санкт-Петербургского государственного технологического института (СПбГТИ(ТУ))","spec":"Технология аналитического контроля химических соединений"}],"where":{"itsh":{"m":"Мастерские ИТШ и 3D-печать: как свойства материала меняют деталь","s":"Лаборатория лазерных технологий ИТШ и проектная работа по химии и физике"},"any":{"m56":"Химический кружок, «Точка роста» или Наноквантум в Кванториуме","m78":"Наноквантум или Хайтек в Кванториуме, химический кружок","s":"Наноквантум или Хайтек в Кванториуме, кружок химии"}},"steps":{"m78":{"itsh":"Мастерские ИТШ: напечатай образцы из разных пластиков и сравни их прочность","any":"Сравни прочность образцов из разных материалов: бумага, пластик, картон с клеем"},"s911":{"itsh":"Проект в лаборатории ИТШ: испытай композит, который сделаешь сам","any":"Сделай исследовательский проект: композит своими руками и его испытания"}},"home":"Сделай «композит» из бумаги и клея и сравни его прочность с обычным картоном","project":"Создай свой композитный материал и сравни его прочность с обычным","constellation":{"points":[[50,15],[80,32],[80,68],[50,85],[20,68],[20,32],[50,50]],"lines":[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,6],[2,6],[4,6]]},"olympiads":["lomo_ht","vs_chem","nto_nano","nto_flex","nto_hit","vernadsky","bv_mat"]},{"id":13,"key":"safety","group":"C","name":"Промышленная безопасность","short":"Промбезопасность","emoji":"🦺","what":"Оценка рисков и контроль соблюдения норм на производственных объектах.","profs":["Инженер по промышленной безопасности","Инженер по охране труда","Специалист по оценке рисков","Инженер пожарной безопасности"],"hard":["Нормы и правила безопасности","Физика и химия опасных процессов","Оценка и расчёт рисков"],"soft":"Настойчивость: уметь объяснить, почему правило важно","exam":"физика или химия","unis":{"spb":["СПбПУ (Политех)","Горный университет","СПбГТИ(ТУ) (Технологический институт)"],"fed":["МГТУ им. Н. Э. Баумана","РГУ нефти и газа им. И. М. Губкина","УрФУ"]},"spo":[{"name":"Пожарно-спасательный колледж «Санкт-Петербургский центр подготовки спасателей»","spec":"20.02.04 Пожарная безопасность"}],"where":{"itsh":{"m":"Уроки ОБЗР и физический практикум ИТШ; проект по безопасности в мастерских школы","s":"Проектная работа по физике и химии в ИТШ; профпробы «Билета в будущее»"},"any":{"m56":"Дружина юных пожарных или отряд юных инспекторов движения (ЮИД) в школе","m78":"Движение «Школа безопасности», дружина юных пожарных, кружок химии","s":"Кружок химии и физики, движение «Школа безопасности», профпробы «Билета в будущее»"}},"steps":{"m78":{"itsh":"Найди в мастерских ИТШ три места, где можно пораниться, и предложи, как это исправить","any":"Найди в школе три опасных места и предложи, как их обезопасить — покажи учителю"},"s911":{"itsh":"Проект: оценка рисков в лаборатории ИТШ и понятная памятка по безопасности","any":"Проект: оценка рисков для мастерской или лаборатории и памятка по безопасности"}},"home":"Составь для своей квартиры карту: где огнетушитель, где выключить воду и свет","project":"Проведи оценку рисков для школьной мастерской и сделай понятную памятку","constellation":{"points":[[50,12],[82,30],[82,62],[50,88],[18,62],[18,30]],"lines":[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,3]]},"olympiads":["safety_sch","vs_obzr","vs_chem","vs_phys"]},{"id":14,"key":"eco","group":"C","name":"Экологическая инженерия","short":"Экоинженерия","emoji":"🌿","what":"Технологии для охраны окружающей среды: очистка воды и воздуха, переработка отходов, рекультивация земель, мониторинг экосистем.","profs":["Инженер-эколог","Инженер по очистке воды","Специалист по переработке отходов","Инженер экологического мониторинга"],"hard":["Химия и биология","Измерения и мониторинг среды","Технологии очистки и переработки"],"soft":"Умение убеждать людей беречь природу","exam":"химия или биология","unis":{"spb":["РГГМУ (гидрометеорологический)","СПбПУ (Политех)","СПбГТИ(ТУ) (Технологический институт)","СПбГУ"],"fed":["МГУ им. М. В. Ломоносова","ТПУ","РУДН"]},"spo":[{"name":"Петровский колледж","spec":"20.02.01 Экологическая безопасность природных комплексов"},{"name":"Морская техническая академия им. адмирала Д. Н. Сенявина","spec":"20.02.01 Экологическая безопасность природных комплексов"}],"where":{"itsh":{"m":"Проектная работа по биологии, химии и экологии в ИТШ","s":"Лаборатория геопространственных данных ИТШ: карты и мониторинг среды"},"any":{"m56":"Экологический кружок, станция юных натуралистов или Биоквантум","m78":"Экологический кружок или Биоквантум, школьные экологические проекты","s":"Экологическое объединение, Биоквантум или Геоквантум, исследования воды и воздуха"}},"steps":{"m78":{"itsh":"Проект в ИТШ: проверь воду из трёх источников простыми тестами","any":"Проверь воду из трёх источников простыми тестами и сравни результаты"},"s911":{"itsh":"Проект с лабораторией геоданных ИТШ: карта загрязнений своего района","any":"Исследовательский проект: мониторинг воздуха или воды в своём районе"}},"home":"Собери фильтр для воды из бутылки, песка и угля и сравни воду до и после","project":"Сделай систему очистки воды или сортировки мусора и измерь её эффективность","constellation":{"points":[[50,88],[50,55],[30,35],[70,35],[20,15],[50,20],[80,15]],"lines":[[0,1],[1,2],[1,3],[2,4],[2,5],[3,5],[3,6]]},"olympiads":["ntoj_agro","vs_eco","uios","water","vernadsky","nto_agro","bv_eco"]}],"questions":{"teen":[{"text":"В школе открыли новую лабораторию и зовут тебя первым. Куда идёшь?","options":[{"emoji":"🛰️","text":"К стенду, где собирают наноспутник","p":11,"s":8},{"emoji":"🤖","text":"К промышленному роботу-манипулятору","p":7,"s":6},{"emoji":"🧬","text":"В биолабораторию с датчиками здоровья","p":10,"s":12},{"emoji":"🧠","text":"К серверу, где обучают нейросети","p":9,"s":6}]},{"text":"Тебе дали 5000 ₽ на любой набор. Что берёшь?","options":[{"emoji":"🔌","text":"Паяльник, Arduino и датчики","p":8,"s":7},{"emoji":"🧪","text":"Набор для опытов с полимерами и красками","p":12,"s":14},{"emoji":"💻","text":"Курс по Python и облачный сервер","p":6,"s":9},{"emoji":"🔋","text":"Солнечную панель с аккумулятором","p":3,"s":14}]},{"text":"Какое видео досмотришь до конца?","options":[{"emoji":"🚀","text":"Запуск ракеты с космодрома","p":11,"s":5},{"emoji":"🛢️","text":"Как бурят скважину в Арктике","p":4,"s":3},{"emoji":"🏗️","text":"Как строят небоскрёб за 90 секунд","p":2,"s":1},{"emoji":"🚄","text":"Как устроен скоростной поезд","p":5,"s":3}]},{"text":"Какая новость зацепит тебя в ленте?","options":[{"emoji":"🦾","text":"«Протез руки управляется сигналами мышц»","p":10,"s":8},{"emoji":"🌊","text":"«Новая станция очистила реку от стоков завода»","p":14,"s":13},{"emoji":"🧯","text":"«Датчики на заводе заметили утечку газа раньше аварии»","p":13,"s":4},{"emoji":"🤖","text":"«Нейросеть находит брак на конвейере быстрее человека»","p":9,"s":7}]},{"text":"Летний интенсив. Команда делает проект, ты выбираешь задачу:","options":[{"emoji":"📐","text":"Спроектировать корпус и детали в 3D","p":1,"s":12},{"emoji":"🧩","text":"Написать программу и настроить сервер","p":6,"s":7},{"emoji":"⚙️","text":"Собрать привод и электронику","p":8,"s":3},{"emoji":"📋","text":"Проверить, что проект безопасен, и составить правила работы","p":13,"s":2}]},{"text":"Тебя ведут в музей на выбор. Куда пойдёшь?","options":[{"emoji":"🪐","text":"В музей космонавтики","p":11,"s":12},{"emoji":"🚂","text":"В музей железных дорог","p":5,"s":1},{"emoji":"⚡","text":"В музей энергетики и электричества","p":3,"s":2},{"emoji":"🌍","text":"В музей природы и климата","p":14,"s":10}]},{"text":"Тебе дали 3D-принтер на неделю. Что напечатаешь?","options":[{"emoji":"🦿","text":"Корпус и захват для робота","p":7,"s":8},{"emoji":"🏘️","text":"Макет района с домами и дорогами","p":2,"s":5},{"emoji":"🧱","text":"Образцы из разных пластиков, чтобы проверить их прочность","p":12,"s":13},{"emoji":"⚙️","text":"Шестерёнки и корпус для своего механизма","p":1,"s":7}]},{"text":"Какой урок ты бы добавил в расписание?","options":[{"emoji":"🎮","text":"Разработка приложений и игр","p":6,"s":9},{"emoji":"🛢️","text":"Как устроены месторождения, трубопроводы и заводы переработки","p":4,"s":13},{"emoji":"🔬","text":"Наноматериалы: из чего будут делать вещи будущего","p":12,"s":11},{"emoji":"🏗️","text":"Как проектировать здания и мосты","p":2,"s":3}]},{"text":"Что бы ты хотел собрать своими руками к концу года?","options":[{"emoji":"🛸","text":"Дрон, который сам летит по маршруту","p":5,"s":11},{"emoji":"🌡️","text":"Метеостанцию, которая следит за чистотой воздуха","p":14,"s":11},{"emoji":"🔆","text":"Умный дом, который экономит электричество","p":3,"s":6},{"emoji":"📊","text":"Программу, которая по данным предсказывает поломку станка","p":9,"s":1}]},{"text":"На заводе случилась проблема. Какую задачу возьмёшь?","options":[{"emoji":"🧯","text":"Найти причину аварии и сделать так, чтобы она не повторилась","p":13,"s":14},{"emoji":"🛠️","text":"Перепроектировать сломавшуюся деталь","p":1,"s":8},{"emoji":"🤖","text":"Поручить опасную операцию роботу","p":7,"s":13},{"emoji":"💡","text":"Наладить электроснабжение цеха","p":3,"s":4}]},{"text":"Через 15 лет. Где твоё рабочее место?","options":[{"emoji":"🛰️","text":"В центре управления полётами","p":11,"s":6},{"emoji":"🛢️","text":"На нефтегазовой платформе в море","p":4,"s":5},{"emoji":"🔬","text":"В лаборатории, где создают искусственные органы","p":10,"s":9},{"emoji":"♻️","text":"На заводе, который перерабатывает отходы в сырьё","p":14,"s":12}]},{"text":"Какой челлендж на хакатоне выберешь?","options":[{"emoji":"🔐","text":"Защитить умный город от кибератаки","p":6,"s":13},{"emoji":"🚗","text":"Научить беспилотный автомобиль ездить по городу","p":5,"s":9},{"emoji":"🦾","text":"Сделать экзоскелет для рабочих склада","p":8,"s":10},{"emoji":"🌉","text":"Спроектировать мост, который сам следит за трещинами","p":2,"s":4}]}],"mid":[{"text":"Чем займёшься свободным вечером?","options":[{"emoji":"🔧","text":"Разберу и починю старую технику","p":1,"s":8},{"emoji":"🚀","text":"Посмотрю запуск ракеты","p":11,"s":5},{"emoji":"🌱","text":"Поставлю опыт с растениями","p":10,"s":14},{"emoji":"💻","text":"Напишу свою игру","p":6,"s":9}]},{"text":"Тебе подарили набор. Что в нём?","options":[{"emoji":"🤖","text":"Робот на моторах и датчиках","p":7,"s":8},{"emoji":"🔬","text":"Микроскоп и набор юного химика","p":12,"s":10},{"emoji":"🔋","text":"Солнечная панель и лампочки","p":3,"s":14},{"emoji":"🧱","text":"Конструктор, из которого строят дома и мосты","p":2,"s":5}]},{"text":"Что интереснее разобрать по шагам?","options":[{"emoji":"🚁","text":"Как дрон летит по маршруту","p":5,"s":7},{"emoji":"⚡","text":"Откуда в доме электричество","p":3,"s":14},{"emoji":"🛢️","text":"Как нефть превращается в бензин","p":4,"s":12},{"emoji":"🧠","text":"Как нейросеть узнаёт котика на фото","p":9,"s":6}]},{"text":"Ты в мастерской. Что возьмёшь первым?","options":[{"emoji":"🔌","text":"Паяльник, провода и светодиод","p":8,"s":3},{"emoji":"✂️","text":"Картон, клей и макетный нож","p":1,"s":2},{"emoji":"🧪","text":"Пробирки и реактивы","p":12,"s":4},{"emoji":"🦺","text":"Каску и схему эвакуации — сначала проверю, всё ли безопасно","p":13,"s":5}]},{"text":"Команда делает проект. Твоя задача:","options":[{"emoji":"🤖","text":"Научить робота ездить по линии","p":7,"s":6},{"emoji":"🛰️","text":"Собрать модель спутника","p":11,"s":5},{"emoji":"🌊","text":"Проверить, чистая ли вода в реке","p":14,"s":10},{"emoji":"📋","text":"Следить, чтобы всё работало по правилам и никто не поранился","p":13,"s":1}]},{"text":"Что интереснее сделать самому?","options":[{"emoji":"🎮","text":"Своё приложение или игру","p":6,"s":9},{"emoji":"🏠","text":"Проект дома будущего","p":2,"s":3},{"emoji":"🩺","text":"Прибор, который считает пульс","p":10,"s":8},{"emoji":"🚂","text":"Модель железной дороги со стрелками","p":5,"s":1}]},{"text":"Куда пойдёшь на экскурсию?","options":[{"emoji":"✈️","text":"На аэродром, к самолётам","p":5,"s":11},{"emoji":"🏭","text":"На завод, где перерабатывают нефть","p":4,"s":13},{"emoji":"🖨️","text":"В цех с 3D-принтерами и станками","p":1,"s":7},{"emoji":"♻️","text":"На завод, где перерабатывают мусор","p":14,"s":12}]},{"text":"Что было бы круто уметь?","options":[{"emoji":"🦾","text":"Собрать механическую руку, которая слушается кнопок","p":8,"s":7},{"emoji":"🎨","text":"Научить нейросеть рисовать","p":9,"s":6},{"emoji":"🔥","text":"Знать, как не допустить пожара или аварии","p":13,"s":4},{"emoji":"💎","text":"Создать материал прочнее стали и легче пластика","p":12,"s":11}]},{"text":"Про что выберешь ролик или книгу?","options":[{"emoji":"🪐","text":"Про космос и планеты","p":11,"s":9},{"emoji":"⛽","text":"Про то, как добывают нефть и газ","p":4,"s":3},{"emoji":"🧬","text":"Про ДНК и медицину будущего","p":10,"s":9},{"emoji":"🌉","text":"Про мосты и небоскрёбы","p":2,"s":5}]},{"text":"Чем займёшься на каникулах?","options":[{"emoji":"💡","text":"Соберу лампу с датчиком движения","p":3,"s":8},{"emoji":"🌳","text":"Посчитаю, сколько пыли задерживают деревья у дома","p":14,"s":13},{"emoji":"🤖","text":"Соберу робота-пылесоса из набора","p":7,"s":1},{"emoji":"🎮","text":"Сделаю игру, где надо спасти город от аварии","p":6,"s":13}]}]},"finalPick":{"teen":{"text":"Выбери два проекта, которые взял бы на лето","pickCount":2,"bonus":3,"options":[{"track":1,"text":"Спроектировать и изготовить свой механизм: от чертежа до детали"},{"track":2,"text":"Спроектировать дом или мост и проверить его на прочность"},{"track":3,"text":"Собрать солнечную электростанцию для дачи"},{"track":4,"text":"Сделать модель трубопровода и найти, где теряется давление"},{"track":5,"text":"Построить беспилотную модель: дрон, катер или машинку"},{"track":6,"text":"Сделать своё приложение или сайт"},{"track":7,"text":"Собрать и запрограммировать робота-манипулятора"},{"track":8,"text":"Собрать устройство, где мотором управляют датчик и код"},{"track":9,"text":"Обучить нейросеть распознавать предметы"},{"track":10,"text":"Собрать прибор, который следит за здоровьем"},{"track":11,"text":"Собрать модель спутника и принять сигнал с орбиты"},{"track":12,"text":"Создать и испытать новый материал"},{"track":13,"text":"Найти опасные места на производстве и придумать защиту"},{"track":14,"text":"Сделать систему очистки воды или сортировки мусора"}]},"mid":{"text":"Какой проект ты взял бы на лето? Выбери два","pickCount":2,"bonus":3,"options":[{"track":1,"text":"Свою вещь: от чертежа до готовой детали"},{"track":2,"text":"Макет дома или моста"},{"track":3,"text":"Солнечную станцию для дачи"},{"track":4,"text":"Модель нефтяной вышки или трубопровода"},{"track":5,"text":"Дрон, катер или машинку на пульте"},{"track":6,"text":"Свою игру или приложение"},{"track":7,"text":"Робота, который сам едет по маршруту"},{"track":8,"text":"Устройство с мотором и датчиком"},{"track":9,"text":"Нейросеть, которая узнаёт предметы"},{"track":10,"text":"Прибор, который следит за здоровьем"},{"track":11,"text":"Модель спутника или ракеты"},{"track":12,"text":"Новый материал и его испытания"},{"track":13,"text":"Памятку и план безопасности для школы"},{"track":14,"text":"Фильтр для воды или сортировку мусора"}]}},"statements":{"teen":[{"id":1,"block":"T","text":"Я люблю разбирать вещи, чтобы понять, как они устроены"},{"id":2,"block":"D","text":"Я пробовал программировать (Scratch, Python) или делать 3D-модели"},{"id":3,"block":"M","text":"Мне легко разбить большую задачу на маленькие шаги"},{"id":4,"block":"K","text":"Мне нравится объяснять сложное простыми словами"},{"id":5,"block":"T","text":"Я могу собрать что-то по инструкции: конструктор, модель, схему"},{"id":6,"block":"D","text":"Мне нравится работать с таблицами, графиками и цифрами"},{"id":7,"block":"M","text":"Если готового решения нет, я пробую разные варианты, пока не получится"},{"id":8,"block":"K","text":"В команде я могу договориться, кто что делает"},{"id":9,"block":"T","text":"Мне интересно, как работают механизмы, электричество, двигатели"},{"id":10,"block":"D","text":"Я быстро разбираюсь в новых программах и приложениях"},{"id":11,"block":"M","text":"Я обычно сдаю задания вовремя, без ночи перед сдачей"},{"id":12,"block":"K","text":"Если условия задачи поменялись, я спокойно переделываю план"}],"mid":[{"id":1,"block":"T","text":"Мне интересно, как устроены механизмы внутри"},{"id":2,"block":"D","text":"Мне нравятся задачи, где надо считать и рассуждать"},{"id":3,"block":"M","text":"Если не получается, я пробую другой способ"},{"id":4,"block":"K","text":"Мне нравится объяснять другим, как что-то сделать"},{"id":5,"block":"T","text":"Я люблю собирать и мастерить руками"},{"id":6,"block":"D","text":"Я уже пробовал программировать или моделировать на компьютере"},{"id":7,"block":"M","text":"Я сам планирую свои дела и успеваю к сроку"},{"id":8,"block":"K","text":"Мне нравится работать над делом в команде"}]},"scale":{"teen":[{"value":1,"label":"Совсем не про меня","emoji":"😶"},{"value":2,"label":"Скорее нет","emoji":"🙁"},{"value":3,"label":"Иногда","emoji":"😐"},{"value":4,"label":"Скорее да","emoji":"🙂"},{"value":5,"label":"Точно про меня","emoji":"🤩"}],"mid":[{"value":1,"label":"Это не про меня","emoji":"😐"},{"value":3,"label":"Иногда","emoji":"🙂"},{"value":5,"label":"Точно про меня","emoji":"😀"}]},"types":{"teen":{"constructor":{"name":"Конструктор","emoji":"🔧","desc":"Ты лучше всего понимаешь мир руками: механизмы, схемы, детали. Твоя сила — сделать вещь, которая работает."},"researcher":{"name":"Исследователь","emoji":"🔭","desc":"Тебе интересно, как всё устроено, и ты умеешь это проверить: эксперимент, расчёт, код."},"architect":{"name":"Архитектор систем","emoji":"🧭","desc":"Ты видишь систему целиком и раскладываешь сложное на шаги. Из таких выходят проектировщики."},"captain":{"name":"Капитан команды","emoji":"🧑‍🚀","desc":"Ты умеешь договариваться, объяснять и вести команду к результату. Инженеру-лидеру это нужно каждый день."},"universal":{"name":"Универсал","emoji":"🌟","desc":"У тебя нет слабых сторон: техника, цифра, мышление и команда развиты ровно. Выбирай трек по интересу."},"starter":{"name":"Стартер","emoji":"🌱","desc":"Все навыки пока в начале пути — это нормально. План ниже покажет, с чего начать."}},"mid":{"constructor":{"name":"Мастер","emoji":"🔧","desc":"Тебе нравится делать вещи руками. Из таких получаются те, кто строит и чинит."},"researcher":{"name":"Исследователь","emoji":"🔭","desc":"Тебе интересно, как всё устроено, и ты любишь проверять."},"architect":{"name":"Придумщик","emoji":"🧭","desc":"Ты любишь придумывать, как сделать проще, и раскладывать дело по шагам."},"captain":{"name":"Командир","emoji":"🧑‍🚀","desc":"У тебя хорошо получается объяснять и делать дело вместе с другими."},"universal":{"name":"Всё понемногу","emoji":"🌟","desc":"У тебя получается по чуть-чуть всё: и руками, и на компьютере, и с друзьями."},"starter":{"name":"Начинающий","emoji":"🌱","desc":"Ты только начинаешь пробовать — это самое интересное время."}}},"typeRules":{"starterMax":2.5,"universalSpread":0.5,"universalMin":3,"pairMap":{"T+D":"researcher","T+M":"constructor","T+K":"constructor","D+M":"architect","D+K":"captain","M+K":"captain"}},"skillBlocks":[{"key":"T","name":"Техника","long":"Техника: руки и физика","kind":"hard","desc":"Понимание механизмов, сборка, работа руками","skills":["Понимание механизмов и физики","Сборка и работа с инструментом"]},{"key":"D","name":"Цифра","long":"Цифра: код, 3D, данные","kind":"hard","desc":"Программирование, 3D-модели, таблицы и графики","skills":["Программирование","3D-моделирование и работа с данными"]},{"key":"M","name":"Мышление","long":"Мышление и самоорганизация","kind":"soft","desc":"Разбить задачу на шаги, искать решения, успевать к сроку","skills":["Планирование и самоорганизация","Решение нестандартных задач"]},{"key":"K","name":"Команда","long":"Команда и общение","kind":"soft","desc":"Объяснять, договариваться, перестраиваться","skills":["Коммуникация и презентация","Работа в команде и гибкость"]}],"deficitSteps":{"T":{"78":["Запишись в кружок робототехники или физического эксперимента — в школе, Кванториуме или IT-кубе","Собери 3 простых устройства по видео: электрическую цепь, катапульту, мост из палочек"],"911":["Собери проект на Arduino или ESP32 с датчиками, например метеостанцию","Участвуй в олимпиаде с практическим этапом: Максвелла по физике или НТО"]},"D":{"78":["Пройди 10 уроков Scratch или Python — по одному в неделю","Веди таблицу своих расходов или оценок в Яндекс Таблицах и построй диаграмму"],"911":["Освой Компас-3D Учебная версия: 10 часов, одна готовая сборка","Реши 20 задач по Python на алгоритмы и работу с данными"]},"M":{"78":["Планируй неделю чек-листом: 5 задач, отмечай сделанные","Каждый день одна логическая задача: шахматы, головоломки, настольные стратегии"],"911":["Работай по «Помодоро»: 25 минут дела, 5 минут отдыха","Веди доску задач для своего проекта (Яндекс Задачи или бумажный канбан)"]},"K":{"78":["Сделай доклад на 3 минуты с демонстрацией перед классом","Возьми роль капитана в ближайшем командном проекте"],"911":["Участвуй в хакатоне или кейс-чемпионате в роли спикера команды","Тренируй «питч на 2 минуты»: расскажи свой проект родителям без сложных слов"]}},"growSteps":{"T":"Попробуй собрать что-нибудь руками по видео: электрическую цепь, катапульту или мост из палочек","D":"Пройди пять уроков Scratch или Python — по одному в неделю","M":"Заведи чек-лист на неделю: пять дел, отмечай сделанные","K":"Расскажи свой проект классу — хватит трёх минут с показом"},"generalSteps":{"5":"Поговори со взрослыми, кем они работают, и запиши три профессии, которые тебя удивили","68":"Пройди диагностику «Билет в будущее» на уроке «Россия — мои горизонты» и сравни с этим планом","911":"Пройди профпробу «Билета в будущее» по своему направлению"},"before":{"text":"Знаешь ли ты уже, каким инженером хочешь быть?","options":["Да, точно знаю","Примерно представляю","Пока нет"]},"feedback":[{"id":"process","text":"Понравился ли тебе процесс прохождения тестирования?","options":["Да","Частично","Нет"]},{"id":"plan","text":"Понравился ли тебе «Индивидуальный план развития инженерных компетенций»?","options":["Да","Частично","Нет"]},{"id":"orient","text":"Помог ли сервис с профессиональной ориентацией?","options":["Да","Частично","Нет"]}],"parent":{"title":"Для родителей","lead":"Это «Индивидуальный план развития инженерных компетенций», который ваш ребёнок получил после квиза. Несколько слов о том, что это такое и чего здесь нет.","points":["Это не диагностика способностей и не прогноз профессии. В школьном возрасте интересы меняются — это норма (стадии профессионального развития по Д. Сьюперу и Е. А. Климову).","План показывает, что ребёнку интересно сегодня, какие навыки уже получаются, а какие стоит развивать — «жёсткие» (Hard skills) и «мягкие» (Soft skills).","Лучший следующий шаг — дать попробовать руками: кружок на четверть, олимпиада, проект, разговор о том, как устроена ваша работа.","Пройдите квиз ещё раз через полгода: сравнить два результата интереснее, чем получить один.","Сервис не собирает персональные данные: имя остаётся только в плане на этом устройстве."]},"cities":[{"name":"Москва","aliases":["москва","мск","г москва"],"unis":["МГТУ им. Н. Э. Баумана","НИЯУ МИФИ","МАИ","НИТУ МИСИС","РГУ нефти и газа им. И. М. Губкина","НИУ «МЭИ»","НИУ МГСУ","РУТ (МИИТ)","МИЭТ","МГУ им. М. В. Ломоносова"]},{"name":"Новосибирск","aliases":["новосибирск"],"unis":["НГТУ","НГУ"]},{"name":"Екатеринбург","aliases":["екатеринбург"],"unis":["УрФУ"]},{"name":"Казань","aliases":["казань"],"unis":["КНИТУ-КАИ","КНИТУ (КХТИ)","КФУ"]},{"name":"Нижний Новгород","aliases":["нижний новгород","н новгород"],"unis":["НГТУ им. Р. Е. Алексеева","ННГУ им. Н. И. Лобачевского"]},{"name":"Самара","aliases":["самара"],"unis":["Самарский университет им. С. П. Королёва","СамГТУ"]},{"name":"Томск","aliases":["томск"],"unis":["ТПУ","ТУСУР","ТГУ"]},{"name":"Пермь","aliases":["пермь"],"unis":["ПНИПУ"]},{"name":"Уфа","aliases":["уфа"],"unis":["УГНТУ","УУНиТ"]},{"name":"Челябинск","aliases":["челябинск"],"unis":["ЮУрГУ"]},{"name":"Омск","aliases":["омск"],"unis":["ОмГТУ"]},{"name":"Красноярск","aliases":["красноярск"],"unis":["СФУ"]},{"name":"Воронеж","aliases":["воронеж"],"unis":["ВГТУ"]},{"name":"Ростов-на-Дону","aliases":["ростов-на-дону","ростов на дону","ростов"],"unis":["ДГТУ","ЮФУ"]},{"name":"Волгоград","aliases":["волгоград"],"unis":["ВолгГТУ"]},{"name":"Саратов","aliases":["саратов"],"unis":["СГТУ им. Ю. А. Гагарина"]},{"name":"Краснодар","aliases":["краснодар"],"unis":["КубГТУ"]},{"name":"Тюмень","aliases":["тюмень"],"unis":["Тюменский индустриальный университет"]},{"name":"Иркутск","aliases":["иркутск"],"unis":["ИРНИТУ"]},{"name":"Владивосток","aliases":["владивосток"],"unis":["ДВФУ"]},{"name":"Хабаровск","aliases":["хабаровск"],"unis":["ТОГУ"]},{"name":"Калининград","aliases":["калининград"],"unis":["БФУ им. И. Канта","КГТУ"]},{"name":"Ижевск","aliases":["ижевск"],"unis":["ИжГТУ им. М. Т. Калашникова"]},{"name":"Белгород","aliases":["белгород"],"unis":["БГТУ им. В. Г. Шухова"]},{"name":"Тула","aliases":["тула"],"unis":["ТулГУ"]},{"name":"Ярославль","aliases":["ярославль"],"unis":["ЯГТУ"]},{"name":"Иваново","aliases":["иваново"],"unis":["ИГЭУ"]},{"name":"Архангельск","aliases":["архангельск"],"unis":["САФУ"]},{"name":"Севастополь","aliases":["севастополь"],"unis":["СевГУ"]},{"name":"Барнаул","aliases":["барнаул"],"unis":["АлтГТУ им. И. И. Ползунова"]},{"name":"Кемерово","aliases":["кемерово"],"unis":["КузГТУ"]},{"name":"Ульяновск","aliases":["ульяновск"],"unis":["УлГТУ"]},{"name":"Липецк","aliases":["липецк"],"unis":["ЛГТУ"]},{"name":"Тверь","aliases":["тверь"],"unis":["ТвГТУ"]},{"name":"Рязань","aliases":["рязань"],"unis":["РГРТУ"]},{"name":"Ставрополь","aliases":["ставрополь"],"unis":["СКФУ"]},{"name":"Якутск","aliases":["якутск"],"unis":["СВФУ"]},{"name":"Магнитогорск","aliases":["магнитогорск"],"unis":["МГТУ им. Г. И. Носова"]},{"name":"Великий Новгород","aliases":["великий новгород","новгород"],"unis":["НовГУ"]},{"name":"Петрозаводск","aliases":["петрозаводск"],"unis":["ПетрГУ"]},{"name":"Псков","aliases":["псков"],"unis":["ПсковГУ"]}],"spbAliases":["санкт-петербург","санкт петербург","спб","петербург","питер","с-петербург","с-пб","ленинград"],"spbClubs":"В Петербурге также: Академия цифровых технологий, Санкт-Петербургский городской Дворец творчества юных, районные Дома детского творчества","profi":{"name":"Федеральный проект «Профессионалитет»","url":"https://япроф.рф/","text":"колледжи-участники есть во всех регионах; их программы делают вместе с предприятиями"}};
+
+/* =====================================================================
+   «Созвездие» — Конструктор компетенций будущего инженера
+   Один файл: HTML + CSS + JavaScript, без сервера и без сборки.
+   ===================================================================== */
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TR = Object.fromEntries(DATA.tracks.map(t=>[t.id,t]));
+const TRK = Object.fromEntries(DATA.tracks.map(t=>[t.key,t]));
+const GROUPS = Object.fromEntries(DATA.meta.groups.map(g=>[g.key,g]));
+const BLOCKS_ORDER = ['T','D','M','K'];
+const BLOCK = Object.fromEntries(DATA.skillBlocks.map(b=>[b.key,b]));
+const HARD = ['T','D'], SOFT = ['M','K'];
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const AUDS = DATA.meta.audiences.map(a=>a.key);
+function audMeta(aud){ return DATA.meta.audiences.find(a=>a.key===aud); }
+function audOfGrade(g){ return g>=10?'teen':'mid'; }
+function tree(aud){ return {q:DATA.questions[aud], f:DATA.finalPick[aud], st:DATA.statements[aud], scale:DATA.scale[aud], types:DATA.types[aud]}; }
+function totalSteps(aud){ const t=tree(aud); return t.q.length + 1 + t.st.length; }
+
+/* ===================== ГОРОД ===================== */
+function normCity(s){ return String(s||'').toLowerCase().replace(/ё/g,'е').replace(/^\s*(г\.|город|гор\.)\s*/,'').replace(/[«»"']/g,'').replace(/\s+/g,' ').trim(); }
+function cityInfo(school, raw){
+  if(school==='itsh') return {spb:true, name:'Санкт-Петербург'};
+  const n=normCity(raw); if(!n) return {spb:false, name:'', known:null};
+  if(DATA.spbAliases.includes(n)) return {spb:true, name:'Санкт-Петербург'};
+  const c=DATA.cities.find(c=>c.aliases.includes(n) || normCity(c.name)===n);
+  return {spb:false, name:c?c.name:String(raw).trim(), known:c||null};
+}
+
+/* ===================== ПОДСЧЁТ ===================== */
+function weightFor(opt,t){ return opt.p===t?2:(opt.s===t?1:0); }
+const MAXP = {};
+for(const a of AUDS){ const T=tree(a); MAXP[a]={}; for(const tr of DATA.tracks) MAXP[a][tr.id]=T.q.reduce((m,q)=>m+Math.max(...q.options.map(o=>weightFor(o,tr.id))),0)+T.f.bonus; }
+function rankTracks(aud,answers,picks){
+  const T=tree(aud); const s=Object.fromEntries(DATA.tracks.map(t=>[t.id,0]));
+  T.q.forEach((q,i)=>{ const oi=answers[i]; if(oi==null) return; const o=q.options[oi]; s[o.p]+=2; s[o.s]+=1; });
+  picks.forEach(p=>{ s[p]+=T.f.bonus; });
+  return DATA.tracks.map(t=>({id:t.id,score:s[t.id],match:Math.round(100*s[t.id]/MAXP[aud][t.id])}))
+    .sort((a,b)=> b.match-a.match || b.score-a.score || ((picks.includes(a.id)?0:1)-(picks.includes(b.id)?0:1)) || a.id-b.id);
+}
+function skillAverages(aud,values){
+  const T=tree(aud); const acc={T:[],D:[],M:[],K:[]};
+  T.st.forEach((st,i)=>{ if(values[i]!=null) acc[st.block].push(values[i]); });
+  const avg={}; for(const b of BLOCKS_ORDER){ const a=acc[b]; avg[b]=a.length?Math.round(10*a.reduce((x,y)=>x+y,0)/a.length)/10:0; }
+  return avg;
+}
+function engineerType(avg){
+  const r=DATA.typeRules, vals=BLOCKS_ORDER.map(b=>avg[b]), mx=Math.max(...vals), mn=Math.min(...vals);
+  if(mx<r.starterMax) return 'starter';
+  if(mx-mn<=r.universalSpread && mn>=r.universalMin) return 'universal';
+  const order=[...BLOCKS_ORDER].sort((a,b)=> avg[b]-avg[a] || BLOCKS_ORDER.indexOf(a)-BLOCKS_ORDER.indexOf(b));
+  return r.pairMap[[order[0],order[1]].sort((a,b)=>BLOCKS_ORDER.indexOf(a)-BLOCKS_ORDER.indexOf(b)).join('+')];
+}
+function weakest(avg,keys){ let best=keys[0]; for(const b of keys) if(avg[b]<avg[best]) best=b; return best; }
+function levelOf(v){ return v>=3.8?{k:'hi',t:'сильная сторона'}:(v>=2.5?{k:'mid',t:'развивается'}:{k:'lo',t:'зона роста'}); }
+function fits(ol,grade){ return ol.g[0]<=grade && ol.g[1]>=grade; }
+function trackOlympiads(track,grade){
+  return track.olympiads.map(id=>DATA.olympiads[id]).map(o=>({...o,fit:fits(o,grade)}))
+    .sort((a,b)=>(b.fit?1:0)-(a.fit?1:0));
+}
+function regionalOlympiads(track,grade,ci){
+  if(!ci.spb) return [];
+  const list=[DATA.olympiads.intellekt]; if(track.key==='mecha'||track.key==='it') list.push(DATA.olympiads.svyazist);
+  return list.map(o=>({...o,fit:fits(o,grade)}));
+}
+function whereText(track,grade,school,ci){
+  if(school==='itsh') return track.where.itsh[grade<=8?'m':'s'];
+  const b=grade<=6?'m56':(grade<=8?'m78':'s');
+  return track.where.any[b] + (ci.spb?'. '+DATA.spbClubs:'');
+}
+function examText(grade,track){
+  if(grade<=7) return 'Подтяни математику и физику: для направления «'+track.short+'» в старших классах обычно важны профильная математика и '+track.exam+'.';
+  if(grade<=9) return 'Выбери предметы ОГЭ с прицелом на направление: для «'+track.short+'» обычно полезны математика и '+track.exam+'.';
+  return 'ЕГЭ: профильная математика и '+track.exam+'. Точный набор предметов смотри в правилах приёма выбранного вуза.';
+}
+function buildPlan(r){
+  const t=r.top, g=r.grade, sk=r.school==='itsh'?'itsh':'any', hd=r.hardDef, sd=r.softDef;
+  const bk=g<=8?'78':'911';
+  const hardSteps=g<=6?[DATA.growSteps[hd], DATA.deficitSteps[hd]['78'][0]]:DATA.deficitSteps[hd][bk];
+  const softSteps=g<=6?[DATA.growSteps[sd], DATA.deficitSteps[sd]['78'][0]]:DATA.deficitSteps[sd][bk];
+  const ols=r.olympiads, fitOl=ols.find(o=>o.fit);
+  const nextOl=ols.find(o=>!o.fit && o.g[0]>g) || ols.find(o=>o.id.startsWith('bv_') && !o.fit) || ols.find(o=>o.fit && o!==fitOl);
+  const proj = g>=9 ? t.steps.s911[sk] : (g>=7 ? t.steps.m78[sk] : t.home);
+  const general = g<=5 ? DATA.generalSteps['5'] : (g<=8 ? DATA.generalSteps['68'] : DATA.generalSteps['911']);
+  const short=[
+    {cat:'club', text:whereText(t,g,r.school,r.ci), why:'кружок или дополнительное образование по направлению'},
+    {cat:'olymp', text:fitOl?fitOl.name+(fitOl.when?' — '+fitOl.when:''):'Школьный этап ВсОШ по математике — осенью в своей школе', why:'олимпиада или конкурс для твоего класса'},
+    {cat:'project', text:proj, why:'проект по направлению «'+t.short+'»'},
+    {cat:'hard', text:hardSteps[0], why:'Hard skill · блок «'+BLOCK[hd].name+'»'},
+    {cat:'soft', text:softSteps[0], why:'Soft skill · блок «'+BLOCK[sd].name+'»'},
+    {cat:'prof', text:general, why:'профориентация'},
+  ];
+  if(r.ci.spb) short.splice(3,0,{cat:'olymp', text:'Представь свой проект на региональном конкурсе «Интеллект будущего» (ИТШ № 777)', why:'конкурс Санкт-Петербурга'});
+  const nextBucket = g<=6 ? 'm78' : 's';
+  const mid=[
+    {cat:'olymp', text:nextOl?nextOl.name+' ('+gradesLabel(nextOl.g)+')':'Олимпиады перечня РСОШ по профильным предметам', why:'олимпиада следующего уровня'},
+    {cat:'club', text: g<=8 ? (r.school==='itsh' && g<=8 ? t.where.itsh.s : t.where.any[nextBucket]) : 'Профильные смены и онлайн-курсы «Сириуса», курсы и школы при вузах из раздела 5', why:'следующая ступень дополнительного образования'},
+    {cat:'project', text:t.project + (g>=7?' — с таким проектом можно подать заявку на «Большие вызовы» (7–11 класс)':' — в 7 классе с ним можно подать заявку на «Большие вызовы»'), why:'большой проект на 1–2 года'},
+    {cat:'hard', text:hardSteps[1], why:'Hard skill · блок «'+BLOCK[hd].name+'»'},
+    {cat:'soft', text:softSteps[1], why:'Soft skill · блок «'+BLOCK[sd].name+'»'},
+    {cat:'exam', text:examText(g,t), why:'профиль и экзамены'},
+    {cat:'edu', text: g<=9 ? 'После 9 класса: профильный 10 класс или колледж (СПО) — варианты в разделе 5' : 'Дни открытых дверей вузов из раздела 5. Победы в олимпиадах из перечня РСОШ могут дать льготы при поступлении — правила смотри на сайте вуза', why:'поступление'},
+  ];
+  return {short, mid};
+}
+const CAT={club:'Кружок · доп. образование', olymp:'Олимпиада · конкурс', project:'Проект', hard:'Hard skill', soft:'Soft skill', prof:'Профориентация', exam:'Профиль и экзамены', edu:'Поступление'};
+function gradesLabel(g){ return g[0]===g[1]?g[0]+' кл.':g[0]+'–'+g[1]+' кл.'; }
+function computeResult(st){
+  const ranked=rankTracks(st.aud,st.answers,st.picks), avg=skillAverages(st.aud,st.skills);
+  const type=engineerType(avg), hardDef=weakest(avg,HARD), softDef=weakest(avg,SOFT), ci=cityInfo(st.school,st.city);
+  const top=TR[ranked[0].id];
+  const r={ranked,top,avg,type,hardDef,softDef,school:st.school,grade:st.grade,aud:st.aud,ci,
+    olympiads:trackOlympiads(top,st.grade), regional:regionalOlympiads(top,st.grade,ci)};
+  r.plan=buildPlan(r);
+  return r;
+}
+
+/* ===================== КОД РЕЗУЛЬТАТА (для QR, ссылки и файла) ===================== */
+const GCH='56789AB';
+function b64u(str){ return btoa(unescape(encodeURIComponent(str))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); }
+function unb64u(s){ return decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/')))); }
+function encodeResult(st){
+  const fb=DATA.feedback.map(f=>st.fb[f.id]==null?'x':st.fb[f.id]).join('');
+  let c='S4'+(st.aud==='teen'?'t':'m')+GCH[st.grade-5]+(st.school==='itsh'?'i':'a')+(st.before==null?'x':st.before)+
+    st.answers.map(a=>a==null?'x':a).join('')+st.picks.map(id=>String.fromCharCode(96+id)).join('')+
+    st.skills.map(v=>v==null?'x':v).join('')+fb;
+  const extra={}; if(st.school!=='itsh'&&st.city) extra.c=st.city; if(st.klass) extra.k=st.klass;
+  if(Object.keys(extra).length) c+='.'+b64u(JSON.stringify(extra));
+  return c;
+}
+function decodeResult(str){
+  try{
+    str=String(str).trim(); const m=str.match(/S4[tm][5-9AB][ia][0-2x][0-9a-nx.A-Za-z_-]*/); if(!m) return null; str=m[0];
+    const [body,ext]=str.split('.');
+    const aud=body[2]==='t'?'teen':'mid', grade=GCH.indexOf(body[3])+5, school=body[4]==='i'?'itsh':'any', before=body[5]==='x'?null:+body[5];
+    if(audOfGrade(grade)!==aud) return null;
+    const T=tree(aud); let p=6;
+    const answers=[...body.slice(p,p+T.q.length)].map(x=>x==='x'?null:+x); p+=T.q.length;
+    const picks=[...body.slice(p,p+2)].map(ch=>ch.charCodeAt(0)-96); p+=2;
+    const skills=[...body.slice(p,p+T.st.length)].map(x=>x==='x'?null:+x); p+=T.st.length;
+    const fbs=body.slice(p,p+DATA.feedback.length);
+    if(answers.length!==T.q.length||skills.length!==T.st.length||fbs.length!==DATA.feedback.length) return null;
+    if(answers.some((a,i)=>a==null||!(a>=0&&a<T.q[i].options.length))) return null;
+    if(picks.some(x=>!TR[x])||skills.some(v=>v==null||v<1||v>5)) return null;
+    const fb={}; DATA.feedback.forEach((f,i)=>{ if(fbs[i]!=='x') fb[f.id]=+fbs[i]; });
+    let extra={}; if(ext){ try{ extra=JSON.parse(unb64u(ext)); }catch(e){} }
+    return {aud,grade,school,before,answers,picks,skills,fb,city:extra.c||'',klass:extra.k||'',code:str};
+  }catch(e){ return null; }
+}
+function baseUrl(){ return location.origin+location.pathname; }
+function resultUrl(st){ return baseUrl()+'#r='+encodeResult(st); }
+
+/* ===================== СОСТОЯНИЕ ===================== */
+const PARAMS=new URLSearchParams(location.search);
+const S={screen:'start',aud:null,grade:null,school:null,city:'',klass:(PARAMS.get('k')||'').slice(0,24),name:'',before:null,qi:0,si:0,answers:[],picks:[],skills:[],fb:{},fbSent:false,order:null,fromLink:false};
+function shuffleOrders(aud,seed){
+  let x=seed>>>0||1; const rnd=()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return ((x>>>0)%1000)/1000;};
+  return tree(aud).q.map(q=>{ const a=q.options.map((_,i)=>i); for(let i=a.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; });
+}
+function startAud(aud){ const T=tree(aud); S.aud=aud; S.grade=null; S.answers=Array(T.q.length).fill(null); S.skills=Array(T.st.length).fill(null); S.picks=[]; S.qi=0; S.si=0; S.fb={}; S.fbSent=false; S.fromLink=false; S.order=shuffleOrders(aud,Date.now()); }
+function resetQuiz(){ Object.assign(S,{screen:'start',aud:null,grade:null,school:null,city:'',name:'',before:null,qi:0,si:0,answers:[],picks:[],skills:[],fb:{},fbSent:false,order:null,fromLink:false}); }
+function isDone(){ return S.aud && S.skills.length && S.skills.every(a=>a!=null) && S.picks.length===2; }
+
+const view=document.getElementById('view'), topbar=document.getElementById('topbar'), appEl=document.getElementById('app');
+function go(screen,extra){ S.screen=screen; Object.assign(S,extra||{}); render(); }
+function answeredCount(){ return S.answers.filter(a=>a!=null).length + (S.picks.length===2?1:0) + S.skills.filter(a=>a!=null).length; }
+
+function renderTop(show){
+  if(!show||!S.aud){ topbar.innerHTML=''; return; }
+  const n=answeredCount(), total=totalSteps(S.aud), per=5, level=Math.min(Math.ceil(total/per),Math.floor(n/per)+1);
+  let dots=''; for(let i=0;i<total;i++){ const on=i<n; dots+='<i class="'+(on?'on':'')+(on&&i%per===per-1?' solar':'')+'"></i>'; }
+  topbar.innerHTML='<div class="sky" id="sky" style="grid-template-columns:repeat('+total+',1fr)">'+dots+'</div>'+
+    '<div class="prog"><span>Шаг <b>'+Math.min(total,n+1)+'</b> из '+total+'</span><span>звёзд зажжено: <b>'+n+'</b></span></div>'+
+    '<div class="pbar"><i style="width:'+Math.round(100*n/total)+'%"></i></div>';
+}
+function flyStar(el){
+  if(REDUCED) return; const slot=document.querySelector('#sky i:nth-child('+(answeredCount()+1)+')'); if(!slot||!el) return;
+  const a=el.getBoundingClientRect(), b=slot.getBoundingClientRect(), r=appEl.getBoundingClientRect();
+  const st=document.createElement('div'); st.className='flystar';
+  st.style.left=(a.left+a.width/2-r.left-7)+'px'; st.style.top=(a.top+a.height/2-r.top-7)+'px'; appEl.appendChild(st);
+  st.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:'translate('+((b.left+b.width/2)-(a.left+a.width/2))+'px,'+((b.top+b.height/2)-(a.top+a.height/2))+'px) scale(.5)',opacity:.9}],
+    {duration:420,easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish=()=>st.remove();
+}
+
+/* ===================== ЭКРАНЫ ===================== */
+function render(){
+  view.scrollTop=0;
+  const R={start:scrStart,aud:scrAud,who:scrWho,track:scrTrack,pick:scrPick,inter:scrInter,skills:scrSkill,building:scrBuilding,result:scrResult,parent:scrParent,about:scrAbout,teacher:scrClass,send:scrSend,myqr:scrMyQR,dashboard:scrDash}[S.screen]||scrStart;
+  renderTop(['track','pick','inter','skills'].includes(S.screen));
+  view.innerHTML=R();
+  after[S.screen]&&after[S.screen]();
+}
+const after={};
+function scrStart(){
+  return '<div class="fade scr-start">'+
+    '<div class="hero-art"><div class="planet" aria-hidden="true"><div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div><div class="core"></div></div></div>'+
+    '<div class="hero-txt"><div class="eyebrow">Профориентация · 5–11 классы</div><h1>Созвездие</h1>'+
+    '<p class="lead" style="margin-top:6px;font-weight:600">Конструктор компетенций будущего инженера</p>'+
+    '<p class="lead muted" style="margin-top:8px">Ответь на вопросы — и получи «Индивидуальный план развития инженерных компетенций»: направление, профессии, Hard и Soft skills, план на год и дальше, вузы и колледжи.</p>'+
+    '<p class="small muted">14 инженерных направлений · 5–10 минут · без регистрации · для любой школы России</p>'+
+    (S.klass?'<p class="small"><span class="chip ion">Класс: '+esc(S.klass)+'</span> ссылка от учителя</p>':'')+
+    '<div class="stack" style="margin-top:14px"><button class="a-btn pri" data-act="start">Начать</button></div>'+
+    '<div class="footlinks"><button class="a-btn ghost" data-act="teacher">Провести в классе</button><button class="a-btn ghost" data-act="dashboard">Дашборд класса</button><button class="a-btn ghost" data-act="about">О проекте</button></div>'+
+    '<p class="small muted" style="margin-top:18px">Проект ученика 7 класса ГБОУ «ИТШ № 777», Санкт-Петербург</p></div></div>';
+}
+function scrAud(){
+  const T=DATA.meta.audiences;
+  return '<div class="fade scr-aud"><h2>В каком ты классе?</h2>'+
+    '<p class="small muted" style="margin-top:6px">У средней и старшей школы — свои вопросы и свой план</p>'+
+    '<div class="seg big two" style="margin-top:16px">'+T.map(x=>{const t=tree(x.key);return '<button data-aud="'+x.key+'"><em>'+x.emoji+'</em>'+esc(x.label)+'<small>'+esc(x.sub)+'</small><small>'+totalSteps(x.key)+' шагов · '+esc(x.minutes)+' минут</small></button>';}).join('')+'</div>'+
+    '<div class="row" style="margin-top:16px"><button class="a-btn ghost" data-act="back-start">← Назад</button></div></div>';
+}
+function scrWho(){
+  const am=audMeta(S.aud), bq=DATA.before;
+  const needCity=S.school==='any';
+  const ready=S.grade&&S.school&&(!needCity||normCity(S.city))&&S.before!=null;
+  const ci=S.school?cityInfo(S.school,S.city):null;
+  let cityHint='';
+  if(needCity && normCity(S.city)){ cityHint = ci.spb?'Санкт-Петербург — покажем кружки, вузы и колледжи города.':(ci.known?'Нашли: '+esc(ci.known.name)+' — добавим вузы города.':'Такого города пока нет в нашей базе — покажем федеральные вузы и подскажем, где искать в твоём регионе.'); }
+  return '<div class="fade scr-who"><h2>Пара слов о тебе</h2>'+
+    '<div class="eyebrow" style="margin-top:16px">Твой класс</div>'+
+    '<div class="seg grades">'+am.grades.map(g=>'<button data-grade="'+g+'" class="'+(S.grade===g?'sel':'')+'">'+g+'</button>').join('')+'</div>'+
+    '<div class="eyebrow" style="margin-top:16px">Где ты учишься?</div>'+
+    '<div class="seg">'+DATA.meta.schools.map(s=>'<button data-school="'+s.key+'" class="'+(S.school===s.key?'sel':'')+'">'+esc(s.label)+'<small>'+esc(s.sub)+'</small></button>').join('')+'</div>'+
+    (needCity?'<div class="eyebrow" style="margin-top:12px">Город</div><input class="name-in" id="cityIn" maxlength="40" placeholder="Например: Казань" value="'+esc(S.city)+'" autocomplete="off"><p class="small muted" id="cityHint" style="margin-top:6px">'+(cityHint||'Город нужен, чтобы подобрать кружки, вузы и колледжи рядом. Всероссийские олимпиады покажем всем.')+'</p>':'')+
+    '<div class="eyebrow" style="margin-top:16px">Как тебя зовут? <span style="text-transform:none;letter-spacing:0;font-weight:400">(необязательно)</span></div>'+
+    '<input class="name-in" id="nameIn" maxlength="20" placeholder="Имя для плана" value="'+esc(S.name)+'">'+
+    '<p class="small muted" style="margin-top:6px">Имя останется только в твоём плане на этом устройстве — в результаты для учителя оно не попадает.</p>'+
+    '<div class="eyebrow" style="margin-top:12px">'+esc(bq.text)+'</div>'+
+    '<div class="stack">'+bq.options.map((o,i)=>'<button class="opt mini '+(S.before===i?'sel':'')+'" data-before="'+i+'"><span class="tx">'+esc(o)+'</span><span class="chk"></span></button>').join('')+'</div>'+
+    '<div class="stack" style="margin-top:16px"><button class="a-btn pri" id="goBtn" data-act="who-next" '+(ready?'':'disabled')+'>Поехали</button>'+
+    '<p class="small muted" id="goHint" style="text-align:center">'+(ready?'':'Выбери класс, школу'+(needCity?', напиши город':'')+' и ответь на вопрос')+'</p>'+
+    '<button class="a-btn ghost" data-act="back-aud">← Выбрать другую ступень</button></div></div>';
+}
+function scrTrack(){
+  const T=tree(S.aud), q=T.q[S.qi], ord=S.order[S.qi];
+  return '<div class="fade scr-q"><div class="chip ion">Часть 1 · Что тебе интересно · '+(S.qi+1)+' из '+T.q.length+'</div>'+
+    '<div class="qtext">'+esc(q.text)+'</div>'+
+    '<div class="stack">'+ord.map(oi=>{const o=q.options[oi];return '<button class="opt'+(S.answers[S.qi]===oi?' sel':'')+'" data-opt="'+oi+'"><span class="ic">'+o.emoji+'</span><span class="tx">'+esc(o.text)+'</span></button>';}).join('')+'</div>'+
+    '<div class="row" style="margin-top:14px"><button class="a-btn ghost" data-act="track-back">← Назад</button></div></div>';
+}
+function scrPick(){
+  const f=tree(S.aud).f;
+  return '<div class="fade scr-pick"><div class="chip solar">Финал части 1</div><div class="qtext">'+esc(f.text)+'</div>'+
+    '<div class="stack picks">'+f.options.map(o=>'<button class="opt mini'+(S.picks.includes(o.track)?' sel':'')+'" data-pick="'+o.track+'"><span class="ic">'+TR[o.track].emoji+'</span><span class="tx">'+esc(o.text)+'</span><span class="chk"></span></button>').join('')+'</div>'+
+    '<div class="stack" style="margin-top:14px"><p class="small muted" style="text-align:center;margin:0">выбрано '+S.picks.length+' из '+f.pickCount+'</p>'+
+    '<button class="a-btn pri" data-act="pick-next" '+(S.picks.length===f.pickCount?'':'disabled')+'>Дальше</button>'+
+    '<button class="a-btn ghost" data-act="pick-back">← Назад</button></div></div>';
+}
+function scrInter(){
+  const n=tree(S.aud).st.length;
+  return '<div class="fade scr-inter" style="text-align:center;padding-top:40px"><div class="chip solar">Половина пути</div>'+
+    '<h2 style="margin:14px 0 10px">Созвездие почти собрано</h2>'+
+    '<p class="lead muted">Теперь '+n+' утверждений про тебя — по ним соберём твои Hard skills и Soft skills. Правильных ответов нет: отвечай честно, так план будет точнее.</p>'+
+    '<div class="stack" style="margin-top:16px;align-items:center"><button class="a-btn pri" data-act="inter-next" style="max-width:360px">Дальше</button></div></div>';
+}
+function scrSkill(){
+  const T=tree(S.aud), st=T.st[S.si], three=T.scale.length===3;
+  return '<div class="fade scr-skill"><div class="chip ion">Часть 2 · Твои навыки · '+(S.si+1)+' из '+T.st.length+'</div>'+
+    '<div class="qtext">'+esc(st.text)+'</div>'+
+    '<div class="scale'+(three?' kid3':'')+'" role="radiogroup" aria-label="Насколько это про тебя">'+
+    T.scale.map(sc=>'<button data-val="'+sc.value+'" class="'+(S.skills[S.si]===sc.value?'sel':'')+'" aria-label="'+esc(sc.label)+'"><span class="e">'+sc.emoji+'</span><span class="n">'+(three?esc(sc.label):sc.value)+'</span></button>').join('')+'</div>'+
+    (three?'':'<div class="scale-labels"><span>'+esc(T.scale[0].label)+'</span><span>'+esc(T.scale[T.scale.length-1].label)+'</span></div>')+
+    '<div class="row" style="margin-top:'+(three?'18px':'0')+'"><button class="a-btn ghost" data-act="skill-back">← Назад</button></div></div>';
+}
+function scrBuilding(){
+  const r=computeResult(S);
+  return '<div class="fade scr-build" style="text-align:center;padding-top:30px">'+constellationSVG(r.top,true)+
+    '<div class="build-lines" style="margin-top:16px"><p class="muted">Считаем твоё направление…</p><p class="muted">Собираем Hard и Soft skills…</p><p class="muted">Рисуем план развития…</p></div></div>';
+}
+function constellationSVG(track,draw){
+  const c=track.constellation, pts=c.points.map(p=>[6+p[0]*0.88,6+p[1]*0.88]);
+  return '<svg class="constel '+(draw&&!REDUCED?'draw':'')+'" viewBox="0 0 100 100" role="img" aria-label="Созвездие «'+esc(track.short)+'»">'+
+    c.lines.map(l=>'<line x1="'+pts[l[0]][0]+'" y1="'+pts[l[0]][1]+'" x2="'+pts[l[1]][0]+'" y2="'+pts[l[1]][1]+'"></line>').join('')+
+    pts.map(p=>'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2.3"></circle>').join('')+'</svg>';
+}
+function radarSVG(avg,marks){
+  const cx=150,cy=115,R=72,keys=BLOCKS_ORDER, ang=k=>({T:-90,D:0,M:90,K:180}[k])*Math.PI/180;
+  const pt=(k,v)=>[cx+Math.cos(ang(k))*R*v/5, cy+Math.sin(ang(k))*R*v/5];
+  let grid=''; for(const lv of [1,2,3,4,5]) grid+='<polygon class="grid" points="'+keys.map(k=>pt(k,lv).join(',')).join(' ')+'"></polygon>';
+  const lab={T:[cx,cy-R-14,'middle'],D:[cx+R+10,cy+4,'start'],M:[cx,cy+R+20,'middle'],K:[cx-R-10,cy+4,'end']};
+  return '<svg class="radar" viewBox="-55 0 410 230" role="img" aria-label="Профиль навыков">'+grid+
+    keys.map(k=>{const p=pt(k,5);return '<line class="axis" x1="'+cx+'" y1="'+cy+'" x2="'+p[0]+'" y2="'+p[1]+'"></line>';}).join('')+
+    '<polygon class="poly" points="'+keys.map(k=>pt(k,Math.max(0.15,avg[k])).join(',')).join(' ')+'"></polygon>'+
+    keys.map(k=>{const b=BLOCK[k], l=lab[k];
+      return '<text x="'+l[0]+'" y="'+l[1]+'" text-anchor="'+l[2]+'" class="'+(marks.includes(k)?'weak':'')+'">'+esc(b.name)+' · '+(b.kind==='hard'?'Hard':'Soft')+'</text>'+
+      '<text class="v" x="'+l[0]+'" y="'+(l[1]+13)+'" text-anchor="'+l[2]+'">'+avg[k].toFixed(1)+'</text>';}).join('')+'</svg>';
+}
+function schoolLabel(r){ return r.school==='itsh'?'ГБОУ «ИТШ № 777», Санкт-Петербург':('школа · '+(r.ci.name||'город не указан')); }
+function skillCol(r,kind){
+  const keys=kind==='hard'?HARD:SOFT, def=kind==='hard'?r.hardDef:r.softDef;
+  const list=kind==='hard'?r.top.hard:[...BLOCK.M.skills,...BLOCK.K.skills,r.top.soft];
+  return '<div class="skcol '+kind+'"><div class="skhead">'+(kind==='hard'?'Hard skills — жёсткие профессиональные':'Soft skills — мягкие навыки')+'</div>'+
+    keys.map(k=>{const v=r.avg[k], lv=levelOf(v);return '<div class="skrow'+(k===def?' def':'')+'"><div class="skn">'+esc(BLOCK[k].long)+(k===def?' <span class="tag-grow">развивать в первую очередь</span>':'')+'</div><div class="skbar"><i style="width:'+Math.round(v/5*100)+'%"></i></div><div class="skv">'+v.toFixed(1)+' · '+lv.t+'</div></div>';}).join('')+
+    '<div class="sklist-t">'+(kind==='hard'?'Что развивать для направления «'+esc(r.top.short)+'»':'Какие мягкие навыки прокачивать')+'</div>'+
+    '<ul class="sklist">'+list.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>';
+}
+function planList(items){ return '<ol class="plan">'+items.map(s=>'<li class="c-'+s.cat+'"><span class="pcat">'+esc(CAT[s.cat])+'</span>'+esc(s.text)+'<em>'+esc(s.why)+'</em></li>').join('')+'</ol>'; }
+function eduBlock(r){
+  const t=r.top, ci=r.ci; let h='';
+  if(ci.spb){
+    h+='<div class="kv"><div class="k">ВУЗы Санкт-Петербурга</div><div class="v">'+t.unis.spb.map(esc).join('<br>')+'</div></div>';
+    h+='<div class="kv"><div class="k">СПО — колледжи Санкт-Петербурга</div><div class="v">'+t.spo.map(s=>esc(s.name)+'<small>'+esc(s.spec)+'</small>').join('')+(t.spo_note?'<small>'+esc(t.spo_note)+'</small>':'')+'</div></div>';
+  } else if(ci.known){
+    h+='<div class="kv"><div class="k">Технические вузы: '+esc(ci.known.name)+'</div><div class="v">'+ci.known.unis.map(esc).join('<br>')+'<small>Проверь на сайте вуза, есть ли направление «'+esc(t.short)+'».</small></div></div>';
+    h+='<div class="kv"><div class="k">СПО в твоём регионе</div><div class="v">Колледжи по направлению ищи в проекте «Профессионалитет»<small>'+esc(DATA.profi.text)+'</small></div></div>';
+  } else {
+    h+='<div class="kv"><div class="k">Вузы и колледжи '+(ci.name?'рядом с городом «'+esc(ci.name)+'»':'твоего региона')+'</div><div class="v">Для этого города у нас пока нет проверенного списка<small>Посмотри технические вузы и колледжи своей области или края; колледжи — в проекте «Профессионалитет».</small></div></div>';
+  }
+  h+='<div class="kv"><div class="k">Федеральные вузы — принимают из любого региона</div><div class="v">'+t.unis.fed.map(esc).join('<br>')+'</div></div>';
+  h+='<div class="kv"><div class="k">СПО по всей России</div><div class="v">'+esc(DATA.profi.name)+' — <a href="'+esc(DATA.profi.url)+'" target="_blank" rel="noopener">япроф.рф</a></div></div>';
+  return h+'<p class="small muted">Перечни направлений меняются — перед поступлением проверь на сайте вуза или колледжа.</p>';
+}
+function olList(list){ return '<ul class="olist">'+list.map(o=>'<li class="'+(o.fit?'fit':'dim')+'"><span class="on">'+esc(o.name)+'</span><span class="og">'+gradesLabel(o.g)+(o.fit?' · твой':'')+'</span><span class="ow">'+esc(o.when||'')+(o.url?' · <a href="'+esc(o.url)+'" target="_blank" rel="noopener">сайт</a>':'')+'</span></li>').join('')+'</ul>'; }
+function scrResult(){
+  const r=computeResult(S), T=tree(S.aud), ty=T.types[r.type], top=r.top, teen=S.aud==='teen';
+  const alt=r.ranked.slice(1,3).map(x=>{const t=TR[x.id];return '<div class="trow'+(teen?'':' nopc')+'"><span style="font-size:20px">'+t.emoji+'</span><div class="tn">'+esc(t.name)+(teen?'<div class="tb" style="margin-top:5px"><i data-w="'+x.match+'"></i></div>':'<small>'+esc(GROUPS[t.group].name)+'</small>')+'</div>'+(teen?'<span class="pc">'+x.match+'%</span>':'')+'</div>';}).join('');
+  const date=new Date().toLocaleDateString('ru-RU');
+  return '<div class="fade scr-result">'+
+    '<div class="r-head"><div class="eyebrow">'+esc(DATA.meta.product)+'</div><h2>'+(S.name?esc(S.name)+', ':'')+'твоё созвездие — «'+esc(top.short)+'»</h2>'+
+      '<p class="small muted" style="margin-top:6px">'+S.grade+' класс · '+esc(schoolLabel(r))+(S.klass?' · класс '+esc(S.klass):'')+' · '+date+'</p></div>'+
+    '<div class="r-sec r-track"><div class="secn">1 · Подходящее инженерное направление</div><div class="trk-grid"><div>'+constellationSVG(top,true)+'</div><div>'+
+      '<span class="chip">'+esc(GROUPS[top.group].name)+'</span><h2 style="margin-top:8px">'+top.emoji+' '+esc(top.name)+(teen?' <span class="pc-big">'+r.ranked[0].match+'%</span>':'')+'</h2>'+
+      '<p class="small" style="margin-top:6px">'+esc(top.what)+'</p>'+
+      '<div class="eyebrow" style="margin-top:12px">Ещё тебе подходят</div><div class="tracklist">'+alt+'</div>'+
+      (teen?'<p class="small muted" style="margin-top:6px">Процент — сколько баллов направление набрало от максимально возможных.</p>':'')+'</div></div></div>'+
+    '<div class="r-sec r-profs"><div class="secn">2 · Потенциальные профессии</div><div class="profs">'+top.profs.map(p=>'<span class="prof">'+esc(p)+'</span>').join('')+'</div>'+
+      '<p class="small muted" style="margin-top:8px">Ещё в направлении «'+esc(TR[r.ranked[1].id].short)+'»: '+TR[r.ranked[1].id].profs.slice(0,2).map(esc).join(', ')+'</p></div>'+
+    '<div class="r-sec r-skills"><div class="secn">3 · Компетенции и навыки</div>'+
+      '<div class="type card solar"><div class="eyebrow" style="color:var(--solar)">Твой тип инженера сейчас</div><h3>'+ty.emoji+' '+esc(ty.name)+'</h3><p class="small" style="margin:6px 0 0">'+esc(ty.desc)+'</p></div>'+
+      '<div class="sk-grid">'+skillCol(r,'hard')+skillCol(r,'soft')+'<div class="skradar">'+radarSVG(r.avg,[r.hardDef,r.softDef])+'<p class="small muted" style="text-align:center;margin:0">Шкала 1–5 по твоим ответам. Оранжевым — что развивать в первую очередь. Это не оценка.</p></div></div></div>'+
+    '<div class="r-sec r-plan"><div class="secn">4 · План развития компетенций</div>'+
+      '<div class="plan-grid"><div><h3>Краткосрочный план — на этот учебный год</h3>'+planList(r.plan.short)+'</div>'+
+      '<div><h3>Среднесрочный план — на 1–3 года вперёд</h3>'+planList(r.plan.mid)+'</div></div>'+
+      '<div class="r-home card"><div class="eyebrow">Первый шаг — уже на этой неделе</div><p style="margin:4px 0 0">'+esc(top.home)+'</p></div></div>'+
+    '<div class="r-sec r-edu"><div class="secn">5 · Где учиться дальше: ВУЗы и СПО</div>'+eduBlock(r)+'</div>'+
+    '<div class="r-sec r-olymp"><div class="secn">6 · Олимпиады и конкурсы направления</div><div class="eyebrow">Всероссийские — для всех школ</div>'+olList(r.olympiads)+
+      (r.regional.length?'<div class="eyebrow" style="margin-top:12px">Санкт-Петербург</div>'+olList(r.regional):'<p class="small muted" style="margin-top:10px">Региональные этапы ВсОШ и НТО проходят в каждом регионе. Спроси в школе про региональный центр для одарённых детей.</p>')+
+      '<p class="small muted" style="margin-top:8px">Оранжевым отмечены подходящие твоему классу. Сроки меняются каждый год — проверяй на официальном сайте.</p></div>'+
+    '<div class="r-sec r-actions"><div class="stack"><button class="a-btn pri" data-act="pdf">Скачать план в PDF</button>'+
+      '<div class="row"><button class="a-btn sec" data-act="share">Поделиться</button><button class="a-btn sec" data-act="parent">Показать родителям</button></div>'+
+      '<div class="row"><button class="a-btn sec" data-act="send">Отправить результаты для обработки</button><button class="a-btn sec" data-act="myqr">QR для учителя</button></div>'+
+      '<button class="a-btn ghost" data-act="restart">Пройти ещё раз</button></div></div>'+
+    '<div class="r-sec r-fb card"><h3 style="margin-bottom:10px">Три вопроса напоследок</h3>'+(S.fbSent
+      ?'<p class="small" style="color:var(--okk);margin:0">Спасибо! Ответы уже добавлены в твой результат — теперь нажми «Отправить результаты для обработки» или покажи QR учителю.</p>'
+      :'<div class="fb">'+DATA.feedback.map(f=>'<div><div class="q">'+esc(f.text)+'</div><div class="o">'+f.options.map((o,i)=>'<button data-fb="'+f.id+'" data-fbv="'+i+'" class="'+(S.fb[f.id]===i?'sel':'')+'">'+esc(o)+'</button>').join('')+'</div></div>').join('')+
+      '<button class="a-btn sec" data-act="fb-send" '+(Object.keys(S.fb).length===DATA.feedback.length?'':'disabled')+'>Готово</button></div>')+'</div>'+
+    '<p class="small muted r-sec">Это не предсказание и не диагноз: интересы меняются. Пройди квиз ещё раз через полгода и сравни результаты.</p>'+
+    '<div class="r-links footlinks"><button class="a-btn ghost" data-act="about">О проекте</button><button class="a-btn ghost" data-act="teacher">Провести в классе</button></div></div>';
+}
+after.result=function(){ requestAnimationFrame(()=>{ view.querySelectorAll('.tb i[data-w]').forEach(el=>{el.style.width=el.dataset.w+'%';}); }); };
+function scrParent(){
+  const P=DATA.parent, r=computeResult(S);
+  return '<button class="a-btn ghost back" data-act="back-result">← Назад</button><div class="fade scr-parent" style="padding-top:8px">'+
+    '<h2>'+esc(P.title)+'</h2><p class="lead muted">'+esc(P.lead)+'</p>'+
+    '<div class="card" style="margin:14px 0"><div class="eyebrow">Результат '+(S.name?esc(S.name):'ребёнка')+' · '+S.grade+' класс</div>'+
+      '<p style="margin:4px 0 0"><b>'+r.top.emoji+' '+esc(r.top.name)+'</b></p>'+
+      '<p class="small" style="margin:6px 0 0">Профессии: '+r.top.profs.slice(0,3).map(esc).join(', ')+'</p>'+
+      '<p class="small" style="margin:6px 0 0">Развивать в первую очередь: Hard skill — «'+esc(BLOCK[r.hardDef].long)+'», Soft skill — «'+esc(BLOCK[r.softDef].long)+'»</p>'+
+      '<p class="small muted" style="margin:6px 0 0">Первые шаги: '+r.plan.short.slice(0,3).map(s=>esc(s.text)).join(' · ')+'</p></div>'+
+    '<ul>'+P.points.map(p=>'<li>'+esc(p)+'</li>').join('')+'</ul>'+
+    '<div class="stack" style="margin-top:14px"><button class="a-btn pri" data-act="pdf">Скачать план в PDF</button><button class="a-btn sec" data-act="share">Отправить ссылку на план</button>'+
+    '<button class="a-btn ghost" data-act="back-result">← К плану</button></div></div>';
+}
+function qrSVG(text,cell){
+  try{ const q=qrcode(0,'M'); q.addData(text); q.make(); return q.createSvgTag({cellSize:cell||4,margin:2,scalable:true}); }
+  catch(e){ return '<p class="small">Не удалось построить QR-код</p>'; }
+}
+function scrMyQR(){
+  const url=resultUrl(S);
+  return '<button class="a-btn ghost back" data-act="back-result">← Назад</button><div class="fade scr-class" style="padding-top:8px;text-align:center">'+
+    '<h2>QR для учителя</h2><p class="small muted">Учитель сканирует этот код на странице «Дашборд класса» — твой результат попадёт в сводку. Имя в код не входит.</p>'+
+    '<div class="qrbox big">'+qrSVG(url,5)+'</div>'+
+    (Object.keys(S.fb).length<DATA.feedback.length?'<p class="small" style="color:var(--solar)">Сначала ответь на три вопроса обратной связи внизу плана — они тоже попадут в сводку.</p>':'')+
+    '<div class="stack" style="margin-top:12px"><button class="a-btn ghost" data-act="back-result">← К плану</button></div></div>';
+}
+function scrSend(){
+  const disk=DATA.meta.collect.yandexDiskUrl;
+  return '<button class="a-btn ghost back" data-act="back-result">← Назад</button><div class="fade scr-class" style="padding-top:8px">'+
+    '<h2>Отправить результаты для обработки</h2>'+
+    '<p class="small muted">Результат без имени: класс, ответы, итоговое направление и обратная связь. По нему учитель соберёт сводку по классу.</p>'+
+    '<div class="card"><div class="eyebrow">Шаг 1</div><p style="margin:4px 0 8px">Файл с результатом уже скачан в папку «Загрузки». Если не скачался — нажми ещё раз.</p><button class="a-btn sec" data-act="dl-result">Скачать файл ещё раз</button></div>'+
+    '<div class="card" style="margin-top:10px"><div class="eyebrow">Шаг 2 — выбери один способ</div>'+
+      '<ol style="margin:6px 0 0"><li><b>Папка класса на Яндекс Диске.</b> Открой папку и перетащи туда файл. Для загрузки нужен вход в Яндекс ID и доступ, который выдал учитель.<br><a class="a-btn sec inline" href="'+esc(disk)+'" target="_blank" rel="noopener">Открыть папку на Яндекс Диске</a></li>'+
+      '<li style="margin-top:10px"><b>Мессенджер или почта.</b> Отправь учителю файл или ссылку на результат — учитель вставит её в дашборд.<br><button class="a-btn sec inline" data-act="copy-link">Скопировать ссылку на результат</button></li></ol></div>'+
+    (Object.keys(S.fb).length<DATA.feedback.length?'<p class="small" style="color:var(--solar);margin-top:10px">Подсказка: ответь на три вопроса внизу плана до отправки — тогда учитель увидит и твою обратную связь.</p>':'')+
+    '<div class="stack" style="margin-top:14px"><button class="a-btn ghost" data-act="back-result">← К плану</button></div></div>';
+}
+function scrAbout(){
+  const rl=DATA.typeRules;
+  return '<button class="a-btn ghost back" data-act="back-home">← Назад</button><div class="fade scr-about" style="padding-top:8px"><h2>О проекте</h2>'+
+  '<p class="small muted">«Созвездие» — проект ученика 7 класса ГБОУ «Инженерно-технологическая школа № 777» Санкт-Петербурга Абрина Александра. Научный руководитель — Грекова Анна Владимировна, наставник — Абрин Евгений Олегович. Сервис рассчитан на любую школу России; ИТШ № 777 — пилотная площадка.</p>'+
+  '<h3>Что получает школьник</h3><p>«Индивидуальный план развития инженерных компетенций»: подходящее направление из 14, профессии, Hard и Soft skills, краткосрочный план на год и среднесрочный на 1–3 года (кружки, олимпиады, проекты, дополнительное образование), вузы и колледжи (СПО) — своего города и федеральные.</p>'+
+  '<h3>Две версии</h3><ul><li><b>5–9 класс:</b> 10 ситуаций по 4 варианта, выбор 2 проектов из 14, 8 утверждений о себе (шкала из 3 ступеней). Около 5–7 минут.</li><li><b>10–11 класс:</b> 12 ситуаций, выбор 2 проектов из 14, 12 утверждений (шкала 1–5), проценты совпадения. Около 7–10 минут.</li></ul>'+
+  '<h3>14 инженерных направлений</h3>'+DATA.meta.groups.map(g=>'<p class="small"><b>'+esc(g.name)+':</b> '+DATA.tracks.filter(t=>t.group===g.key).map(t=>esc(t.name)).join(', ')+'.</p>').join('')+
+  '<h3>Как считается</h3><div class="f">за вариант ответа: +2 основному направлению, +1 соседнему\nза проект в финале части 1: +3 (выбираются два проекта)\nсовпадение = 100 · баллы / максимум для направления\nнавыки: среднее по блоку, шкала 1–5\nHard skills = «Техника» + «Цифра»; Soft skills = «Мышление» + «Команда»\nтип: max &lt; '+rl.starterMax+' → Стартер; разброс ≤ '+rl.universalSpread+' и min ≥ '+rl.universalMin+' → Универсал;\nиначе по двум сильнейшим блокам</div>'+
+  '<h3>Как сделан сайт</h3><p class="small">Один HTML-файл: разметка, стили и JavaScript, без сервера, без сборки и без регистрации. QR-коды — библиотека qrcode-generator, сканирование QR — jsQR, PDF — html2pdf.js. Размещение — GitHub Pages.</p>'+
+  '<p class="small">Сервис создан с использованием нейросетей последнего поколения в формате вайбкодинга: автор формулировал задачи, проверял каждый экран, вопросы, данные и формулы и принимал все решения, а ИИ помогал превращать их в код. Мы этого не скрываем.</p>'+
+  '<h3>Данные</h3><p class="small">Олимпиады и конкурсы — по официальным сайтам организаторов (ВсОШ, НТО, «Сириус», МГУ, «Газпром» и др.), без точных дат: сроки меняются каждый год. Колледжи Санкт-Петербурга — по справочникам и сайтам колледжей. Для других городов показываем только то, в чём уверены.</p>'+
+  '<p class="small muted">Персональные данные не собираются. Имя остаётся только в плане на этом устройстве.</p></div>';
+}
+function scrClass(){
+  const link=baseUrl()+(S.klass?'?k='+encodeURIComponent(S.klass):'');
+  return '<button class="a-btn ghost back" data-act="back-home">← Назад</button><div class="fade scr-class" style="padding-top:8px"><h2>Провести в классе</h2>'+
+  '<p class="small muted">Нужны телефоны или компьютеры и 15 минут. Квиз работает в любой школе России.</p>'+
+  '<div class="eyebrow" style="margin-top:12px">Метка класса (необязательно)</div><input class="name-in" id="klassIn" maxlength="24" placeholder="Например: 7.5" value="'+esc(S.klass)+'">'+
+  '<p class="small muted" style="margin-top:6px">Метка попадёт в результаты — в дашборде можно смотреть классы по отдельности.</p>'+
+  '<div class="card" style="text-align:center;margin-top:12px"><div class="eyebrow">QR-код на квиз</div><div class="qrbox" id="classQR">'+qrSVG(link,5)+'</div>'+
+    '<p class="small" style="word-break:break-all;margin:6px 0 0">'+esc(link)+'</p>'+
+    '<div class="row" style="margin-top:10px"><button class="a-btn sec" data-act="copy-class">Скопировать ссылку</button><button class="a-btn sec" data-act="poster">Распечатать плакат</button></div></div>'+
+  '<h3>Урок за 15 минут</h3><ol><li>Выведите QR-код на экран или распечатайте плакат.</li><li>Ученики сканируют код, выбирают класс и школу и проходят квиз (5–10 минут).</li><li>После плана — три вопроса обратной связи.</li><li>Сбор результатов — один из способов ниже.</li><li>Откройте «Дашборд класса» и обсудите: какие направления и навыки чаще всего.</li></ol>'+
+  '<h3>Как собрать результаты</h3><ul>'+
+    '<li><b>Очно, в одном классе.</b> Ученик нажимает «QR для учителя», учитель сканирует коды камерой на странице дашборда.</li>'+
+    '<li><b>Файлы.</b> Кнопка «Отправить результаты для обработки» скачивает маленький файл. Соберите файлы в папку «'+esc(DATA.meta.collect.dashboardFolder)+'» и загрузите папку в дашборд.</li>'+
+    '<li><b>Онлайн.</b> Ученики кладут файл в папку класса на Яндекс Диске (вход в Яндекс ID и доступ на загрузку выдаёт владелец папки) или присылают файл либо ссылку в мессенджере.</li></ul>'+
+  '<div class="stack" style="margin-top:14px"><button class="a-btn pri" data-act="dashboard">Открыть дашборд класса</button><a class="a-btn sec" href="'+esc(DATA.meta.collect.yandexDiskUrl)+'" target="_blank" rel="noopener">Папка результатов на Яндекс Диске</a></div></div>';
+}
+
+/* ===================== ДАШБОРД ===================== */
+const DASH={items:[],filterK:'',filterG:''};
+function dashLoad(){ try{ const j=JSON.parse(localStorage.getItem('sozvezdie-dash')||'[]'); DASH.items=j.map(c=>decodeResult(c)).filter(Boolean); }catch(e){} }
+function dashSave(){ try{ localStorage.setItem('sozvezdie-dash',JSON.stringify(DASH.items.map(x=>x.code))); }catch(e){} }
+function dashAdd(codes){
+  let added=0, bad=0, dup=0;
+  for(const c of codes){ const j=decodeResult(c); if(!j){ bad++; continue; } if(DASH.items.some(x=>x.code===j.code)){ dup++; continue; } DASH.items.push(j); added++; }
+  dashSave(); return {added,bad,dup};
+}
+function extractCodes(text){ return (String(text).match(/S4[tm][5-9AB][ia][0-2x][0-9a-nx]+(?:\.[A-Za-z0-9_-]+)?/g)||[]); }
+function dashStats(items){
+  const O=()=>Object.create(null); const n=items.length, tr=O(), grp=O(), prof=O(), types=O(), hard={T:0,D:0}, soft={M:0,K:0}, kind={hard:0,soft:0}, grades=O(), before=[0,0,0], fb=O();
+  const avgSum={T:0,D:0,M:0,K:0};
+  DATA.feedback.forEach(f=>fb[f.id]=[0,0,0]);
+  for(const it of items){
+    const ranked=rankTracks(it.aud,it.answers,it.picks), avg=skillAverages(it.aud,it.skills), top=TR[ranked[0].id];
+    tr[top.id]=(tr[top.id]||0)+1; grp[top.group]=(grp[top.group]||0)+1;
+    top.profs.forEach(p=>prof[p]=(prof[p]||0)+1);
+    const ty=engineerType(avg); types[ty]=(types[ty]||0)+1;
+    const hd=weakest(avg,HARD), sd=weakest(avg,SOFT); hard[hd]++; soft[sd]++;
+    const hAvg=(avg.T+avg.D)/2, sAvg=(avg.M+avg.K)/2; if(hAvg<=sAvg) kind.hard++; else kind.soft++;
+    BLOCKS_ORDER.forEach(b=>avgSum[b]+=avg[b]);
+    grades[it.grade]=(grades[it.grade]||0)+1;
+    if(it.before!=null) before[it.before]++;
+    DATA.feedback.forEach(f=>{ if(it.fb[f.id]!=null) fb[f.id][it.fb[f.id]]++; });
+    it._top=top; it._type=ty; it._hd=hd; it._sd=sd; it._avg=avg; it._match=ranked[0].match;
+  }
+  const avgB={}; BLOCKS_ORDER.forEach(b=>avgB[b]=n?Math.round(10*avgSum[b]/n)/10:0);
+  return {n,tr,grp,prof,types,hard,soft,kind,grades,before,fb,avgB};
+}
+function pct(a,n){ return n?Math.round(100*a/n):0; }
+function bars(rows,n){ return '<div class="dbars">'+rows.map(([label,v])=>'<div class="dbar"><span class="dl">'+label+'</span><span class="dt"><i style="width:'+pct(v,n)+'%"></i></span><span class="dv">'+pct(v,n)+'% <small>('+v+')</small></span></div>').join('')+'</div>'; }
+function dashFiltered(){ return DASH.items.filter(x=>(!DASH.filterK||x.klass===DASH.filterK)&&(!DASH.filterG||String(x.grade)===DASH.filterG)); }
+function scrDash(){
+  const items=dashFiltered(), s=dashStats(items), n=s.n;
+  const ks=[...new Set(DASH.items.map(x=>x.klass).filter(Boolean))], gs=[...new Set(DASH.items.map(x=>x.grade))].sort((a,b)=>a-b);
+  const typeName=k=>DATA.types.teen[k].name;
+  let body='';
+  if(!n){ body='<div class="card" style="margin-top:14px"><p style="margin:0">Пока нет результатов'+(DASH.items.length?' для выбранного фильтра':'')+'. Добавьте их одним из способов выше.</p></div>'; }
+  else {
+    const trRows=DATA.tracks.map(t=>[t.emoji+' '+esc(t.short),s.tr[t.id]||0]).sort((a,b)=>b[1]-a[1]);
+    const profRows=Object.entries(s.prof).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([p,v])=>[esc(p),v]);
+    body=
+    '<div class="kpis"><div><b>'+n+'</b><span>участников</span></div><div><b>'+Object.keys(s.tr).length+'</b><span>направлений из 14</span></div><div><b>'+pct(s.fb.orient[0],n)+'%</b><span>сервис помог с профориентацией</span></div><div><b>'+pct(s.before[0]+s.before[1],n)+'%</b><span>до квиза знали, кем хотят быть (точно или примерно)</span></div></div>'+
+    '<div class="dgrid">'+
+    '<div class="card"><h3>Инженерные направления</h3>'+bars(trRows.filter(r=>r[1]>0),n)+'</div>'+
+    '<div class="card"><h3>Группы направлений</h3>'+bars(DATA.meta.groups.map(g=>[esc(g.name),s.grp[g.key]||0]),n)+
+      '<h3 style="margin-top:14px">Классы</h3>'+bars(gs.map(g=>[g+' класс',s.grades[g]||0]),n)+'</div>'+
+    '<div class="card"><h3>Профессии в планах</h3><p class="small muted" style="margin:0 0 6px">Доля участников, у которых профессия есть в плане</p>'+bars(profRows,n)+'</div>'+
+    '<div class="card"><h3>Навыки для развития</h3><p class="small muted" style="margin:0 0 6px">Что развивать в первую очередь</p>'+
+      bars([['Hard: «Техника»',s.hard.T],['Hard: «Цифра»',s.hard.D],['Soft: «Мышление»',s.soft.M],['Soft: «Команда»',s.soft.K]].map(r=>[r[0],r[1]]),n)+
+      '<h3 style="margin-top:14px">Где зона роста больше</h3>'+bars([['Hard skills',s.kind.hard],['Soft skills',s.kind.soft]],n)+
+      '<p class="small muted">Средние по классу: '+BLOCKS_ORDER.map(b=>esc(BLOCK[b].name)+' '+s.avgB[b].toFixed(1)).join(' · ')+'</p></div>'+
+    '<div class="card"><h3>Типы инженера</h3>'+bars(Object.keys(DATA.types.teen).map(k=>[esc(typeName(k)),s.types[k]||0]),n)+'</div>'+
+    '<div class="card"><h3>Обратная связь</h3>'+DATA.feedback.map(f=>'<p class="small" style="margin:8px 0 4px"><b>'+esc(f.text)+'</b></p>'+bars(f.options.map((o,i)=>[esc(o),s.fb[f.id][i]]),n)).join('')+
+      '<p class="small" style="margin:8px 0 4px"><b>'+esc(DATA.before.text)+'</b> (до квиза)</p>'+bars(DATA.before.options.map((o,i)=>[esc(o),s.before[i]]),n)+'</div>'+
+    '</div>'+
+    '<div class="card" style="margin-top:12px"><h3>Участники</h3><div class="dtable"><table><thead><tr><th>#</th><th>Класс</th><th>Метка</th><th>Школа / город</th><th>Направление</th><th>Тип</th><th>Hard — развивать</th><th>Soft — развивать</th></tr></thead><tbody>'+
+      items.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+x.grade+'</td><td>'+esc(x.klass||'—')+'</td><td>'+(x.school==='itsh'?'ИТШ № 777':esc(x.city||'—'))+'</td><td>'+esc(x._top.short)+'</td><td>'+esc(DATA.types[x.aud][x._type].name)+'</td><td>'+esc(BLOCK[x._hd].name)+'</td><td>'+esc(BLOCK[x._sd].name)+'</td></tr>').join('')+'</tbody></table></div></div>';
+  }
+  return '<button class="a-btn ghost back" data-act="back-home">← Назад</button><div class="fade scr-dash" style="padding-top:8px">'+
+    '<h2>Дашборд класса</h2><p class="small muted">Все данные остаются в этом браузере. Имена в результаты не входят.</p>'+
+    '<div class="dadd">'+
+      '<div class="card"><div class="eyebrow">1 · Файлы результатов</div><p class="small" style="margin:4px 0 8px">Выберите файлы или всю папку «'+esc(DATA.meta.collect.dashboardFolder)+'».</p>'+
+        '<label class="a-btn sec inline">Выбрать файлы<input type="file" id="dFiles" accept=".json,.txt" multiple hidden></label> '+
+        '<label class="a-btn sec inline">Выбрать папку<input type="file" id="dDir" webkitdirectory directory multiple hidden></label></div>'+
+      '<div class="card"><div class="eyebrow">2 · Сканировать QR</div><p class="small" style="margin:4px 0 8px">Наведите камеру на QR-код на экране ученика.</p>'+
+        '<button class="a-btn sec inline" data-act="scan">'+(SCAN.on?'Остановить камеру':'Включить камеру')+'</button><div id="scanBox" class="scanbox'+(SCAN.on?' on':'')+'"><video id="scanVideo" playsinline muted></video><p class="small" id="scanMsg"></p></div></div>'+
+      '<div class="card"><div class="eyebrow">3 · Ссылки или коды</div><p class="small" style="margin:4px 0 8px">Вставьте ссылки на результаты из мессенджера — по одной или списком.</p>'+
+        '<textarea id="dPaste" class="name-in" rows="3" placeholder="https://…#r=S4…"></textarea><button class="a-btn sec inline" data-act="paste" style="margin-top:6px">Добавить</button></div>'+
+    '</div>'+
+    (DASH.items.length?'<div class="dfilter"><label>Метка класса <select id="fK"><option value="">все</option>'+ks.map(k=>'<option'+(DASH.filterK===k?' selected':'')+'>'+esc(k)+'</option>').join('')+'</select></label>'+
+      '<label>Класс <select id="fG"><option value="">все</option>'+gs.map(g=>'<option'+(DASH.filterG===String(g)?' selected':'')+'>'+g+'</option>').join('')+'</select></label>'+
+      '<button class="a-btn sec inline" data-act="csv">Скачать CSV</button><button class="a-btn sec inline" data-act="dash-json">Скачать все результаты</button><button class="a-btn sec inline" data-act="dash-print">Печать / PDF</button><button class="a-btn ghost inline" data-act="dash-clear">Очистить</button></div>':'')+
+    body+'</div>';
+}
+after.dashboard=function(){
+  const onFiles=async(files)=>{ let codes=[]; for(const f of files){ if(!/\.(json|txt)$/i.test(f.name)) continue; try{ codes=codes.concat(extractCodes(await f.text())); }catch(e){} }
+    const r=dashAdd(codes); render(); toast('Добавлено: '+r.added+(r.dup?' · повторов: '+r.dup:'')+(r.bad?' · не распознано: '+r.bad:'')); };
+  const fi=document.getElementById('dFiles'), di=document.getElementById('dDir');
+  if(fi) fi.onchange=e=>onFiles([...e.target.files]); if(di) di.onchange=e=>onFiles([...e.target.files]);
+  const fk=document.getElementById('fK'), fg=document.getElementById('fG');
+  if(fk) fk.onchange=e=>{DASH.filterK=e.target.value;render();}; if(fg) fg.onchange=e=>{DASH.filterG=e.target.value;render();};
+  if(SCAN.on) scanAttach();
+};
+
+/* ---- Сканер QR ---- */
+const SCAN={on:false,stream:null,raf:null,det:null,last:''};
+function loadScript(srcs){ return new Promise((res,rej)=>{ const list=[].concat(srcs); const next=i=>{ if(i>=list.length) return rej(new Error('load')); const s=document.createElement('script'); s.src=list[i]; s.onload=()=>res(); s.onerror=()=>{ s.remove(); next(i+1); }; document.head.appendChild(s); }; next(0); }); }
+async function scanStart(){
+  try{
+    SCAN.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+  }catch(e){ toast('Нет доступа к камере. Разрешите камеру в браузере или добавьте результаты файлами.'); return; }
+  if('BarcodeDetector' in window){ try{ SCAN.det=new BarcodeDetector({formats:['qr_code']}); }catch(e){ SCAN.det=null; } }
+  if(!SCAN.det && !window.jsQR){ try{ await loadScript(['lib/jsqr.min.js','https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js']); }catch(e){ toast('Не удалось загрузить модуль сканирования. Добавьте результаты файлами или ссылками.'); scanStop(); return; } }
+  SCAN.on=true; render();
+}
+function scanAttach(){
+  const v=document.getElementById('scanVideo'); if(!v||!SCAN.stream) return; v.srcObject=SCAN.stream; v.play().catch(()=>{});
+  const c=document.createElement('canvas'), ctx=c.getContext('2d',{willReadFrequently:true}), msg=document.getElementById('scanMsg');
+  const tick=async()=>{ if(!SCAN.on) return;
+    if(v.readyState>=2){ let text='';
+      try{ if(SCAN.det){ const r=await SCAN.det.detect(v); if(r[0]) text=r[0].rawValue; }
+        else { c.width=v.videoWidth; c.height=v.videoHeight; ctx.drawImage(v,0,0); const img=ctx.getImageData(0,0,c.width,c.height); const r=window.jsQR(img.data,c.width,c.height); if(r) text=r.data; } }catch(e){}
+      if(text && text!==SCAN.last){ SCAN.last=text; const r=dashAdd(extractCodes(text)); if(msg) msg.textContent=r.added?'✓ Добавлен результат. Всего: '+DASH.items.length:(r.dup?'Этот результат уже есть':'Это не QR результата «Созвездия»'); if(r.added){ if(navigator.vibrate) navigator.vibrate(60); setTimeout(()=>{ if(SCAN.on) render(); },700); return; } } }
+    SCAN.raf=requestAnimationFrame(tick); };
+  SCAN.raf=requestAnimationFrame(tick);
+}
+function scanStop(){ SCAN.on=false; cancelAnimationFrame(SCAN.raf); if(SCAN.stream) SCAN.stream.getTracks().forEach(t=>t.stop()); SCAN.stream=null; }
+
+/* ---- Выгрузка ---- */
+function download(name,content,type){ const blob=content instanceof Blob?content:new Blob([content],{type:type||'application/octet-stream'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},1500); }
+function csvCell(x){ x=String(x==null?'':x); return /[";\n]/.test(x)?'"'+x.replace(/"/g,'""')+'"':x; }
+function dashCSV(){
+  const items=dashFiltered(), s=dashStats(items), n=s.n, L=[];
+  const row=a=>L.push(a.map(csvCell).join(';'));
+  row(['Сводка «Созвездие»', new Date().toLocaleString('ru-RU'), 'участников: '+n]); row([]);
+  row(['Направление','Группа','Участников','%']); DATA.tracks.forEach(t=>row([t.name,GROUPS[t.group].name,s.tr[t.id]||0,pct(s.tr[t.id]||0,n)])); row([]);
+  row(['Профессия','Участников','%']); Object.entries(s.prof).sort((a,b)=>b[1]-a[1]).forEach(([p,v])=>row([p,v,pct(v,n)])); row([]);
+  row(['Навык для развития','Тип','Участников','%']); [['T','hard'],['D','hard'],['M','soft'],['K','soft']].forEach(([b,k])=>{const v=k==='hard'?s.hard[b]:s.soft[b]; row([BLOCK[b].long,k==='hard'?'Hard skill':'Soft skill',v,pct(v,n)]);}); row([]);
+  row(['Тип инженера','Участников','%']); Object.keys(DATA.types.teen).forEach(k=>row([DATA.types.teen[k].name,s.types[k]||0,pct(s.types[k]||0,n)])); row([]);
+  row(['Вопрос','Да','Частично','Нет']); DATA.feedback.forEach(f=>row([f.text,...s.fb[f.id]])); row([]);
+  row(['#','Класс','Метка','Школа','Город','Направление','Совпадение %','Тип','Техника','Цифра','Мышление','Команда','Hard — развивать','Soft — развивать','Знал до квиза',...DATA.feedback.map(f=>f.id),'Код']);
+  items.forEach((x,i)=>row([i+1,x.grade,x.klass,x.school==='itsh'?'ИТШ № 777':'другая',x.school==='itsh'?'Санкт-Петербург':x.city,x._top.name,x._match,DATA.types[x.aud][x._type].name,x._avg.T,x._avg.D,x._avg.M,x._avg.K,BLOCK[x._hd].name,BLOCK[x._sd].name,x.before==null?'':DATA.before.options[x.before],...DATA.feedback.map(f=>x.fb[f.id]==null?'':f.options[x.fb[f.id]]),x.code]));
+  download('sozvezdie-svodka-'+new Date().toISOString().slice(0,10)+'.csv','﻿'+L.join('\r\n'),'text/csv;charset=utf-8');
+}
+function resultFile(){
+  const r=computeResult(S), code=encodeResult(S), d=new Date();
+  const payload={app:'sozvezdie',v:4,created:d.toISOString(),code,summary:{grade:S.grade,school:S.school==='itsh'?'ИТШ № 777':'другая',city:r.ci.name||'',klass:S.klass||'',direction:r.top.name,type:DATA.types[S.aud][r.type].name,hardToDevelop:BLOCK[r.hardDef].long,softToDevelop:BLOCK[r.softDef].long}};
+  const stamp=d.toISOString().slice(0,16).replace(/[-:T]/g,'');
+  download('sozvezdie_'+(S.klass?S.klass.replace(/[^\wА-Яа-я.-]/g,'')+'_':'')+S.grade+'kl_'+stamp+'_'+Math.random().toString(36).slice(2,6)+'.json',JSON.stringify(payload,null,1),'application/json');
+}
+
+/* ===================== PDF / ПЕЧАТЬ ===================== */
+function planDocHTML(){
+  const r=computeResult(S), T=tree(S.aud), ty=T.types[r.type], top=r.top, teen=S.aud==='teen', date=new Date().toLocaleDateString('ru-RU');
+  const li=items=>'<ol class="pl">'+items.map(s=>'<li><b>'+esc(CAT[s.cat])+':</b> '+esc(s.text)+'</li>').join('')+'</ol>';
+  const ci=r.ci;
+  const edu=(ci.spb?'<p><b>ВУЗы Санкт-Петербурга:</b> '+top.unis.spb.map(esc).join(', ')+'</p><p><b>СПО Санкт-Петербурга:</b> '+top.spo.map(s=>esc(s.name)+' ('+esc(s.spec)+')').join('; ')+'</p>'
+    :(ci.known?'<p><b>Технические вузы ('+esc(ci.known.name)+'):</b> '+ci.known.unis.map(esc).join(', ')+' — проверь, есть ли направление.</p>':'<p><b>Вузы и колледжи своего региона:</b> проверенного списка для этого города пока нет.</p>'))+
+    '<p><b>Федеральные вузы:</b> '+top.unis.fed.map(esc).join(', ')+'</p><p><b>СПО по всей России:</b> '+esc(DATA.profi.name)+' — япроф.рф</p>';
+  return '<div class="pdoc">'+
+    '<div class="ph"><div class="pbrand">Созвездие · Конструктор компетенций будущего инженера</div><h1>'+esc(DATA.meta.product)+'</h1>'+
+    '<p class="pmeta">'+(S.name?esc(S.name)+' · ':'')+S.grade+' класс · '+esc(schoolLabel(r))+' · '+date+'</p></div>'+
+    '<div class="ptwo"><div><h2>1. Направление: '+esc(top.name)+(teen?' ('+r.ranked[0].match+'%)':'')+'</h2><p class="pgroup">'+esc(GROUPS[top.group].name)+'</p><p>'+esc(top.what)+'</p>'+
+    '<p><b>Ещё подходят:</b> '+r.ranked.slice(1,3).map(x=>esc(TR[x.id].name)+(teen?' ('+x.match+'%)':'')).join('; ')+'</p>'+
+    '<h2>2. Потенциальные профессии</h2><p>'+top.profs.map(esc).join(' · ')+'</p></div><div class="pvis">'+constellationSVG(top,false)+'</div></div>'+
+    '<h2>3. Компетенции и навыки</h2><p><b>Тип инженера:</b> '+esc(ty.name)+' — '+esc(ty.desc)+'</p>'+
+    '<div class="ptwo"><div><h3>Hard skills</h3><ul>'+HARD.map(k=>'<li>'+esc(BLOCK[k].long)+': '+r.avg[k].toFixed(1)+' из 5'+(k===r.hardDef?' — <b>развивать в первую очередь</b>':'')+'</li>').join('')+'</ul><p><b>Для направления:</b> '+top.hard.map(esc).join('; ')+'</p>'+
+    '<h3>Soft skills</h3><ul>'+SOFT.map(k=>'<li>'+esc(BLOCK[k].long)+': '+r.avg[k].toFixed(1)+' из 5'+(k===r.softDef?' — <b>развивать в первую очередь</b>':'')+'</li>').join('')+'</ul><p><b>Прокачивать:</b> '+[...BLOCK.M.skills,...BLOCK.K.skills,top.soft].map(esc).join('; ')+'</p></div>'+
+    '<div class="pvis">'+radarSVG(r.avg,[r.hardDef,r.softDef])+'</div></div>'+
+    '<div class="pbreak"></div>'+
+    '<h2>4. План развития компетенций</h2><h3>Краткосрочный — на этот учебный год</h3>'+li(r.plan.short)+
+    '<h3>Среднесрочный — на 1–3 года вперёд</h3>'+li(r.plan.mid)+
+    '<p><b>Первый шаг на этой неделе:</b> '+esc(top.home)+'</p>'+
+    '<h2>5. Где учиться дальше</h2>'+edu+
+    '<h2>6. Олимпиады и конкурсы</h2><ul>'+r.olympiads.concat(r.regional).map(o=>'<li>'+esc(o.name)+' — '+gradesLabel(o.g)+(o.when?', '+esc(o.when):'')+(o.fit?' <b>(подходит твоему классу)</b>':'')+'</li>').join('')+'</ul>'+
+    '<p class="pnote">Сроки олимпиад меняются каждый год — проверяй на официальных сайтах. Это не предсказание и не диагноз: интересы меняются, пройди квиз ещё раз через полгода.</p>'+
+    '<div class="pfoot">Сервис «Созвездие» · проект ученика 7 класса ГБОУ «ИТШ № 777», Санкт-Петербург · '+esc(baseUrl())+'</div></div>';
+}
+function inlineSvg(root){
+  root.querySelectorAll('svg').forEach(svg=>{ const cs=getComputedStyle(svg); svg.setAttribute('width',parseFloat(cs.width)||200); svg.setAttribute('height',parseFloat(cs.height)||180);
+    svg.querySelectorAll('line,circle,polygon,text').forEach(el=>{ const c=getComputedStyle(el);
+      ['fill','stroke','stroke-width','font-size','font-family','font-weight','opacity'].forEach(k=>{ const v=c.getPropertyValue(k); if(v) el.setAttribute(k,v); });
+      el.setAttribute('stroke-dasharray','none'); }); });
+}
+async function doPDF(){
+  const html=planDocHTML(); const wrap=document.getElementById('printSheet'); wrap.innerHTML=html;
+  toast('Готовим PDF…');
+  try{
+    if(!window.html2pdf) await loadScript(['lib/html2pdf.bundle.min.js','https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js']);
+    const holder=document.createElement('div'); holder.className='pdf-holder'; holder.innerHTML=html; document.body.appendChild(holder);
+    inlineSvg(holder);
+    await window.html2pdf().set({margin:[10,10,12,10],filename:'Plan_Sozvezdie_'+S.grade+'kl.pdf',image:{type:'jpeg',quality:0.95},html2canvas:{scale:2,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css'],before:'.pbreak'}}).from(holder.firstChild).save();
+    holder.remove(); toast('PDF сохранён в «Загрузки».');
+  }catch(e){ toast('Откроется печать — выберите «Сохранить как PDF».'); setTimeout(()=>{ try{ window.print(); }catch(_){} },300); }
+}
+function doPoster(){
+  const link=baseUrl()+(S.klass?'?k='+encodeURIComponent(S.klass):'');
+  document.getElementById('printSheet').innerHTML='<div class="pdoc poster"><div class="pbrand">Созвездие</div><h1>Конструктор компетенций будущего инженера</h1><p class="big">Наведи камеру телефона на код, пройди квиз за 5–10 минут и получи «Индивидуальный план развития инженерных компетенций»</p><div class="pqr">'+qrSVG(link,8)+'</div><p>'+esc(link)+'</p>'+(S.klass?'<p>Класс: '+esc(S.klass)+'</p>':'')+'<div class="pfoot">Проект ученика 7 класса ГБОУ «ИТШ № 777», Санкт-Петербург</div></div>';
+  setTimeout(()=>{ try{ window.print(); }catch(e){} },80);
+}
+function dashPrint(){
+  const s=dashStats(dashFiltered()), n=s.n;
+  const tbl=(title,rows)=>'<h2>'+title+'</h2><table class="ptbl">'+rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+pct(r[1],n)+'%</td></tr>').join('')+'</table>';
+  document.getElementById('printSheet').innerHTML='<div class="pdoc"><div class="pbrand">Созвездие · сводка по классу</div><h1>Результаты квиза: '+n+' участников</h1><p class="pmeta">'+(DASH.filterK?'Метка: '+esc(DASH.filterK)+' · ':'')+new Date().toLocaleDateString('ru-RU')+'</p>'+
+    tbl('Инженерные направления',DATA.tracks.map(t=>[esc(t.name),s.tr[t.id]||0]).filter(r=>r[1]).sort((a,b)=>b[1]-a[1]))+
+    tbl('Профессии',Object.entries(s.prof).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([p,v])=>[esc(p),v]))+
+    tbl('Навыки для развития',[['Hard: Техника',s.hard.T],['Hard: Цифра',s.hard.D],['Soft: Мышление',s.soft.M],['Soft: Команда',s.soft.K]])+
+    tbl('Обратная связь: «Помог ли сервис с профориентацией?»',DATA.feedback[2].options.map((o,i)=>[o,s.fb.orient[i]]))+'</div>';
+  setTimeout(()=>{ try{ window.print(); }catch(e){} },80);
+}
+
+/* ===================== СОБЫТИЯ ===================== */
+async function doShare(){
+  const url=resultUrl(S), r=computeResult(S);
+  const text='Мой «Индивидуальный план развития инженерных компетенций»: направление «'+r.top.name+'»';
+  if(navigator.share){ try{ await navigator.share({title:'Созвездие — мой план',text,url}); return; }catch(e){ if(e&&e.name==='AbortError') return; } }
+  copyText(url,'Ссылка на план скопирована — отправь её в мессенджере.');
+}
+function copyText(txt,okMsg){
+  const fallback=()=>{ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand('copy'); }catch(e){} ta.remove(); toast(ok?okMsg:'Скопируйте: '+txt); };
+  try{ navigator.clipboard.writeText(txt).then(()=>toast(okMsg)).catch(fallback); }catch(e){ fallback(); }
+}
+view.addEventListener('click', e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  const T=S.aud?tree(S.aud):null;
+  if(b.dataset.aud){ startAud(b.dataset.aud); go('who'); return; }
+  if(b.dataset.grade){ S.grade=+b.dataset.grade; keepInputs(); render(); return; }
+  if(b.dataset.school){ S.school=b.dataset.school; keepInputs(); render(); if(S.school==='any'){ const c=document.getElementById('cityIn'); if(c&&!S.city) c.focus(); } return; }
+  if(b.dataset.before!=null){ S.before=+b.dataset.before; keepInputs(); render(); return; }
+  if(b.dataset.opt!=null){ S.answers[S.qi]=+b.dataset.opt; b.classList.add('sel'); flyStar(b);
+    setTimeout(()=>{ if(S.qi<T.q.length-1){S.qi++; go('track');} else go('pick'); }, REDUCED?60:360); return; }
+  if(b.dataset.pick!=null){ const t=+b.dataset.pick;
+    if(S.picks.includes(t)) S.picks=S.picks.filter(x=>x!==t); else if(S.picks.length<T.f.pickCount) S.picks.push(t);
+    const sc=view.scrollTop; render(); view.scrollTop=sc; if(S.picks.length===T.f.pickCount) flyStar(b); return; }
+  if(b.dataset.val!=null){ S.skills[S.si]=+b.dataset.val; b.classList.add('sel'); flyStar(b);
+    setTimeout(()=>{ if(S.si<T.st.length-1){S.si++; go('skills');} else { go('building'); startBuilding(); } }, REDUCED?60:320); return; }
+  if(b.dataset.fb){ S.fb[b.dataset.fb]=+b.dataset.fbv; const sc=view.scrollTop; render(); view.scrollTop=sc; return; }
+  switch(b.dataset.act){
+    case 'start': go('aud'); break;
+    case 'back-start': go('start'); break;
+    case 'back-aud': go('aud'); break;
+    case 'about': go('about'); break;
+    case 'teacher': go('teacher'); break;
+    case 'dashboard': dashLoad(); go('dashboard'); break;
+    case 'parent': go('parent'); break;
+    case 'back-result': go('result'); break;
+    case 'back-home': scanStop(); go(isDone()?'result':'start'); break;
+    case 'who-next': keepInputs(); if(S.grade&&S.school&&(S.school!=='any'||normCity(S.city))&&S.before!=null){ S.qi=0; go('track'); } break;
+    case 'track-back': if(S.qi>0){ S.answers[S.qi]=null; S.qi--; S.answers[S.qi]=null; go('track'); } else go('who'); break;
+    case 'pick-next': if(S.picks.length===T.f.pickCount) go('inter'); break;
+    case 'pick-back': S.picks=[]; S.qi=T.q.length-1; S.answers[S.qi]=null; go('track'); break;
+    case 'inter-next': S.si=0; go('skills'); break;
+    case 'skill-back': if(S.si>0){ S.skills[S.si]=null; S.si--; S.skills[S.si]=null; go('skills'); } else go('inter'); break;
+    case 'restart': resetQuiz(); history.replaceState(null,'',location.pathname+location.search); go('start'); break;
+    case 'pdf': doPDF(); break;
+    case 'share': doShare(); break;
+    case 'send': resultFile(); go('send'); break;
+    case 'dl-result': resultFile(); break;
+    case 'copy-link': copyText(resultUrl(S),'Ссылка на результат скопирована — отправь её учителю.'); break;
+    case 'myqr': go('myqr'); break;
+    case 'fb-send': S.fbSent=true; { const sc=view.scrollTop; render(); view.scrollTop=sc; } toast('Спасибо! Ответы добавлены в результат.'); break;
+    case 'poster': doPoster(); break;
+    case 'copy-class': copyText(baseUrl()+(S.klass?'?k='+encodeURIComponent(S.klass):''),'Ссылка на квиз скопирована.'); break;
+    case 'scan': if(SCAN.on){ scanStop(); render(); } else scanStart(); break;
+    case 'paste': { const v=document.getElementById('dPaste').value; const r=dashAdd(extractCodes(v)); render(); toast('Добавлено: '+r.added+(r.dup?' · повторов: '+r.dup:'')+(r.bad?' · не распознано: '+r.bad:'')+(!r.added&&!r.dup&&!r.bad?' · ссылок не найдено':'')); } break;
+    case 'csv': dashCSV(); break;
+    case 'dash-json': download('sozvezdie-vse-rezultaty.json',JSON.stringify({app:'sozvezdie',v:4,codes:dashFiltered().map(x=>x.code)},null,1),'application/json'); break;
+    case 'dash-print': dashPrint(); break;
+    case 'dash-clear': if(confirm('Удалить все результаты из дашборда на этом устройстве?')){ DASH.items=[]; dashSave(); render(); } break;
+  }
+});
+function keepInputs(){ const n=document.getElementById('nameIn'); if(n) S.name=n.value.trim().slice(0,20); const c=document.getElementById('cityIn'); if(c) S.city=c.value.trim().slice(0,40); }
+view.addEventListener('input', e=>{
+  if(e.target.id==='nameIn') S.name=e.target.value;
+  if(e.target.id==='cityIn'){ S.city=e.target.value; const ci=cityInfo('any',S.city), h=document.getElementById('cityHint'), g=document.getElementById('goBtn'), gh=document.getElementById('goHint');
+    if(h) h.textContent=!normCity(S.city)?'Город нужен, чтобы подобрать кружки, вузы и колледжи рядом. Всероссийские олимпиады покажем всем.':(ci.spb?'Санкт-Петербург — покажем кружки, вузы и колледжи города.':(ci.known?'Нашли: '+ci.known.name+' — добавим вузы города.':'Такого города пока нет в нашей базе — покажем федеральные вузы и подскажем, где искать в твоём регионе.'));
+    const ready=S.grade&&S.school&&normCity(S.city)&&S.before!=null; if(g) g.disabled=!ready; if(gh) gh.textContent=ready?'':'Выбери класс, школу, напиши город и ответь на вопрос'; }
+  if(e.target.id==='klassIn'){ S.klass=e.target.value.trim().slice(0,24); const box=document.getElementById('classQR'); if(box) box.innerHTML=qrSVG(baseUrl()+(S.klass?'?k='+encodeURIComponent(S.klass):''),5); }
+});
+function startBuilding(){ setTimeout(()=>{ if(S.screen==='building') go('result'); }, REDUCED?600:2600); }
+function toast(msg){ const old=appEl.querySelector('.toast'); if(old) old.remove();
+  const t=document.createElement('div'); t.className='toast'; t.setAttribute('role','status'); t.innerHTML='<button class="x" aria-label="Закрыть">×</button>'+esc(msg);
+  appEl.appendChild(t); t.querySelector('.x').onclick=()=>t.remove(); setTimeout(()=>{ if(t.parentNode) t.remove(); },6000); }
+
+/* ---- Звёздное небо ---- */
+(function(){
+  const c=document.getElementById('stars'), ctx=c.getContext('2d'); let W=0,H=0,stars=[],raf=null,t0=performance.now();
+  function size(){ const r=appEl.getBoundingClientRect();
+    W=c.width=Math.max(1,Math.floor(r.width*devicePixelRatio)); H=c.height=Math.max(1,Math.floor(r.height*devicePixelRatio));
+    const n=Math.round(140*Math.max(1,r.width/400));
+    stars=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.4+.4)*devicePixelRatio,p:Math.random()*Math.PI*2,s:Math.random()*.6+.3,d:Math.random()*.15+.03})); }
+  function draw(now){ const t=(now-t0)/1000, g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#070A1C'); g.addColorStop(1,'#101748'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    for(const s of stars){ ctx.globalAlpha=.35+.65*Math.abs(Math.sin(t*s.s+s.p)); ctx.fillStyle='#fff';
+      ctx.beginPath(); ctx.arc(s.x,(s.y+t*s.d*devicePixelRatio*4)%H,s.r,0,Math.PI*2); ctx.fill(); }
+    ctx.globalAlpha=1; if(!REDUCED&&!document.hidden) raf=requestAnimationFrame(draw); }
+  size(); if(REDUCED) draw(t0); else raf=requestAnimationFrame(draw);
+  new ResizeObserver(()=>{ size(); if(REDUCED) draw(performance.now()); }).observe(appEl);
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&!REDUCED&&!raf) raf=requestAnimationFrame(draw); if(document.hidden){ cancelAnimationFrame(raf); raf=null; } });
+})();
+window.addEventListener('afterprint',()=>{ document.getElementById('printSheet').innerHTML=''; });
+
+function route(){
+  const mh=location.hash.match(/r=([A-Za-z0-9_.-]+)/);
+  if(mh){ const j=decodeResult(mh[1]); if(j){ Object.assign(S,{aud:j.aud,grade:j.grade,school:j.school,before:j.before,answers:j.answers,picks:j.picks,skills:j.skills,fb:j.fb,city:j.city,klass:j.klass,fbSent:Object.keys(j.fb).length===DATA.feedback.length,fromLink:true,screen:'result'}); } }
+  else if(/dashboard/.test(location.hash)){ dashLoad(); S.screen='dashboard'; }
+  else if(/teacher/.test(location.hash)){ S.screen='teacher'; }
+  render();
+}
+window.addEventListener('hashchange',route);
+route();
+
+</script>
+</body>
+</html>
