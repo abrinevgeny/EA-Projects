@@ -703,8 +703,8 @@ function decodeResult(str){
     const skills=[...body.slice(p,p+T.st.length)].map(x=>x==='x'?null:+x); p+=T.st.length;
     const fbs=body.slice(p,p+DATA.feedback.length);
     if(answers.length!==T.q.length||skills.length!==T.st.length||fbs.length!==DATA.feedback.length) return null;
-    if(answers.some((a,i)=>a==null||!(a>=0&&a<T.q[i].options.length))) return null;
-    if(picks.some(x=>!TR[x])||skills.some(v=>v==null||v<1||v>5)) return null;
+    if(answers.every(a=>a==null)||answers.some((a,i)=>a!=null&&!(a>=0&&a<T.q[i].options.length))) return null;
+    if(picks.some(x=>!TR[x])||skills.every(v=>v==null)||skills.some(v=>v!=null&&(v<1||v>5))) return null;
     const fb={}; DATA.feedback.forEach((f,i)=>{ if(fbs[i]!=='x') fb[f.id]=+fbs[i]; });
     let extra={}; if(ext){ try{ extra=JSON.parse(unb64u(ext)); }catch(e){} }
     return {aud,grade,school,before,answers,picks,skills,fb,city:extra.c||'',klass:extra.k||'',code:str};
@@ -982,6 +982,7 @@ function scrClass(){
 }
 
 /* ===================== РЕЗУЛЬТАТЫ КЛАССА ===================== */
+let STEP_LOCK=false;
 const DASH={items:[],filterK:'',filterG:''};
 function dashLoad(){ try{ const j=JSON.parse(localStorage.getItem('sozvezdie-dash')||'[]'); DASH.items=j.map(c=>decodeResult(c)).filter(Boolean); }catch(e){} }
 function dashSave(){ try{ localStorage.setItem('sozvezdie-dash',JSON.stringify(DASH.items.map(x=>x.code))); }catch(e){} }
@@ -1229,13 +1230,13 @@ view.addEventListener('click', e=>{
   if(b.dataset.grade){ S.grade=+b.dataset.grade; keepInputs(); render(); return; }
   if(b.dataset.school){ S.school=b.dataset.school; keepInputs(); render(); if(S.school==='any'){ const c=document.getElementById('cityIn'); if(c&&!S.city) c.focus(); } return; }
   if(b.dataset.before!=null){ S.before=+b.dataset.before; keepInputs(); render(); return; }
-  if(b.dataset.opt!=null){ S.answers[S.qi]=+b.dataset.opt; b.classList.add('sel'); flyStar(b);
-    setTimeout(()=>{ if(S.qi<T.q.length-1){S.qi++; go('track');} else go('pick'); }, REDUCED?60:360); return; }
+  if(b.dataset.opt!=null){ if(STEP_LOCK) return; STEP_LOCK=true; S.answers[S.qi]=+b.dataset.opt; b.classList.add('sel'); flyStar(b);
+    setTimeout(()=>{ STEP_LOCK=false; if(S.qi<T.q.length-1){S.qi++; go('track');} else go('pick'); }, REDUCED?60:360); return; }
   if(b.dataset.pick!=null){ const t=+b.dataset.pick;
     if(S.picks.includes(t)) S.picks=S.picks.filter(x=>x!==t); else if(S.picks.length<T.f.pickCount) S.picks.push(t);
     const sc=view.scrollTop; render(); view.scrollTop=sc; if(S.picks.length===T.f.pickCount) flyStar(b); return; }
-  if(b.dataset.val!=null){ S.skills[S.si]=+b.dataset.val; b.classList.add('sel'); flyStar(b);
-    setTimeout(()=>{ if(S.si<T.st.length-1){S.si++; go('skills');} else { go('building'); startBuilding(); } }, REDUCED?60:320); return; }
+  if(b.dataset.val!=null){ if(STEP_LOCK) return; STEP_LOCK=true; S.skills[S.si]=+b.dataset.val; b.classList.add('sel'); flyStar(b);
+    setTimeout(()=>{ STEP_LOCK=false; if(S.si<T.st.length-1){S.si++; go('skills');} else { go('building'); startBuilding(); } }, REDUCED?60:320); return; }
   if(b.dataset.fb){ S.fb[b.dataset.fb]=+b.dataset.fbv; const sc=view.scrollTop; render(); view.scrollTop=sc; return; }
   switch(b.dataset.act){
     case 'start': go('aud'); break;
