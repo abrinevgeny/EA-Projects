@@ -1012,12 +1012,22 @@ async function xlsxText(buf){
 async function fileCodes(f){
   if(/\.xlsx$/i.test(f.name)){
     if(!('DecompressionStream' in window)) throw new Error('noxlsx');
-    return extractCodes(await xlsxText(await f.arrayBuffer()));
+    const txt=await xlsxText(await f.arrayBuffer()); if(!extractCodes(txt).length && OTHER_RE.test(txt)) FILE_OTHER=true; return extractCodes(txt);
   }
-  return extractCodes(await f.text());
+  const txt=await f.text(); if(!extractCodes(txt).length && OTHER_RE.test(txt)) FILE_OTHER=true; return extractCodes(txt);
 }
 const FILE_RE=/\.(json|txt|csv|xlsx)$/i;
-function isEntryQR(t){ t=String(t||''); return !extractCodes(t).length && (/sozvezdie/i.test(t) || t.indexOf(baseUrl())===0); }
+const OTHER_RE=/K1[1-4][ia][0-2x][roygbv]/, OTHER_NAME='«Созвездия» для 1–4 классов';
+let FILE_OTHER=false;
+function isEntryQR(t){ t=String(t||''); return !extractCodes(t).length && !OTHER_RE.test(t) && !/#r=/.test(t) && (/sozvezdie/i.test(t) || t.indexOf(baseUrl())===0); }
+function scanText(t,added,dup){
+  if(added) return '✓ Результат добавлен. Всего: '+DASH.items.length+'. Можно сканировать следующего ученика.';
+  if(dup) return 'Этот результат уже есть.';
+  if(OTHER_RE.test(t)) return 'Это результат '+OTHER_NAME+'. Его нужно сканировать на странице «Результаты класса» того сайта.';
+  if(isEntryQR(t)) return 'Это QR для входа в тест. Сканируйте код с экрана ученика: кнопка «QR для учителя».';
+  if(extractCodes(t).length) return 'QR прочитан, но результат повреждён. Попросите ученика обновить страницу с планом и показать QR ещё раз.';
+  return 'Это не QR результата «Созвездия».';
+}
 function extractCodes(text){ return (String(text).match(/S4[tm][5-9AB][ia][0-2x][0-9a-nx]+(?:\.[A-Za-z0-9_-]+)?/g)||[]); }
 function dashStats(items){
   const O=()=>Object.create(null); const n=items.length, tr=O(), grp=O(), prof=O(), types=O(), hard={T:0,D:0}, soft={M:0,K:0}, kind={hard:0,soft:0}, grades=O(), before=[0,0,0], fb=O();
@@ -1095,12 +1105,13 @@ after.dashboard=function(){
 };
 
 async function dashFiles(files){
+  FILE_OTHER=false;
   let codes=[], noX=false, used=0;
   for(const f of files){ if(!FILE_RE.test(f.name)) continue; used++; try{ codes=codes.concat(await fileCodes(f)); }catch(e){ if(e&&e.message==='noxlsx') noX=true; } }
   if(noX){ toast('Этот браузер не читает XLSX. Скачайте ответы формы в формате CSV.'); return; }
   if(!used){ toast('Нужен файл XLSX, CSV или JSON.'); return; }
   const r=dashAdd(codes); render();
-  toast(codes.length?'Добавлено: '+r.added+(r.dup?' · повторов: '+r.dup:'')+(r.bad?' · не распознано: '+r.bad:''):'В файле не найдено результатов «Созвездия».');
+  toast(codes.length?'Добавлено: '+r.added+(r.dup?' · повторов: '+r.dup:'')+(r.bad?' · не распознано: '+r.bad:''):(FILE_OTHER?'Это выгрузка '+OTHER_NAME+'. Загрузите её в «Результаты класса» того сайта.':'В файле не найдено результатов «Созвездия».'));
 }
 view.addEventListener('dragover',e=>{ if(S.screen==='dashboard') e.preventDefault(); });
 view.addEventListener('drop',e=>{ if(S.screen!=='dashboard') return; e.preventDefault(); dashFiles([...(e.dataTransfer?e.dataTransfer.files:[])]); });
@@ -1110,20 +1121,20 @@ const SCAN={on:false,stream:null,raf:null,det:null,last:''};
 function loadScript(srcs){ return new Promise((res,rej)=>{ const list=[].concat(srcs); const next=i=>{ if(i>=list.length) return rej(new Error('load')); const s=document.createElement('script'); s.src=list[i]; s.onload=()=>res(); s.onerror=()=>{ s.remove(); next(i+1); }; document.head.appendChild(s); }; next(0); }); }
 async function scanStart(){
   try{
-    SCAN.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+    SCAN.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}}});
   }catch(e){ toast('Нет доступа к камере. Разрешите камеру в браузере или добавьте результаты файлами.'); return; }
   if('BarcodeDetector' in window){ try{ SCAN.det=new BarcodeDetector({formats:['qr_code']}); }catch(e){ SCAN.det=null; } }
   if(!SCAN.det && !window.jsQR){ try{ await loadScript(['lib/jsqr.min.js','jsqr.min.js','https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js']); }catch(e){ toast('Не удалось загрузить модуль сканирования. Добавьте результаты файлами или ссылками.'); scanStop(); return; } }
-  SCAN.on=true; render();
+  SCAN.note=''; SCAN.on=true; render();
 }
 function scanAttach(){
   const v=document.getElementById('scanVideo'); if(!v||!SCAN.stream) return; v.srcObject=SCAN.stream; v.play().catch(()=>{});
-  const c=document.createElement('canvas'), ctx=c.getContext('2d',{willReadFrequently:true}), msg=document.getElementById('scanMsg');
+  const c=document.createElement('canvas'), ctx=c.getContext('2d',{willReadFrequently:true}), msg=document.getElementById('scanMsg'); if(msg) msg.textContent=SCAN.note||'Камера включена. Наведите её на «QR для учителя» на экране ученика с расстояния 20–40 см.';
   const tick=async()=>{ if(!SCAN.on) return;
     if(v.readyState>=2){ let text='';
       try{ if(SCAN.det){ const r=await SCAN.det.detect(v); if(r[0]) text=r[0].rawValue; }
         else { c.width=v.videoWidth; c.height=v.videoHeight; ctx.drawImage(v,0,0); const img=ctx.getImageData(0,0,c.width,c.height); const r=window.jsQR(img.data,c.width,c.height); if(r) text=r.data; } }catch(e){}
-      if(text && text!==SCAN.last){ SCAN.last=text; const r=dashAdd(extractCodes(text)); if(msg) msg.textContent=r.added?'✓ Добавлен результат. Всего: '+DASH.items.length:(r.dup?'Этот результат уже есть':(isEntryQR(text)?'Это QR для входа в тест. Сканируйте код с экрана ученика: «QR для учителя».':'Это не QR результата «Созвездия»')); if(r.added){ if(navigator.vibrate) navigator.vibrate(60); setTimeout(()=>{ if(SCAN.on) render(); },700); return; } } }
+      if(text && text!==SCAN.last){ SCAN.last=text; const r=dashAdd(extractCodes(text)); if(msg) msg.textContent=SCAN.note=scanText(text,r.added,r.dup); if(r.added){ if(navigator.vibrate) navigator.vibrate(60); setTimeout(()=>{ if(SCAN.on) render(); },700); return; } } }
     SCAN.raf=requestAnimationFrame(tick); };
   SCAN.raf=requestAnimationFrame(tick);
 }
